@@ -13,7 +13,7 @@ while($row = mysqli_fetch_array($result)) // Searching the right line
 }
 if(password_verify($mdp, $hashedpsw)) // If the password entered and the hashed version stored in the database are equal when password entered is hashed
 {
-    header('Location:????.html'); // Then you are logged in and can go further
+    header('Location:home.php'); // Then you are logged in and can go further
 }
 else
 {
