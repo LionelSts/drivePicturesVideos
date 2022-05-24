@@ -1,0 +1,89 @@
+       /*********************/
+      /* Page de connexion */
+     /*********************/
+
+
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: url("./images/background.jpg") no-repeat;
+    -webkit-background-size:cover;
+}
+
+
+#logo{
+    margin-top: -18%;
+    height: 40%;
+    width: 70%;
+}
+
+
+h1{
+    margin-top: -20%;
+    font-weight: bold;
+    color: #EA001C;
+    font-size: 3em;
+    font-family: "Arial";
+}
+
+
+#container{
+    display: block;
+    position : absolute;
+    top : 0;
+    width : 100%;
+    text-align: center;
+}
+
+
+#login-form{
+    position : absolute;
+    text-align: center;
+    width:100%;
+    font-weight:bold;
+}
+
+
+label{
+    color: white;
+    font-family: "Arial";
+}
+
+
+#Connection, #Google {
+    background-color: #EA001C;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    cursor: pointer;
+    width: 20%;
+    border: none;
+    font-weight: bold;
+}
+
+
+input[type=text], input[type=password] {
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #FFFEE6;
+    box-sizing: border-box;
+    background-color: #FFFEE6;
+}
+
+
+input[type=submit]:hover {
+    background-color: #EA001C;
+    border: 1px solid #53af57;
+}
+
+
+@media screen and (max-width:868px){
+    login-form{
+        width:80%;
+        text-align:center;
+        justify-content: center; /* alignement vertical */
+    }
+}
