@@ -1,6 +1,7 @@
 
 <?php
-    function getMenu($role){
+    function getMenu(){
+        $role = $_SESSION['role'];
         $html = "<div id='leftmenu'>
         <ul id='menurubrique'>
             <li><a id='title'>Mon compte</a></li>";

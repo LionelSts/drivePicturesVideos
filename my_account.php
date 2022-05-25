@@ -7,11 +7,7 @@
 
 <?php
 session_start();
-$mail = $_SESSION['mail'];
 $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
-$requete = "SELECT `role` FROM `utilisateurs` WHERE `mail` = '$mail'";; // Preparing the request to verify the password where the login entered is found on the database
-$result = mysqli_query($link, $requete); // Saving the result
-$role = "admin";
 ?>
 <body>
     <div id="header">
@@ -22,7 +18,7 @@ $role = "admin";
     <div id="main">
         <?php
         include './menu.php';
-        echo getMenu($role);
+        echo getMenu();
         ?>
         </div>
         <div id="pageContent">
