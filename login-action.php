@@ -10,7 +10,7 @@ while($row = mysqli_fetch_array($result)) // Searching the right line
 {
     $hashedpsw = $row['mot_de_passe']; // Saving the hashed password to verify it later
     $_SESSION['mail'] = $row['mail']; // Saving the user ID needed later
-    $_SESSION['role'] = $row[role];
+    $_SESSION['role'] = $row['role'];
 
 }
 if(password_verify($mdp, $hashedpsw)) // If the password entered and the hashed version stored in the database are equal when password entered is hashed

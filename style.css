@@ -8,6 +8,8 @@ html, body {
     margin: 0;
     padding: 0;
     background-color: #FFFEE6;
+    font-family: 'Roboto', sans-serif;
+    color: #161920;
 }
 
 
@@ -17,18 +19,17 @@ html, body {
     width: 70%;
 }
 
-
-h1{
+#loginPageTitle{
     margin-top: -18%;
     font-weight: bold;
     color: #EA001C;
     font-size: 3em;
-    font-family: "Arial";
+    font-family: 'Poppins', sans-serif;
 }
 
 
 #container{
-    background: url("./images/background.jpg") no-repeat;
+    background: url("images/backgrounds/background.jpg") no-repeat;
     -webkit-background-size:cover;
     display: block;
     position : absolute;
@@ -47,7 +48,7 @@ h1{
 }
 
 
-label{
+.textConnexion {
     color: white;
     font-family: "Arial";
 }
@@ -64,8 +65,7 @@ label{
     font-weight: bold;
 }
 
-
-input[type=text], input[type=password] {
+.loginInputs{
     width: 30%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -102,18 +102,17 @@ input[type=text], input[type=password] {
 
 #logo-header{
     width: 30%;
-    height: 20%;
+    margin: auto;
 }
-
 
 #searchbar {
     margin-top: 2%;
     background-color: #EBEAD4;
     width: 60%;
-    /*border-radius: 2em;*/
     height: 3%;
+    border: 0em;
+    padding: 12px 20px;
 }
-
 
 #search-logo{
     margin-left: -3%;
@@ -123,35 +122,90 @@ input[type=text], input[type=password] {
     cursor: pointer;
 }
 
-
 #leftmenu{
-     background-color: #EBEAD4;
-     display: block;
-     margin-left: 2%;
-     padding-left:-30%;
-     width: 12%;
+    background-color: #EBEAD4;
+    margin: 0 1em 0 1em;
+    width: 15em;
 }
 
 #menurubrique{
-     list-style: none;
+    list-style: none;
+    padding: 0;
 }
 
 #menurubrique a{
-     display: block;
-     padding: 10px;
-     width: 100%;
-     height: 15px;
-     color: black;
-     text-decoration: none;
+    display: block;
+    padding: 10px;
+    width: 100%;
+    text-decoration: none;
+    color: #161920;
 }
 
+#page:hover, li:hover{
+    color: #EA001C;
+}
+
+.menuLine {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5em 0 0.5em 0;
+}
+
+.iconMenu {
+    width: 1.5em;
+    height: 1.5em;
+    margin: auto;
+}
 
 #title{
     cursor: default;
     font-weight: bold;
 }
 
+#main{
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    right: 1em;
+}
 
-#page:hover, li:hover{
+#pageContent{
+    margin: 2em;
+    flex: 1;
+}
+
+.profile form{
+    font-size: 36px;
+}
+
+.bigTitle h1{
+    font-size: 64px;
+    font-weight: normal;
+    margin: 0em;
+}
+
+.profile label{
+    font-size: 36px;
+}
+
+.profile input, #role-select{
+     position: relative;
+     background-color: #EBEAD4;
+     border: none;
+     font-size: 36px;
+     margin: 0.2em;
+     float: right;
+     clear: both;
+}
+
+#role-select{
+    border: none;
     color: #EA001C;
 }
+
+.profile input[type="submit"]{
+    background-color: #EA001C;
+    color: #FFFEE6;
+    padding: 0.3em;
+}
+
