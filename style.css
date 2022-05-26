@@ -1,8 +1,6 @@
-       /*********************/
-      /* Page de connexion */
-     /*********************/
-
-
+/*********************/
+/* Page de connexion */
+/*********************/
 
 html, body {
     margin: 0;
@@ -12,6 +10,9 @@ html, body {
     color: #161920;
 }
 
+input{
+    color: #161920;
+}
 
 #logo{
     margin-top: -10%;
@@ -90,41 +91,50 @@ html, body {
 }
 
 
-         /*********************/
-        /*  Page d'Accueil   */
-       /*********************/
+/*********************/
+/*  Page d'Accueil   */
+/*********************/
 
 
 #header{
     display: flex;
     justify-content: flex-start;
+    align-items: center;
 }
 
+.logoTop{
+    width: 30%;
+}
+
+#logo-header-home{
+    width: 100%;
+}
 #logo-header{
     width: 30%;
-    margin: auto;
 }
 
 #searchbar {
-    margin-top: 2%;
     background-color: #EBEAD4;
-    width: 60%;
+    width: 50%;
     height: 3%;
-    border: 0em;
-    padding: 12px 20px;
+    display: flex;
+    justify-content: space-around;
 }
 
-
-#searchbar:hover {
-    width: 80%;
+#searchInput{
+    background-color: #EBEAD4;
+    width: 100%;
+    padding: 12px 20px;
+    border: 0em;
+    font-size:36px;
+    text-align: center;
 }
 
 #search-logo{
-    margin-left: -3%;
-    margin-top: 2.35%;
-    height: 2%;
-    width: 2%;
+    padding: 1em 3em 1em 3em;
+    width: 2em;
     cursor: pointer;
+    background-color: #EBEAD4;
 }
 
 #leftmenu{

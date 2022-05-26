@@ -16,9 +16,12 @@ $result = mysqli_query($link, $requete); // Saving the result
 ?>
 <body>
 <div id="header">
-<a href="home.php"><img id="logo-header" src="images/graphiqueLBR/logoLONGUEURClassic.png"></a>
-<input type="text" id="searchbar" placeholder="Barre de recherche"/>
-<img src="images/icons/search-logo.png" id="search-logo">
+<a class="logoTop" href="home.php"><img id="logo-header-home" src="images/graphiqueLBR/logoLONGUEURClassic.png"></a>
+<div id="searchbar">
+    <input type="text" id="searchInput" placeholder="Barre de recherche"/>
+    <img src="images/icons/search-logo.png" id="search-logo">
+</div>
+
 </div>
 <?php
     include 'menu.php';
