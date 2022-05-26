@@ -7,7 +7,7 @@
 
 <?php
 session_start();
-//include("connexion.php");
+//include("./connexion.php");
 $mail = $_SESSION['mail'];
 $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
 $requete = "SELECT `role` FROM `utilisateurs` WHERE `mail` = '$mail'";; // Preparing the request to verify the password where the login entered is found on the database
@@ -16,7 +16,7 @@ $result = mysqli_query($link, $requete); // Saving the result
 ?>
 <body>
 <div id="header">
-<img id="logo-header" src="images/graphiqueLBR/logoLONGUEURClassic.png">
+<a href="home.php"><img id="logo-header" src="images/graphiqueLBR/logoLONGUEURClassic.png"></a>
 <input type="text" id="searchbar" placeholder="Barre de recherche"/>
 <img src="images/icons/search-logo.png" id="search-logo">
 </div>

@@ -23,23 +23,23 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
         </div>
         <div id="pageContent">
             <h1 class="bigTitle">Gestion de compte</h1>
-            <form class="profile">
-                <label class="profile" for="nom">Nom : </label>
-                <input class="profile" type="text" id="nom"><br>
+            <form class="profile" method="post" action="my_account-action.php">
+                <label class="profile" for="nom" >Nom : </label>
+                <input class="profile" type="text" id="nom" name="nom"><br>
                 <label class="profile" for="prenom">Prénom : </label>
-                <input class="profile" type="text" id="prenom"><br>
+                <input class="profile" type="text" id="prenom" name="prenom"><br>
                 <label class="profile" for="mail">Adresse mail :</label>
-                <input class="profile" type="email" id="mail"><br>
-                <label class="profile" for="role">Rôle :</label>
-                <select name="role" id="role-select">
-                    <option value="dog">invité</option>
-                    <option value="cat">ecriture</option>
-                    <option value="hamster">lecture</option>
-                    <option selected value="parrot">admin</option>
-                </select><br>
+                <?php if ($_SESSION['role'] != "admin") echo '<input class="profile" type="email" id="mail" name="email" value = ',$_SESSION["mail"],' ><br>';?>
+                <?php if($_SESSION['role'] == "admin") echo "<label class='profile' for='role'>Rôle :</label>
+                    <select name='role' id='role-select' name='role'>
+                    <option value='invite'>invité</option>
+                    <option value='ecriture'>ecriture</option>
+                    <option value='lecture'>lecture</option>
+                    <option selected value='admin'>admin</option>
+                </select><br>";?>
                 <label for="username">Mot de passe :</label>
-                <input class="profile" type="password" id="motdepasse"><br>
-                <input class="profile" type="submit" value="Appliquer les modifications">
+                <input class="profile" type="password" id="motdepasse" name="password"><br>
+                <input class="profile" type="submit" style="cursor: pointer;" value="Appliquer les modifications">
             </form>
         </div>
     </div>

@@ -114,6 +114,11 @@ html, body {
     padding: 12px 20px;
 }
 
+
+#searchbar:hover {
+    width: 80%;
+}
+
 #search-logo{
     margin-left: -3%;
     margin-top: 2.35%;
