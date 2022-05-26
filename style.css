@@ -126,7 +126,7 @@ input{
     width: 100%;
     padding: 12px 20px;
     border: 0em;
-    font-size:36px;
+    font-size:2.25em;
     text-align: center;
 }
 
@@ -212,31 +212,50 @@ input{
 }
 
 .profile form{
-    font-size: 36px;
+    font-size: 2.25em;
 }
 
 .bigTitle h1{
-    font-size: 64px;
+    font-size: 4em;
     font-weight: normal;
     margin: 0em;
 }
 
 .profile label{
-    font-size: 36px;
+    font-size: 2.25em;
 }
 
-.profile input, #role-select{
-    position: relative;
+.profile input{
     background-color: #EBEAD4;
     border: none;
-    font-size: 36px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 2.25em;
     margin: 0.2em;
+}
+.lbrSelect {
+    position: relative;
+    background: #EBEAD4;
+    height: 2.513em;
+    margin: 0.2em 0em 0.2em 0em;
+    padding: 0.2em;
 }
 
 #role-select{
     border: none;
-    color: #EA001C;
+    font-size: 2.25em;
+    color: #161920;
+    background: url(images/icons/arrow-down-sign-to-navigate.png) no-repeat right;
+    -webkit-appearance: none;
 }
+
+.role-choices{
+    background-color: #FFFEE6;
+}
+
+.role-choices-1{
+    background-color: #EBEAD4;
+}
+
 
 .profile input[type="submit"]{
     background-color: #EA001C;

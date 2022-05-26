@@ -41,14 +41,16 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
                 </div>
                 <div class="formLine">
                     <label for='role'>Rôle :</label>
-                    <select class="profile" name='role' id='role-select'
-                        <?php if($_SESSION['role'] != "admin") echo "disabled" ?>
-                    >
-                        <option <?php if($_SESSION['role'] == "invite") echo "selected" ?> value='invite'>invité</option>
-                        <option <?php if($_SESSION['role'] == "ecriture") echo "selected" ?> value='ecriture'>ecriture</option>
-                        <option <?php if($_SESSION['role'] == "lecture") echo "selected" ?> value='lecture'>lecture</option>
-                        <option <?php if($_SESSION['role'] == "admin") echo "selected" ?> value='admin'>admin</option>
-                    </select><br>
+                    <div class="lbrSelect">
+                        <select class="profile" name='role' id='role-select'
+                            <?php if($_SESSION['role'] != "admin") echo "disabled" ?>
+                        >
+                            <option class="role-choices" <?php if($_SESSION['role'] == "invite") echo "selected" ?> value='invite'>invité</option>
+                            <option class="role-choices-1" <?php if($_SESSION['role'] == "ecriture") echo "selected" ?> value='ecriture'>ecriture</option>
+                            <option class="role-choices" <?php if($_SESSION['role'] == "lecture") echo "selected" ?> value='lecture'>lecture</option>
+                            <option class="role-choices-1" <?php if($_SESSION['role'] == "admin") echo "selected" ?> value='admin'>admin</option>
+                        </select>
+                    </div>
                 </div>
 
                     <input class="profile" type="submit" style="cursor: pointer;" value="Appliquer les modifications">
