@@ -137,6 +137,10 @@ input{
     background-color: #EBEAD4;
 }
 
+/*********************/
+/*       Menu        */
+/*********************/
+
 #leftmenu{
     background-color: #EBEAD4;
     margin: 0 1em 0 1em;
@@ -185,6 +189,10 @@ input{
     margin: auto;
 }
 
+/*********************/
+/*  Pages de gestion */
+/*********************/
+
 #title{
     cursor: default;
     font-weight: bold;
@@ -223,8 +231,6 @@ input{
     border: none;
     font-size: 36px;
     margin: 0.2em;
-    float: right;
-    clear: both;
 }
 
 #role-select{
@@ -236,5 +242,27 @@ input{
     background-color: #EA001C;
     color: #FFFEE6;
     padding: 0.3em;
+    float: right;
 }
 
+
+.formLine{
+    display: table;
+    width: 100%;
+    vertical-align: center;
+
+}
+
+.formLine input, .formLine label {
+    display: table-cell;
+}
+.formLine input,.formLine select{
+    float:right;
+    width: 100%;
+}
+
+
+.formLine label{
+    width: 10em;
+    vertical-align: middle;
+}

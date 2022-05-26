@@ -13,5 +13,5 @@
     else $requete = "UPDATE `utilisateurs` SET `prenom` = '$prenom', `nom` = '$nom', `mot_de_passe` = '$mdp' WHERE `mail` = '$mail'";
     $result = mysqli_query($link, $requete); // Saving the result
     if ($_SESSION['mail'] == $mail) echo '<script language="JavaScript"> alert("Vos changements ont bien été appliqués");window.location.replace("home.php");</script>';
-    else echo '<script language="JavaScript"> alert("Informations invalides, veuillez réessayer.");window.location.replace("my_account.php");</script>'
+    else echo '<script> alert("Informations invalides, veuillez réessayer.");window.location.replace("my_account.php");</script>'
 ?>
