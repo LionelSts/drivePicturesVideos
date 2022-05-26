@@ -140,12 +140,12 @@ input{
 #leftmenu{
     background-color: #EBEAD4;
     margin: 0 1em 0 1em;
-    width: 15em;
+    width: 17em;
 }
 
 #menurubrique{
     list-style: none;
-    padding: 0;
+    padding: 0em 1em 0em 0em;
 }
 
 #menurubrique a{
@@ -178,7 +178,7 @@ input{
     margin: auto;
 }
 
-#disconnect{
+.standaloneMenuLine{
     display: flex;
     flex-direction: row;
     padding: 1em;
