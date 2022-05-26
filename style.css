@@ -156,15 +156,29 @@ html, body {
     padding: 0.5em 0 0.5em 0;
 }
 
+#iconMenuDisconnect {
+    width: 1.5em;
+    height: 1.5em;
+    margin: auto;
+}
+
 .iconMenu {
     width: 1.5em;
     height: 1.5em;
     margin: auto;
 }
 
+#disconnect{
+    display: flex;
+    flex-direction: row;
+    padding: 1em;
+    margin: auto;
+}
+
 #title{
     cursor: default;
     font-weight: bold;
+    padding: 1em;
 }
 
 #main{
@@ -194,13 +208,13 @@ html, body {
 }
 
 .profile input, #role-select{
-     position: relative;
-     background-color: #EBEAD4;
-     border: none;
-     font-size: 36px;
-     margin: 0.2em;
-     float: right;
-     clear: both;
+    position: relative;
+    background-color: #EBEAD4;
+    border: none;
+    font-size: 36px;
+    margin: 0.2em;
+    float: right;
+    clear: both;
 }
 
 #role-select{
