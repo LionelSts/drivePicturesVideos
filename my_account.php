@@ -29,7 +29,7 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
                 <label class="profile" for="prenom">Prénom : </label>
                 <input class="profile" type="text" id="prenom" name="prenom"><br>
                 <label class="profile" for="mail">Adresse mail :</label>
-                <?php if ($_SESSION['role'] != "admin") echo '<input class="profile" type="email" id="mail" name="email" value = ',$_SESSION["mail"],' ><br>';?>
+                <?php echo '<input class="profile" type="email" id="mail" name="email" value = ',$_SESSION["mail"],' ><br>';?>
                 <?php if($_SESSION['role'] == "admin") echo "<label class='profile' for='role'>Rôle :</label>
                     <select name='role' id='role-select' name='role'>
                     <option value='invite'>invité</option>
