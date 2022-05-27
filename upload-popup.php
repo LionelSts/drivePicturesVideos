@@ -8,6 +8,27 @@ if(isset($_POST['submit'])){
             move_uploaded_file($_FILES['file']['tmp_name'][$i],'fichiers/'.$filename);
         }
     }
+}else{
+    $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
+    $link->query('SET NAMES utf8');
+    $requete = "SELECT `nom_tag`, `categorie` FROM `tags`";
+    $result = mysqli_query($link, $requete);
+    $data = mysqli_fetch_all($result);
+    $requete = "SELECT `nom_categorie` FROM `categorie`";
+    $result = mysqli_query($link, $requete);
+    while($row = mysqli_fetch_array($result)){
+        $categorie[] = $row['nom_categorie'];
+    }
+
+    foreach($categorie as $key => $value) {
+        foreach ($data as list($value1, $value2)) {
+            if($value == $value2) {
+                $tab[] = $value1;
+            }
+        }
+        $final_tab[] = $tab;
+        unset($tab);
+    }
 }
 ?>
 <div id="uploadPopUp">
@@ -17,63 +38,32 @@ if(isset($_POST['submit'])){
         <div>
             <p class="bold">Tags :</p>
         </div>
-        <div class="uploadCategories">
-            <p>Edition</p>
-            <div class="uploadsTagList">
-                <div class="uploadsTag">
-                    <input class="customCheckBox" type="checkbox" id="2021" name="2021">
-                    <label for="2021">2021</label>
-                </div>
-                <div class="uploadsTag">
-                    <input class="customCheckBox" type="checkbox" id="2023" name="2023">
-                    <label for="2023">2023</label>
-                </div>
-                <div class="newTag">
-                    <input type="text" name="newTag"> <label>+</label>
-                </div>
-            </div>
-
-        </div>
-        <div class="uploadCategories">
-            <p>Lieu</p>
-            <div class="uploadsTagList">
-                <div class="uploadsTag">
-                    <input class="customCheckBox" type="checkbox" id="Scène 1" name="Scène 1">
-                    <label for="Scène 1">Scène 1</label>
-                </div>
-                <div class="uploadsTag">
-                    <input class="customCheckBox" type="checkbox" id="BackStage" name="BackStage">
-                    <label for="BackStage">BackStage</label>
-                </div>
-                <div class="uploadsTag">
-                    <input class="customCheckBox" type="checkbox" id="Camping" name="Camping">
-                    <label for="Camping">BackStage</label>
-                </div>
-                <div class="uploadsTag">
-                    <input class="customCheckBox" type="checkbox" id="Village" name="Village">
-                    <label for="Village">Village</label>
-                </div>
-                <div class="uploadsTag">
-                    <input class="customCheckBox" type="checkbox" id="Parking" name="Parking">
-                    <label for="Parking">Parking</label>
-                </div>
-                <div class="uploadsTag">
-                    <input class="customCheckBox" type="checkbox" id="Parking" name="Parking">
-                    <label for="Parking">Parking</label>
-                </div>
-                <div class="uploadsTag">
-                    <input class="customCheckBox" type="checkbox" id="Parking" name="Parking">
-                    <label for="Parking">Parking</label>
-                </div>
-                <div class="uploadsTag">
-                    <input class="customCheckBox" type="checkbox" id="Parking" name="Parking">
-                    <label for="Parking">Parking</label>
-                </div>
-                <div class="newTag">
-                    <input type="text" name="newTag"> <label>+</label>
-                </div>
-            </div>
-        </div>
+        <?php
+            $i =0;
+            foreach($final_tab as $key => $value1) {
+                echo('
+                <div class="uploadCategories">
+                    <p>'.$categorie[$i].'</p>
+                    <div class="uploadsTagList">'
+                        );
+                        foreach ($value1 as $key => $value2) {
+                        echo('
+                        <div class="uploadsTag">
+                            <input class="customCheckBox" type="checkbox" id="'.$value2.'" name="'.$value2.'">
+                            <label for="'.$value2.'">'.$value2.'</label>
+                        </div>'
+                        );
+                        }
+                        $i++;
+                        echo('
+                        <div class="newTag">
+                            <input type="text" name="newTag"> <label>+</label>
+                        </div>
+                    </div>
+                </div>'
+                );
+            }
+        ?>
     </div>
     <div id="lowPartUploads">
         <form id="uploadForm" method='post' action='' enctype='multipart/form-data'>
