@@ -6,7 +6,7 @@
         <ul id='menurubrique'>
             <li id='title'>Mon compte</li>";
         if($role != 'lecture') $html .= "<ul>
-            <li class='menuLine'><img class='iconMenu' src='images/icons/folder.png'><a href='#' id='page'>Mes fichiers</a></li>
+            <li class='menuLine'><img class='iconMenu' src='images/icons/folder.png'><a href='my_files.php' id='page'>Mes fichiers</a></li>
             <ul id='menufichiers'>
                 <li><a href='#' id='page'>Fichier 1</a></li>
                 <li><a href='#' id='page'>Fichier 2</a></li>
