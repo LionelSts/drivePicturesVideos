@@ -53,7 +53,7 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
                     </div>
                 </div>
 
-                    <input class="profile" type="submit" style="cursor: pointer;" value="Appliquer les modifications">
+                    <input class="profile" type="submit" value="Appliquer les modifications">
             </form>
         </div>
     </div>

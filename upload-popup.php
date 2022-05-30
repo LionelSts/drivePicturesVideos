@@ -66,7 +66,7 @@
         ?>
     </div>
     <div id="lowPartUploads">
-        <form id="uploadForm" method='post' action='' enctype='multipart/form-data'>
+        <form id="uploadForm" method='post' action='my_files.php' enctype='multipart/form-data'>
             <div id="uploadsFiles">
                 <input type="file" accept="image/*,video/*" name="file[]" id="file" multiple required>
             </div>

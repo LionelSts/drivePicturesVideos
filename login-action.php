@@ -21,6 +21,7 @@ if(password_verify($mdp, $hashedpsw)) // If the password entered and the hashed 
 }
 else
 {
-    echo '<script language="JavaScript"> alert("Identifiant ou mot de passe incorrecte");window.location.replace("login.html");</script>'; // If not then you are coridally invited to log in again, with the right password this time... Or to put an existing login if that wasn't the case
+    echo '<script> alert("Identifiant ou mot de passe incorrecte");
+    window.location.replace("login.html");</script>'; // If not then you are coridally invited to log in again, with the right password this time... Or to put an existing login if that wasn't the case
 }
 ?>

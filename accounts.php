@@ -67,7 +67,6 @@
             </div>
             <input class="profile" type="submit" style="cursor: pointer;" value="Supprimer le compte">
             <input class="profile" type="submit" style="cursor: pointer;" value="Appliquer les modifications">
-
         </form>
     </div>
 </div>
