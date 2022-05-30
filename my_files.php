@@ -14,21 +14,26 @@ $requete = "SELECT `role` FROM `utilisateurs` WHERE `mail` = '$mail'";; // Prepa
 $result = mysqli_query($link, $requete); // Saving the result
 
 ?>
-<body>
+
 <div id="header">
-<a class="logoTop" href="home.php"><img id="logo-header-home" src="images/graphiqueLBR/logoLONGUEURClassic.png"></a>
-<div id="searchbar">
-    <input type="text" id="searchInput" placeholder="Barre de recherche"/>
-    <img src="images/icons/search-logo.png" id="search-logo">
-</div>
+    <a class="logoTop" href="home.php"><img id="logo-header-home" src="images/graphiqueLBR/logoLONGUEURClassic.png"></a>
+    <div id="searchbar">
+        <input type="text" id="searchInput" placeholder="Barre de recherche"/>
+        <img src="images/icons/search-logo.png" id="search-logo">
+    </div>
 
 </div>
-<?php
+<div id="main">
+    <?php
     include 'menu.php';
     echo getMenu();
-?>
-
-
-</body>
+    ?>
+    <div id="pageContent">
+        <h1 class="bigTitle">Récents</h1>
+        <?php
+        include 'upload-popup.php';
+        ?>
+    </div>
+</div>
 
 

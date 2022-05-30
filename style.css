@@ -1,8 +1,14 @@
-       /*********************/
-      /* Page de connexion */
-     /*********************/
+/*********************/
+/*      Utility      */
+/*********************/
 
+.bold{
+    font-weight: bold;
+}
 
+/*********************/
+/* Page de connexion */
+/*********************/
 
 html, body {
     margin: 0;
@@ -12,6 +18,9 @@ html, body {
     color: #161920;
 }
 
+input{
+    color: #161920;
+}
 
 #logo{
     margin-top: -10%;
@@ -90,52 +99,65 @@ html, body {
 }
 
 
-         /*********************/
-        /*  Page d'Accueil   */
-       /*********************/
+/*********************/
+/*  Page d'Accueil   */
+/*********************/
 
 
 #header{
     display: flex;
     justify-content: flex-start;
+    align-items: center;
 }
 
+.logoTop{
+    width: 30%;
+}
+
+#logo-header-home{
+    width: 100%;
+}
 #logo-header{
     width: 30%;
-    margin: auto;
 }
 
 #searchbar {
-    margin-top: 2%;
     background-color: #EBEAD4;
-    width: 60%;
+    width: 50%;
     height: 3%;
-    border: 0em;
-    padding: 12px 20px;
+    display: flex;
+    justify-content: space-around;
 }
 
-
-#searchbar:hover {
-    width: 80%;
+#searchInput{
+    background-color: #EBEAD4;
+    width: 100%;
+    padding: 12px 20px;
+    border: 0em;
+    font-size:2.25em;
+    text-align: center;
 }
 
 #search-logo{
-    margin-left: -3%;
-    margin-top: 2.35%;
-    height: 2%;
-    width: 2%;
+    padding: 1em 3em 1em 3em;
+    width: 2em;
     cursor: pointer;
+    background-color: #EBEAD4;
 }
+
+/*********************/
+/*       Menu        */
+/*********************/
 
 #leftmenu{
     background-color: #EBEAD4;
     margin: 0 1em 0 1em;
-    width: 15em;
+    width: 17em;
 }
 
 #menurubrique{
     list-style: none;
-    padding: 0;
+    padding: 0em 1em 0em 0em;
 }
 
 #menurubrique a{
@@ -156,15 +178,33 @@ html, body {
     padding: 0.5em 0 0.5em 0;
 }
 
+#iconMenuDisconnect {
+    width: 1.5em;
+    height: 1.5em;
+    margin: auto;
+}
+
 .iconMenu {
     width: 1.5em;
     height: 1.5em;
     margin: auto;
 }
 
+.standaloneMenuLine{
+    display: flex;
+    flex-direction: row;
+    padding: 1em;
+    margin: auto;
+}
+
+/*********************/
+/*  Pages de gestion */
+/*********************/
+
 #title{
     cursor: default;
     font-weight: bold;
+    padding: 1em;
 }
 
 #main{
@@ -180,37 +220,238 @@ html, body {
 }
 
 .profile form{
-    font-size: 36px;
+    font-size: 2.25em;
 }
 
 .bigTitle h1{
-    font-size: 64px;
+    font-size: 4em;
     font-weight: normal;
     margin: 0em;
 }
 
 .profile label{
-    font-size: 36px;
+    font-size: 2.25em;
 }
 
-.profile input, #role-select{
-     position: relative;
-     background-color: #EBEAD4;
-     border: none;
-     font-size: 36px;
-     margin: 0.2em;
-     float: right;
-     clear: both;
+.profile input{
+    background-color: #EBEAD4;
+    border: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 2.25em;
+    margin: 0.2em;
+}
+.lbrSelect {
+    position: relative;
+    background: #EBEAD4;
+    height: 2.513em;
+    margin: 0.2em 0em 0.2em 0em;
+    padding: 0.2em;
 }
 
 #role-select{
     border: none;
-    color: #EA001C;
+    font-size: 2.25em;
+    color: #161920;
+    background: url(images/icons/arrow-down-sign-to-navigate.png) no-repeat right;
+    -webkit-appearance: none;
 }
+
+.role-choices{
+    background-color: #FFFEE6;
+}
+
+.role-choices-1{
+    background-color: #EBEAD4;
+}
+
 
 .profile input[type="submit"]{
     background-color: #EA001C;
     color: #FFFEE6;
     padding: 0.3em;
+    float: right;
 }
 
+
+.formLine{
+    display: table;
+    width: 100%;
+    vertical-align: center;
+
+}
+
+.formLine input, .formLine label {
+    display: table-cell;
+}
+.formLine input,.formLine select{
+    float:right;
+    width: 100%;
+}
+
+
+.formLine label{
+    width: 10em;
+    vertical-align: middle;
+}
+
+/*********************/
+/* Pages des fichiers*/
+/*********************/
+
+#uploadPopUp{
+    position: absolute;
+    z-index: 10;
+    top:5%;
+    right: 5%;
+    width: 90%;
+    height: 90%;
+    background-color: #161920;
+    text-align: center;
+}
+
+.closeButton{
+    text-align: end;
+    position: absolute;
+    width: 100%;
+}
+
+.closeButton h1{
+    margin: 0em;
+    cursor: pointer;
+    color: #EBEAD4;
+    padding: 0.5em;
+    font-size: 2.5em;
+}
+
+#uploadsTags{
+    margin: 1em;
+    width: 95%;
+    height: 30%;
+    display: flex;
+    justify-content: flex-start;
+    color: #EBEAD4;
+
+}
+
+#uploadsTags p{
+    font-size: 1.5em;
+    padding: 1em;
+    margin: 0em;
+}
+
+.uploadCategories{
+    border-left: 1px solid #EA001C;
+    max-width: 25%;
+}
+
+#lowPartUploads{
+    height: 30%;
+}
+
+#uploadForm{
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+    color: #161920;
+}
+
+#uploadsFiles{
+    padding: 1em;
+    margin: 1em;
+    background-color: #EBEAD4;
+    height: 100%;
+    text-align: left;
+}
+
+#uploadButton{
+    background-color: #EA001C;
+    color: #FFFEE6;
+    padding: 0.5em 5em 0.5em 5em;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5em;
+}
+
+#uploadTitle{
+    margin: 0.4em;
+    color: #EBEAD4;
+    font-size: 4em;
+}
+
+.uploadsTagList{
+    padding: 0em 0.5em 0em 0.5em ;
+    text-align: left;
+    height: 70%;
+    overflow:auto;
+}
+
+.uploadsTag{
+    font-size:1.5em ;
+
+}
+
+.customCheckBox {
+    appearance: none;
+    background-color: #161920;
+    width: 1.2em;
+    height: 1.2em;
+    border: 1px solid #EBEAD4;
+}
+.customCheckBox:checked:before {
+    content:'';
+    position: absolute;
+    transform:translate(-50%,-50%) rotate(45deg);
+    background-color:#EBEAD4;
+    margin: 7px 0px 0px 7px;
+    width:20px;
+    height:1px;
+}
+
+.customCheckBox:checked:after {
+    content:'';
+    position: absolute;
+    transform:translate(-50%,-50%) rotate(-45deg);
+    background-color:#EBEAD4;
+    margin: 7px 0px 0px 7px;
+    width:20px;
+    height:1px;
+}
+
+.newTag{
+    font-size: 1.5em;
+    width:fit-content;
+    padding: 0em;
+}
+
+.newTag input{
+    background-color: #EBEAD4;
+    width: 80%;
+    border: 0em;
+    margin: 0em;
+    font-size: 1.5em;
+}
+.newTag label{
+    cursor: pointer;
+}
+
+/*********************/
+/*      Scrollbar    */
+/*********************/
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #000000;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #EA001C;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #D00019;
+}
