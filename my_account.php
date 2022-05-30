@@ -37,12 +37,12 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
                 </div>
                 <div class="formLine">
                     <label for="motdepasse">Mot de passe :</label>
-                    <input class="profile" type="password" id="motdepasse" name="password"><br>
+                    <input class="profile" type="password" id="motdepasse" name="password">
                 </div>
                 <div class="formLine">
                     <label for='role'>Rôle :</label>
                     <div class="lbrSelect">
-                        <select class="profile" name='role' id='role-select'
+                        <select class="profile, role-select" name='role'
                             <?php if($_SESSION['role'] != "admin") echo "disabled" ?>
                         >
                             <option class="role-choices" <?php if($_SESSION['role'] == "invite") echo "selected" ?> value='invite'>invité</option>

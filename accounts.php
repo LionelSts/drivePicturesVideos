@@ -27,31 +27,49 @@
     include './menu.php';
     echo getMenu();
     ?>
-</div>
-<div id="pageContent">
-    <h1 class="bigTitle">Gestion des comptes</h1>
-    <form class="profile" method="post" action="accounts-action.php">
-        <?php
-        echo "<label class='profile'>Sélectionnez un compte :</label><select onclick='formReload(mapAccounts)' id='account'>";
-        foreach ($data as $item) :
-        {
-           echo "<option value= ".$item[2].">".$item[2]."</option><br>";
-        }
-        endforeach;
-        echo "</select>";
-        //$mail = "<script language='JavaScript'> document.getElementById('account').value;</script>";
-        //echo "<script language='JavaScript'> let mail =document.getElementById('account').value; mail= .$mail.;</script>";
-        //$requete2 = "SELECT `nom`, `prenom`, `mail`, `mot_de_passe`, `role` FROM `utilisateurs` WHERE  `mail` = '$mail'";
-        //$result2 = mysqli_query($link,$requete2);
-        echo "<label class='profile' for='nom' >Nom : </label><input class='profile' type='text' id='nom'><br>";
-        echo "<label class='profile' for='prenom'>Prénom : </label><input class='profile' type='text' id='prenom'><br>";
-        echo "<label class='profile' for='mail' >Email : </label><input class='profile' type='text' id='mail'><br>";
-        echo "<label class='profile' for='password' >Nom : </label><input class='profile' type='text' id='password'><br>";
-        ?>
-        <input class="profile" type="submit" style="cursor: pointer;" value="Supprimer le compte">
-        <input class="profile" type="submit" style="cursor: pointer;" value="Appliquer les modifications">
-    </form>
-</div>
+    <div id="pageContent">
+        <h1 class="bigTitle">Gestion des comptes</h1>
+        <form class="profile" method="post" action="accounts-action.php">
+            <div class="formLine">
+                <label class='profile'>Sélectionnez un compte :</label>
+                <div class="lbrSelect">
+                    <select class="profile, role-select" onclick='formReload(mapAccounts)' id='account'>
+                        <?php
+                            $counter =0;
+                            foreach ($data as $item) :
+                            {
+                               if($counter%2){
+                                   echo "<option class='role-choices' value= ".$item[2].">".$item[2]."</option><br>";
+                               }else {
+                                   echo "<option class='role-choices-1' value= " . $item[2] . ">" . $item[2] . "</option><br>";
+                               }
+                            }
+                            endforeach;
+                        ?>
+                    </select>
+                </div>
+            </div>
+            <div class="formLine">
+                <label class='profile' for='nom' >Nom : </label>
+                <input class='profile' type='text' id='nom'>
+            </div>
+            <div class="formLine">
+                <label class='profile' for='prenom'>Prénom : </label>
+                <input class='profile' type='text' id='prenom'>
+            </div>
+            <div class="formLine">
+                <label class='profile' for='mail' >Email : </label>
+                <input class='profile' type='text' id='mail'>
+            </div>
+            <div class="formLine">
+                <label class='profile' for='password' >Mot de passe : </label>
+                <input class='profile' type='text' id='password'>
+            </div>
+            <input class="profile" type="submit" style="cursor: pointer;" value="Supprimer le compte">
+            <input class="profile" type="submit" style="cursor: pointer;" value="Appliquer les modifications">
+
+        </form>
+    </div>
 </div>
 <script src="./accounts.js"></script>
 </body>

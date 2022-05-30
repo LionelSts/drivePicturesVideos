@@ -242,13 +242,14 @@ input{
 }
 .lbrSelect {
     position: relative;
+    right:0.7em;
     background: #EBEAD4;
     height: 2.513em;
     margin: 0.2em 0em 0.2em 0em;
     padding: 0.2em;
 }
 
-#role-select{
+.role-select{
     border: none;
     font-size: 2.25em;
     color: #161920;

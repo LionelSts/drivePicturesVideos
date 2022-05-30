@@ -1,35 +1,35 @@
 <?php
-if(isset($_POST['submit'])){
-    $countfiles = count($_FILES['file']['name']);
-    for($i = 0 ; $i < $countfiles ; $i++){
-        $filename = $_FILES['file']['name'][$i];
-        echo($_FILES['file']['type'][$i]);
-        if(preg_match("/image|video/", $_FILES['file']['type'][$i])){
-            move_uploaded_file($_FILES['file']['tmp_name'][$i],'fichiers/'.$filename);
-        }
-    }
-}else{
-    $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
-    $link->query('SET NAMES utf8');
-    $requete = "SELECT `nom_tag`, `categorie` FROM `tags`";
-    $result = mysqli_query($link, $requete);
-    $data = mysqli_fetch_all($result);
-    $requete = "SELECT `nom_categorie` FROM `categorie`";
-    $result = mysqli_query($link, $requete);
-    while($row = mysqli_fetch_array($result)){
-        $categorie[] = $row['nom_categorie'];
-    }
-
-    foreach($categorie as $key => $value) {
-        foreach ($data as list($value1, $value2)) {
-            if($value == $value2) {
-                $tab[] = $value1;
+    if(isset($_POST['submit'])){
+        $countfiles = count($_FILES['file']['name']);
+        for($i = 0 ; $i < $countfiles ; $i++){
+            $filename = $_FILES['file']['name'][$i];
+            echo($_FILES['file']['type'][$i]);
+            if(preg_match("/image|video/", $_FILES['file']['type'][$i])){
+                move_uploaded_file($_FILES['file']['tmp_name'][$i],'fichiers/'.$filename);
             }
         }
-        $final_tab[] = $tab;
-        unset($tab);
+    }else{
+        $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
+        $link->query('SET NAMES utf8');
+        $requete = "SELECT `nom_tag`, `categorie` FROM `tags`";
+        $result = mysqli_query($link, $requete);
+        $data = mysqli_fetch_all($result);
+        $requete = "SELECT `nom_categorie` FROM `categorie`";
+        $result = mysqli_query($link, $requete);
+        while($row = mysqli_fetch_array($result)){
+            $categorie[] = $row['nom_categorie'];
+        }
+
+        foreach($categorie as $key => $value) {
+            foreach ($data as list($value1, $value2)) {
+                if($value == $value2) {
+                    $tab[] = $value1;
+                }
+            }
+            $final_tab[] = $tab;
+            unset($tab);
+        }
     }
-}
 ?>
 <div id="uploadPopUp">
     <div class="closeButton"><h1>X</h1></div>
