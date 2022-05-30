@@ -456,3 +456,10 @@ input{
 ::-webkit-scrollbar-thumb:hover {
     background: #D00019;
 }
+
+#limit{
+    width: 100%;
+    border: 1px #EA001C solid;
+    float: left;
+    margin: 1em 0em 1em 0em;
+}
