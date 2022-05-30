@@ -25,13 +25,13 @@ $result = mysqli_query($link, $requete); // Saving the result
 </div>
 <div id="main">
     <?php
-    include 'menu.php';
-    echo getMenu();
+        include 'menu.php';
+        echo getMenu();
     ?>
     <div id="pageContent">
         <h1 class="bigTitle">Récents</h1>
         <?php
-        include 'upload-popup.php';
+            include 'upload-popup.php';
         ?>
     </div>
 </div>

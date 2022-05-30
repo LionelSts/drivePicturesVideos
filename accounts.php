@@ -76,14 +76,8 @@
                 <label class='profile' for='password' >Mot de passe : </label>
                 <input class='profile' type='text' id='password'>
             </div>
-            <input class="profile" type="submit"  onclick="<?php
-            //$mail = $_POST['mail'];
-            //$requete2 = "DELETE FROM `utilisateurs` WHERE condition `mail` = '.$mail.'";
-            //$result2 = mysqli_query($link,$requete2);
-            ?>" value="Supprimer le compte">
-            <input class="profile" type="submit" onclick='<?php
-
-            ?>' value="Appliquer les modifications">
+            <input class="profile" type="submit" style="cursor: pointer;" value="Supprimer le compte">
+            <input class="profile" type="submit" style="cursor: pointer;" value="Appliquer les modifications">
         </form>
         <div id="limit"></div>
     </div>
