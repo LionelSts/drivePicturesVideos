@@ -21,7 +21,12 @@
                 $filePath = 'fichiers/'.$id.'.'.$extension;
                 $getID3 = new getID3;
                 $file = $getID3->analyze($filePath);
-                $duree = date('H:i:s', round($file['playtime_seconds']));
+                if(preg_match("/video/", $_FILES['file']['type'][$i])){
+                    $duree = date('H:i:s', round($file['playtime_seconds']));
+                }
+                else{
+                    $duree = '00:00:00';
+                };
                 $requete = "INSERT INTO fichiers (`id`, `nom_fichier`, `extension`, `auteur`, `date`, `duree`) VALUES ('$id', '$filename', '$extension', '$mail', '$date', '$duree')";
                 $result = mysqli_query($link, $requete);
                 unset($getID3);
@@ -57,30 +62,30 @@
             <p class="bold">Tags :</p>
         </div>
         <?php
-            $i =0;
-            foreach($final_tab as $key => $value1) {
+        $i = 0;
+        foreach ($final_tab as $key => $value1) {
+            echo('
+                    <div class="uploadCategories">
+                        <p>' . $categorie[$i] . '</p>
+                        <div class="uploadsTagList">'
+            );
+            foreach ($value1 as $key => $value2) {
                 echo('
-                <div class="uploadCategories">
-                    <p>'.$categorie[$i].'</p>
-                    <div class="uploadsTagList">'
-                        );
-                        foreach ($value1 as $key => $value2) {
-                        echo('
-                        <label class="checkboxContainer">'.$value2.'
-                            <input type="checkbox" id="'.$value2.'" name="'.$value2.'">
-                            <span class="customCheckBox"></span>
-                        </label>'
-                        );
-                        }
-                        $i++;
-                        echo('
-                        <div class="newTag">
-                            <input type="text" name="newTag"> <label>+</label>
-                        </div>
-                    </div>
-                </div>'
+                            <label class="checkboxContainer">' . $value2 . '
+                                <input type="checkbox" id="' . $value2 . '" name="' . $value2 . '">
+                                <span class="customCheckBox"></span>
+                            </label>'
                 );
             }
+            $i++;
+            echo('
+                            <div class="newTag">
+                                <input type="text" name="newTag"> <label onclick="">+</label>
+                            </div>
+                        </div>
+                    </div>'
+            );
+        }
         ?>
     </div>
     <div id="lowPartUploads">

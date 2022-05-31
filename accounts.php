@@ -126,10 +126,10 @@
             </div>
             <input class="profile" type="submit" value="Créer le compte">
         </form>
-        <div class="clearfix" id="limit"></div>
+        <div id="limit"></div>
         <h1 class="bigTitle">Comptes en attente :</h1>
         <form class="profile" method="post" action="./gestion-action/accounts-action3.php">
-            <div class="formLine">
+            <div class="tableContainer">
                 <TABLE class="lbrTable" >
                     <tbody>
                     <?php
@@ -144,10 +144,10 @@
                 </TABLE>
             </div>
         </form>
-        <div class="clearfix" id="limit"></div>
+        <div id="limit"></div>
         <h1 class="bigTitle">Comptes supprimés:</h1>
         <form class="profile" method="post" action="./gestion-action/accounts-action4.php">
-            <div class="formLine">
+            <div class="tableContainer">
                 <TABLE class="lbrTable" >
                     <tbody>
                     <?php

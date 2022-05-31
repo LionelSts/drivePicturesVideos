@@ -52,7 +52,6 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
                         </select>
                     </div>
                 </div>
-
                     <input class="profile" type="submit" value="Appliquer les modifications">
             </form>
         </div>
