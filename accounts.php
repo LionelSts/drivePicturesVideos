@@ -29,7 +29,7 @@
     ?>
     <div id="pageContent">
         <h1 class="bigTitle">Gestion des comptes</h1>
-        <form class="profile" method="post" action="accounts-action.php">
+        <form class="profile" method="post" action="./gestion-action/accounts-action1.php">
             <div class="formLine">
                 <label class='profile'>Sélectionnez un compte :</label>
                 <div class="lbrSelect">
@@ -58,8 +58,19 @@
                 <input class='profile' type='text' id='prenom'>
             </div>
             <div class="formLine">
-                <label class='profile' for='mail' >Email : </label>
+                <label class='profile' for='mail' >Adresse mail : </label>
                 <input class='profile' type='text' id='mail'>
+            </div>
+            <div class="formLine">
+                <label class='profile' for='role' >Rôle : </label>
+                <div class="lbrSelect">
+                    <select class="profile, role-select" id="modifRole" name='role'>
+                        <option class="role-choices" id="invite" value='invite'>invité</option>
+                        <option class="role-choices-1" id="ecriture" value='ecriture'>ecriture</option>
+                        <option class="role-choices" id="lecture" value='lecture'>lecture</option>
+                        <option class="role-choices-1"id="admin" value='admin'>admin</option>
+                    </select>
+                </div>
             </div>
             <div class="formLine">
                 <label class='profile' for='password' >Mot de passe : </label>
@@ -68,7 +79,52 @@
             <input class="profile" type="submit" style="cursor: pointer;" value="Supprimer le compte">
             <input class="profile" type="submit" style="cursor: pointer;" value="Appliquer les modifications">
         </form>
+        <div id="limit"></div>
     </div>
+</div>
+
+
+<div id="pageContent">
+    <h1 class="bigTitle">Créer un compte</h1>
+    <form class="profile" method="post" action="./gestion-action/accounts-action2.php">
+        <div class="formLine">
+            <label class='profile' for='nom' >Nom : </label>
+            <input class='profile' name="nom" type='text' id='nom'>
+        </div>
+        <div class="formLine">
+            <label class='profile' for='prenom'>Prénom : </label>
+            <input class='profile' name="prenom" type='text' id='prenom'>
+        </div>
+        <div class="formLine">
+            <label class='profile' for='mail' >Adresse mail : </label>
+            <input class='profile' name="mail" type='text' id='mail'>
+        </div>
+        <div class="formLine">
+            <label class='profile' for='role' >Rôle : </label>
+            <div class="lbrSelect">
+                <select class="profile, role-select" id="modifRole" name='role'>
+                    <option class="role-choices" id="invite" value='invite'>invité</option>
+                    <option class="role-choices-1" id="ecriture" value='ecriture'>ecriture</option>
+                    <option class="role-choices" id="lecture" value='lecture'>lecture</option>
+                    <option class="role-choices-1"id="admin" value='admin'>admin</option>
+                </select>
+            </div>
+        </div>
+        <div class="formLine">
+            <label class='profile' for='descriptif' >Descriptif : </label>
+            <input class='profile' name="descriptif" type='text' id='descriptif'>
+        </div>
+        <div class="formLine">
+            <label class='profile' for='password' >Mot de passe : </label>
+            <input class='profile' name="password" type='password' id='password'>
+        </div>
+        <div class="formLine">
+            <label for="mdp">Laisse choisir le mot de passe :</label>
+            <input type="checkbox" id="mdp" name="mdp" value="mdp">
+        </div>
+        <input class="profile" type="submit" value="Créer le compte">
+    </form>
+    <div id="limit"></div>
 </div>
 <script src="./accounts.js"></script>
 </body>
