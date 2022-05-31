@@ -10,9 +10,8 @@ session_start();
 //include("./connexion.php");
 $mail = $_SESSION['mail'];
 $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
-$requete = "SELECT `role` FROM `utilisateurs` WHERE `mail` = '$mail'";; // Preparing the request to verify the password where the login entered is found on the database
+$requete = "SELECT `role` FROM `utilisateurs` WHERE `mail` = '$mail'"; // Preparing the request to verify the password where the login entered is found on the database
 $result = mysqli_query($link, $requete); // Saving the result
-
 ?>
 
 <div id="header">
