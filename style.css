@@ -385,36 +385,87 @@ input{
     overflow:auto;
 }
 
-.uploadsTag{
-    font-size:1.5em ;
-
+/* The container */
+.uploadsTag {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
+/* Hide the browser's default checkbox */
+.uploadsTag input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
 .customCheckBox {
-    appearance: none;
-    background-color: #161920;
-    width: 1.2em;
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 1.2em;
+    width: 1.2em;
     border: 1px solid #EBEAD4;
 }
-.customCheckBox:checked:before {
-    content:'';
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.customCheckBox:after {
+    content: "";
     position: absolute;
-    transform:translate(-50%,-50%) rotate(45deg);
-    background-color:#EBEAD4;
-    margin: 7px 0px 0px 7px;
-    width:20px;
-    height:1px;
+    display: none;
 }
 
-.customCheckBox:checked:after {
-    content:'';
+/* Create the checkmark/indicator (hidden when not checked) */
+.customCheckBox:before {
+    content: "";
     position: absolute;
-    transform:translate(-50%,-50%) rotate(-45deg);
-    background-color:#EBEAD4;
-    margin: 7px 0px 0px 7px;
-    width:20px;
-    height:1px;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.uploadsTag input:checked ~ .customCheckBox:after {
+    display: block;
+}
+
+/* Show the checkmark when checked */
+.uploadsTag input:checked ~ .customCheckBox:before {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.uploadsTag .customCheckBox:after {
+    top: -5.5px;
+    left: 12.5px;
+    width: 0px;
+    height: 1.7em;
+    border: solid #EBEAD4;
+    border-width: 0 1px 0 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/* Style the checkmark/indicator */
+.customCheckBox:before {
+    top: -5.5px;
+    left: 12.5px;
+    width: 0px;
+    height: 1.7em;
+    border: solid #EBEAD4;
+    border-width: 0 1px 0 0;
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
 }
 
 .newTag{
