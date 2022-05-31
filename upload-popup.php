@@ -67,7 +67,7 @@
             echo('
                     <div class="uploadCategories">
                         <p>' . $categorie[$i] . '</p>
-                        <div class="uploadsTagList">'
+                        <div class="uploadsTagList" id="list' . $categorie[$i] . '">'
             );
             foreach ($value1 as $key => $value2) {
                 echo('
@@ -78,13 +78,12 @@
                 );
             }
             $i++;
-            echo('
+            echo '
                             <div class="newTag">
-                                <input type="text" name="newTag"> <label onclick="">+</label>
+                                <input id="newTag'.$categorie[$i-1].'" type="text" name="newTag" > <label onclick="addTag(`'.$categorie[$i-1].'`)" >+</label>
                             </div>
                         </div>
-                    </div>'
-            );
+                    </div>';
         }
         ?>
     </div>
@@ -97,3 +96,5 @@
         </form>
     </div>
 </div>
+
+<script src="addTag.js"></script>
