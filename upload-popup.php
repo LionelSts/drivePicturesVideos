@@ -1,15 +1,33 @@
 <?php
+
+    require_once('getID3-master/getid3/getid3.php');
+    $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
+    $final_tab = [];
     if(isset($_POST['submit'])){
         $countfiles = count($_FILES['file']['name']);
+        $requete = "SELECT `id` FROM `fichiers` ORDER BY `id` DESC LIMIT 1";
+        $result = mysqli_query($link, $requete);
+        $id = mysqli_fetch_array($result)['id'];
+        $mail = $_SESSION['mail'];
+        $date = date('Y-m-d');
         for($i = 0 ; $i < $countfiles ; $i++){
+            $ext = $_FILES['file']['type'][$i];
             $filename = $_FILES['file']['name'][$i];
-            echo($_FILES['file']['type'][$i]);
             if(preg_match("/image|video/", $_FILES['file']['type'][$i])){
-                move_uploaded_file($_FILES['file']['tmp_name'][$i],'fichiers/'.$filename);
+                $id++;
+                $extension = str_replace("video/", "", $ext);
+                $filename = str_replace('.'.$extension, "", $filename);
+                move_uploaded_file($_FILES['file']['tmp_name'][$i],'fichiers/'.$id.'.'.$extension);
+                $filePath = 'fichiers/'.$id.'.'.$extension;
+                $getID3 = new getID3;
+                $file = $getID3->analyze($filePath);
+                $duree = date('H:i:s', round($file['playtime_seconds']));
+                $requete = "INSERT INTO fichiers (`id`, `nom_fichier`, `extension`, `auteur`, `date`, `duree`) VALUES ('$id', '$filename', '$extension', '$mail', '$date', '$duree')";
+                $result = mysqli_query($link, $requete);
+                unset($getID3);
             }
         }
     }else{
-        $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
         $link->query('SET NAMES utf8');
         $requete = "SELECT `nom_tag`, `categorie` FROM `tags`";
         $result = mysqli_query($link, $requete);
