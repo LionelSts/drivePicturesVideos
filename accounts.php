@@ -51,15 +51,15 @@
             </div>
             <div class="formLine">
                 <label class='profile' for='nom' >Nom : </label>
-                <input class='profile' type='text' id='nom'>
+                <input class='profile' type='text' name="nom" id='nom' required>
             </div>
             <div class="formLine">
                 <label class='profile' for='prenom'>Prénom : </label>
-                <input class='profile' type='text' id='prenom'>
+                <input class='profile' type='text' name="prenom" id='prenom' required>
             </div>
             <div class="formLine">
                 <label class='profile' for='mail' >Adresse mail : </label>
-                <input class='profile' type='text' id='mail'>
+                <input class='profile' type='text' name="mail" id='mail' required>
             </div>
             <div class="formLine">
                 <label class='profile' for='role' >Rôle : </label>
@@ -69,15 +69,15 @@
                         <option class="role-choices-1" id="ecriture" value='ecriture'>ecriture</option>
                         <option class="role-choices" id="lecture" value='lecture'>lecture</option>
                         <option class="role-choices-1"id="admin" value='admin'>admin</option>
-                    </select>
+                    </select required>
                 </div>
             </div>
             <div class="formLine">
                 <label class='profile' for='password' >Mot de passe : </label>
-                <input class='profile' type='text' id='password'>
+                <input class='profile' type='password' name="password" id='password'>
             </div>
-            <input class="profile" type="submit" style="cursor: pointer;" value="Supprimer le compte">
-            <input class="profile" type="submit" style="cursor: pointer;" value="Appliquer les modifications">
+            <input class="profile" type="submit" name="supprimer" value="Supprimer le compte">
+            <input class="profile" type="submit" name="modifier" value="Appliquer les modifications">
         </form>
         <div id="limit"></div>
     </div>
@@ -89,15 +89,15 @@
     <form class="profile" method="post" action="./gestion-action/accounts-action2.php">
         <div class="formLine">
             <label class='profile' for='nom' >Nom : </label>
-            <input class='profile' name="nom" type='text' id='nom'>
+            <input class='profile' name="nom" type='text' id='nom' required>
         </div>
         <div class="formLine">
             <label class='profile' for='prenom'>Prénom : </label>
-            <input class='profile' name="prenom" type='text' id='prenom'>
+            <input class='profile' name="prenom" type='text' id='prenom' required>
         </div>
         <div class="formLine">
             <label class='profile' for='mail' >Adresse mail : </label>
-            <input class='profile' name="mail" type='text' id='mail'>
+            <input class='profile' name="mail" type='text' id='mail' required>
         </div>
         <div class="formLine">
             <label class='profile' for='role' >Rôle : </label>
@@ -107,25 +107,74 @@
                     <option class="role-choices-1" id="ecriture" value='ecriture'>ecriture</option>
                     <option class="role-choices" id="lecture" value='lecture'>lecture</option>
                     <option class="role-choices-1"id="admin" value='admin'>admin</option>
-                </select>
+                </select required>
             </div>
         </div>
         <div class="formLine">
             <label class='profile' for='descriptif' >Descriptif : </label>
-            <input class='profile' name="descriptif" type='text' id='descriptif'>
+            <input class='profile' name="descriptif" type='text' id='descriptif' required>
         </div>
         <div class="formLine">
             <label class='profile' for='password' >Mot de passe : </label>
-            <input class='profile' name="password" type='password' id='password'>
+            <input class='profile' name="password" type='password' id='password' required>
         </div>
         <div class="formLine">
-            <label for="mdp">Laisse choisir le mot de passe :</label>
+            <label for="mdp">Laisser choisir le mot de passe :</label>
             <input type="checkbox" id="mdp" name="mdp" value="mdp">
         </div>
         <input class="profile" type="submit" value="Créer le compte">
     </form>
     <div id="limit"></div>
 </div>
+
+
+<div id="pageContent">
+    <h1 class="bigTitle">Comptes en attente :</h1>
+    <form class="profile" method="post" action="./gestion-action/accounts-action3.php">
+        <div class="formLine">
+            <TABLE >
+                <?php
+                    $count = 0;
+                    $requete="SELECT `mail` FROM `utilisateurs` WHERE `etat` != 'inactif'"; // Preparing the request to verify the password where the login entered is found on the database
+                    $result = mysqli_query($link, $requete); // Saving the result
+                    while($row = mysqli_fetch_array($result)) // Searching the right line
+                    {
+                        $count++;
+                        echo "<div class='formLine'>";
+                        if($count %2) echo "<TR class='role-choices'><TH class='profile'> ".$row["mail"]." </TH><TH class='profile'><input class='profile' type='submit' value='Renvoyer le mail'></TH></TR>";
+                        else echo"<TR class='role-choices-1'><TH class='profile'> ".$row["mail"]." </TH><TH class='profile'><input class='profile' type='submit' value='Renvoyer le mail'></TH></TR>";
+                        echo "</div>";
+                    }
+                ?>
+            </TABLE>
+        </div>
+    </form>
+    <div id="limit"></div>
+</div>
+
+
+<div id="pageContent">
+    <h1 class="bigTitle">Comptes supprimés:</h1>
+    <form class="profile" method="post" action="./gestion-action/accounts-action4.php">
+        <div class="formLine">
+            <TABLE >
+                <?php
+                $count = 0;
+                $requete="SELECT `mail` FROM `utilisateurs` WHERE `etat` != 'inactif'"; // Preparing the request to verify the password where the login entered is found on the database
+                $result = mysqli_query($link, $requete); // Saving the result
+                while($row = mysqli_fetch_array($result)) // Searching the right line
+                {
+                    $count++;
+                    echo "<div class='formLine'>";
+                    if($count %2) echo "<TR class='role-choices'><TH class='profile'> ".$row["mail"]." </TH><TH class='profile'><input class='profile' type='submit' value='Réactiver le compte'></TH></TR>";
+                    else echo"<TR class='role-choices-1'><TH class='profile'> ".$row["mail"]." </TH><TH class='profile'><input class='profile' type='submit' value='Réactiver le compte'></TH></TR>";
+                    echo "</div>";
+                }
+                ?>
+            </TABLE>
+        </div>
+    </form>
+</div>
 <script src="./accounts.js"></script>
 </body>
-
+</html>
