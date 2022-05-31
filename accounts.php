@@ -133,11 +133,11 @@
                 <TABLE class="lbrTable" >
                     <tbody>
                     <?php
-                    $requete="SELECT `mail` FROM `utilisateurs` WHERE `etat` != 'inactif'"; // Preparing the request to verify the password where the login entered is found on the database
+                    $requete="SELECT `mail`, `prenom`,`nom`,`mot_de_passe` FROM `utilisateurs` WHERE `etat` = 'en attente'"; // Preparing the request to verify the password where the login entered is found on the database
                     $result = mysqli_query($link, $requete); // Saving the result
                     while($row = mysqli_fetch_array($result)) // Searching the right line
                     {
-                        echo "<tr><td> ".$row["mail"]." </td><td><input class='profile' type='submit' value='Renvoyer le mail'></td></tr>";
+                        echo "<tr><td> ".$row["mail"]." </td><td><input class='profile' type='submit' name='".$row["mail"]."' value='Renvoyer le mail'></td></tr>";
                     }
                     ?>
                     </tbody>
@@ -151,11 +151,11 @@
                 <TABLE class="lbrTable" >
                     <tbody>
                     <?php
-                    $requete="SELECT `mail` FROM `utilisateurs` WHERE `etat` != 'inactif'"; // Preparing the request to verify the password where the login entered is found on the database
+                    $requete="SELECT `mail` FROM `utilisateurs` WHERE `etat` = 'inactif'"; // Preparing the request to verify the password where the login entered is found on the database
                     $result = mysqli_query($link, $requete); // Saving the result
                     while($row = mysqli_fetch_array($result)) // Searching the right line
                     {
-                        echo "<tr><td> ".$row["mail"]." </td><td><input class='profile' type='submit' value='Réactiver le compte'></td></tr>";
+                        echo "<tr><td> ".$row["mail"]." </td><td><input class='profile' type='submit' name='".$row["mail"]."' value='Réactiver le compte'></td></tr>";
                     }
                     ?>
                     </tbody>

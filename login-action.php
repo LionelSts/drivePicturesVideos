@@ -15,7 +15,7 @@ while($row = mysqli_fetch_array($result)) // Searching the right line
     $_SESSION['prenom'] = $row['prenom'];
 
 }
-if(password_verify($mdp, $hashedpsw)) // If the password entered and the hashed version stored in the database are equal when password entered is hashed
+if(password_verify($mdp, $hashedpsw) && $row['etat']!= "inactif") // If the password entered and the hashed version stored in the database are equal when password entered is hashed
 {
     header('Location:home.php'); // Then you are logged in and can go further
 }

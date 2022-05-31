@@ -18,7 +18,7 @@ if($exist==1)
 else // If that's not the case then all's good you can use it, and enjoy doing Sudoku! (after you log in of course)
 {
     if (!isset($_POST['mdp'])) {
-        $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES ('$prenom', '$nom', '$mail', '$password', '$role','$descriptif', 'actif') "; // So we create your account in our database
+        $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES ('$prenom', '$nom', '$mail', '$password', '$role','$descriptif', 'en attente') "; // So we create your account in our database
         $result = mysqli_query($link,$requete); // the request itself
         $message = "Bonjour ".$_POST['prenom']. "" .$_POST['nom'].",\r\n Pour rappel votre mot de passe est ".$_POST["password"]."";
         mail($mail, "Confirmation d'inscription", $message);
