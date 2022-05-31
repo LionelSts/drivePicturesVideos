@@ -214,9 +214,14 @@ input{
     right: 1em;
 }
 
-#pageContent{
+.pageContent{
     margin: 2em;
     flex: 1;
+}
+
+#pageContent-bottom{
+    margin-left: 21em;
+
 }
 
 .profile form{
@@ -387,7 +392,7 @@ input{
 }
 
 /* The container */
-.uploadsTag {
+.checkboxContainer {
     display: block;
     position: relative;
     padding-left: 35px;
@@ -401,7 +406,7 @@ input{
 }
 
 /* Hide the browser's default checkbox */
-.uploadsTag input {
+.checkboxContainer input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -434,17 +439,17 @@ input{
 }
 
 /* Show the checkmark when checked */
-.uploadsTag input:checked ~ .customCheckBox:after {
+.checkboxContainer input:checked ~ .customCheckBox:after {
     display: block;
 }
 
 /* Show the checkmark when checked */
-.uploadsTag input:checked ~ .customCheckBox:before {
+.checkboxContainer input:checked ~ .customCheckBox:before {
     display: block;
 }
 
 /* Style the checkmark/indicator */
-.uploadsTag .customCheckBox:after {
+.checkboxContainer .customCheckBox:after {
     top: -5.5px;
     left: 12.5px;
     width: 0px;
@@ -463,6 +468,91 @@ input{
     width: 0px;
     height: 1.7em;
     border: solid #EBEAD4;
+    border-width: 0 1px 0 0;
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+/* Red checkBox */
+
+/* The container */
+.redCheckboxContainer {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.redCheckboxContainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.redCheckbox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1.2em;
+    width: 1.2em;
+    border: 1px solid #EA001C;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.redCheckbox:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.redCheckbox:before {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.redCheckboxContainer input:checked ~ .redCheckbox:after {
+    display: block;
+}
+
+/* Show the checkmark when checked */
+.redCheckboxContainer input:checked ~ .redCheckbox:before {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.redCheckboxContainer .redCheckbox:after {
+    top: -8.5px;
+    left: 21px;
+    width: 0px;
+    height: 1.7em;
+    border: solid #EA001C;
+    border-width: 0 1px 0 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/* Style the checkmark/indicator */
+.redCheckbox:before {
+    top: -8.5px;
+    left: 21px;
+    width: 0px;
+    height: 1.7em;
+    border: solid #EA001C;
     border-width: 0 1px 0 0;
     -webkit-transform: rotate(-45deg);
     -ms-transform: rotate(-45deg);
@@ -515,4 +605,34 @@ input{
     border: 1px #EA001C solid;
     float: left;
     margin: 1em 0em 1em 0em;
+}
+
+.lbrTable{
+    border: 1px solid #EA001C;
+    width: 100%;
+    max-height: 50em;
+    border-collapse: collapse;
+}
+
+.lbrTable tr{
+    border: 0px;
+    width: 100%;
+    margin: 0;
+}
+
+.lbrTable td{
+    padding-left: 1em;
+}
+
+.lbrTable input{
+    font-size: 1.25em ;
+    width: auto;
+}
+
+.lbrTable tr:nth-child(2n) {
+    background-color: #FFFEE6;
+}
+
+.lbrTable tr:nth-child(2n+1) {
+    background-color: #EBEAD4;
 }

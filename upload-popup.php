@@ -48,7 +48,7 @@
                         );
                         foreach ($value1 as $key => $value2) {
                         echo('
-                        <label class="uploadsTag">'.$value2.'
+                        <label class="checkboxContainer">'.$value2.'
                             <input type="checkbox" id="'.$value2.'" name="'.$value2.'">
                             <span class="customCheckBox"></span>
                         </label>'

@@ -21,7 +21,6 @@ $result = mysqli_query($link, $requete); // Saving the result
         <input type="text" id="searchInput" placeholder="Barre de recherche"/>
         <img src="images/icons/search-logo.png" id="search-logo">
     </div>
-
 </div>
 <div id="main">
     <?php

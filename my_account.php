@@ -20,7 +20,7 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
         include './menu.php';
         echo getMenu();
         ?>
-        <div id="pageContent">
+        <div class="pageContent">
             <h1 class="bigTitle">Gestion de compte</h1>
             <form class="profile" method="post" action="my_account-action.php">
                 <div class="formLine">
