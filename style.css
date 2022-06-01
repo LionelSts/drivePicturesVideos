@@ -316,9 +316,8 @@ input{
 }
 
 .closeButton{
-    text-align: end;
+    right: 0;
     position: absolute;
-    width: 100%;
 }
 
 .closeButton h1{

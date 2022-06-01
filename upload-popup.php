@@ -16,6 +16,7 @@
             if(preg_match("/image|video/", $_FILES['file']['type'][$i])){
                 $id++;
                 $extension = str_replace("video/", "", $ext);
+                $extension = str_replace("image/", "", $ext);
                 $filename = str_replace('.'.$extension, "", $filename);
                 move_uploaded_file($_FILES['file']['tmp_name'][$i],'fichiers/'.$id.'.'.$extension);
                 $filePath = 'fichiers/'.$id.'.'.$extension;
@@ -34,7 +35,7 @@
         }
     }else{
         $link->query('SET NAMES utf8');
-        $requete = "SELECT `nom_tag`, `categorie` FROM `tags`";
+        $requete = "SELECT `nom_tag`, `nom_categorie` FROM `tags`";
         $result = mysqli_query($link, $requete);
         $data = mysqli_fetch_all($result);
         $requete = "SELECT `nom_categorie` FROM `categorie`";
@@ -55,7 +56,7 @@
     }
 ?>
 <div id="uploadPopUp">
-    <div class="closeButton"><h1>X</h1></div>
+    <div class="closeButton"><h1 onclick="closePopup()">X</h1></div>
     <h1 id="uploadTitle">Téléverser vos fichiers</h1>
     <div id="uploadsTags">
         <div>
@@ -98,3 +99,9 @@
 </div>
 
 <script src="addTag.js"></script>
+
+<script>
+    function closePopup(){
+        document.getElementById("uploadPopUp").hidden = true;
+    }
+</script>

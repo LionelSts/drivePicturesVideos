@@ -28,10 +28,17 @@ $result = mysqli_query($link, $requete); // Saving the result
     ?>
     <div id="pageContent">
         <h1 class="bigTitle">Récents</h1>
+        <p onclick="openPopup()">Ouvrir le pop-up</p>
         <?php
             include 'upload-popup.php';
         ?>
     </div>
 </div>
+
+<script>
+    function openPopup(){
+        document.getElementById("uploadPopUp").hidden = false;
+    }
+</script>
 
 
