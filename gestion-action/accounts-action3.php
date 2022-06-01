@@ -10,7 +10,7 @@
         $nom = $row['nom']; // Saving the user ID needed later
         $prenom = $row['prenom'];
     }
-    $message = "Bonjour ".$prenom. " " .$nom.",\r\n Veuillez changer votre mot de passe en cliquant sur le lien suivant... ";
+    $message = "Bonjour ".$prenom. " " .$nom.",\r\n Veuillez changer votre mot de passe en cliquant sur le lien suivant : http://localhost/driveBriquesRouges/register.html ";
     mail($mail, "Confirmation d'inscription", $message);
     header('location:../accounts.php');
 ?>

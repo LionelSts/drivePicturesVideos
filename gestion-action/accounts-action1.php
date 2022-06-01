@@ -9,8 +9,12 @@ if (isset($_POST["supprimer"])){
     echo '<script> alert("Compte supprimé avec succés.");window.location.replace("../home.php");</script>';
 }
 else if(isset($_POST["modifier"])){
-    $requete= "UPDATE `utilisateurs` SET `prenom` = '$prenom', `nom` = '$nom', `mot_de_passe` = '$password', `role` = '$role' WHERE `mail` = '$mail'";
-    $result = mysqli_query($link,$requete);
-    echo '<script> alert("Compte modifié avec succés.");window.location.replace("../home.php");</script>';
+    $regex = "/^(?=.*[\w])(?=.*[\W])[\w\W]{8,}$/";
+    if(preg_match($regex, $mdp)) {
+        $requete = "UPDATE `utilisateurs` SET `prenom` = '$prenom', `nom` = '$nom', `mot_de_passe` = '$password', `role` = '$role' WHERE `mail` = '$mail'";
+        $result = mysqli_query($link, $requete);
+        echo '<script> alert("Compte modifié avec succés.");window.location.replace("../home.php");</script>';
+    }
+    else echo '<script> alert("Veuillez saisir un mot de passe contenant au minimum 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial."); window.location.replace("../accounts.php");</script>';
 }
 ?>
