@@ -21,7 +21,6 @@ if(password_verify($mdp, $hashedpsw) && $row['etat']!= "inactif") // If the pass
 }
 else
 {
-    echo '<script> alert("Identifiant ou mot de passe incorrecte");
-    window.location.replace("login.html");</script>'; // If not then you are coridally invited to log in again, with the right password this time... Or to put an existing login if that wasn't the case
+    echo '<script> alert("Identifiant ou mot de passe incorrecte");window.location.replace("login.html");</script>';
 }
 ?>
