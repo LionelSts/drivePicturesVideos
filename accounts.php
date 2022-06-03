@@ -33,7 +33,7 @@
                 <div class="formLine">
                     <label class='profile'>Sélectionnez un compte :</label>
                     <div class="lbrSelect">
-                        <select class="profile, role-select" onclick='formReload(mapAccounts)' id='account'>
+                        <select class="profile, role-select" onclick='formReload(mapAccounts)' id='account' name="selectedMail">
                             <?php
                                 $counter =0;
                                 foreach ($data as $item) :
@@ -59,7 +59,7 @@
                 </div>
                 <div class="formLine">
                     <label class='profile' for='mail' >Adresse mail : </label>
-                    <input class='profile' type='text' name="mail" id='mail' required>
+                    <input class='profile' type='text' name="mail" id='mail' required disabled >
                 </div>
                 <div class="formLine">
                     <label class='profile' for='role' >Rôle : </label>

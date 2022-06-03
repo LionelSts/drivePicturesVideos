@@ -2,7 +2,7 @@
     session_start();
     $prenom = $_POST['prenom'];
     $nom = $_POST['nom'];
-    $mail = $_POST['email'];
+    $mail = $_SESSION['email'];
     $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
     $requete = "SELECT `nom`, `prenom`, `mail`, `role`, `mot_de_passe` FROM `utilisateurs` WHERE `mail` = '$mail'";
     $result = mysqli_query($link,$requete);

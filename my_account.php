@@ -33,7 +33,7 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
                 </div>
                 <div class="formLine">
                     <label for="mail">Adresse mail :</label>
-                    <input class="profile" type="email" id="mail" name="email" value='<?php echo $_SESSION["mail"]?>' <?php if($_SESSION['role'] != "admin") echo "disabled" ?> >
+                    <input class="profile" type="email" id="mail" name="email" value='<?php echo $_SESSION["mail"]?>' disabled >
                 </div>
                 <div class="formLine">
                     <label for="motdepasse">Mot de passe :</label>

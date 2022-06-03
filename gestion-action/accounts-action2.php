@@ -13,7 +13,10 @@ $result = mysqli_query($link,$requete); // Applying the request
 $exist = mysqli_num_rows($result); // If the login doesn't exist already then $exist=0 if it exists already then exist= 1
 if($exist==1)
 {
-    echo '<script language="JavaScript"> alert("Le compte saisi existe déjà.");window.location.replace("../home.php");</script>'; // Please chose another login
+    echo '<script> 
+            alert("Le compte saisi existe déjà.");
+            window.location.replace("../home.php");
+          </script>'; // Please chose another login
 }
 else // If that's not the case then all's good you can use it, and enjoy doing Sudoku! (after you log in of course)
 {
