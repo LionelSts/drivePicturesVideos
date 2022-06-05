@@ -1,5 +1,5 @@
 <?php
-    $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
+$link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
     $link->query('SET NAMES utf8');
     $final_tab = [];
     $requete = "SELECT `nom_tag`, `nom_categorie` FROM `tags`";
@@ -21,7 +21,6 @@
         unset($tab);
     }
 ?>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <div id="uploadPopUp">
     <div class="closeButton"><h1 onclick="closePopup()">X</h1></div>
     <h1 id="uploadTitle">Téléverser vos fichiers</h1>
@@ -72,4 +71,5 @@
     function closePopup(){
         document.getElementById("uploadPopUp").hidden = true;
     }
+    document.getElementById("uploadPopUp").hidden = true;
 </script>

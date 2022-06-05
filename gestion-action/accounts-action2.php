@@ -20,7 +20,9 @@ if($exist==1)
 }
 else //
 {
-    if (!isset($_POST['mdp'])) {
+    if (isset($_POST['mdp'])) {
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
         $message = file_get_contents('template.html');
         $tmpPassword = bin2hex(random_bytes(24));
         $hashedPassword = password_hash($tmpPassword, PASSWORD_BCRYPT);
@@ -28,7 +30,7 @@ else //
         $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES ('$prenom', '$nom', '$mail', '$hashedPassword', '$role','$descriptif', 'en attente') "; // So we create your account in our database
         $result = mysqli_query($link,$requete); // the request itself
         $subject = 'Votre compte Drive Les Briques Rouges';
-        mail($mail, $subject, $message);
+        mail($mail, $subject, $message, $headers);
     }
     header("location:../home.php"); // Now you are to login...
 }

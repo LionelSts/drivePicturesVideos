@@ -1,4 +1,7 @@
 <?php
+
+require 'vendor/autoload.php';
+
 session_start();
 $str_arr = array();
 foreach ($_POST as $key => $value){
@@ -23,8 +26,6 @@ $tagList = array();
 foreach ($requestTags as $value){
     $tagList[] = $value["nom_tag"];
 }
-
-print_r($str_arr);
 foreach ($str_arr as $tag){
     $isIn = array_search($tag[1], $tagList);
     if(!$isIn){
@@ -39,7 +40,7 @@ for($i = 0 ; $i < $countfiles ; $i++){
     if(preg_match("/image|video/", $_FILES['file']['type'][$i])){
         $id++;
         $extension = str_replace("video/", "", $ext);
-        $extension = str_replace("image/", "", $ext);
+        $extension = str_replace("image/", "", $extension);
         $filename = str_replace('.'.$extension, "", $filename);
         move_uploaded_file($_FILES['file']['tmp_name'][$i],'fichiers/'.$id.'.'.$extension);
         $filePath = 'fichiers/'.$id.'.'.$extension;
@@ -48,10 +49,35 @@ for($i = 0 ; $i < $countfiles ; $i++){
         $size = $_FILES['file']['size'][$i];
         if(preg_match("/video/", $_FILES['file']['type'][$i])){
             $duree = date('H:i:s', round($file['playtime_seconds']));
+            // We create thumbnail
+            $ffmpeg = FFMpeg\FFMpeg::create();
+            $video = $ffmpeg->open('./fichiers/'.$id.'.'.$extension);
+            $video
+                ->filters()
+                ->resize(new FFMpeg\Coordinate\Dimension(320, 240))
+                ->synchronize();
+            $video
+                ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(5))
+                ->save('./mignatures/'.$id.'.png');
         }
         else{
             $duree = '00:00:00';
+            imagepng(imagecreatefromstring(file_get_contents('./fichiers/'.$id.'.'.$extension)), './mignatures/'.$id.'.png');
         };
+
+        // Chargement
+        $filename = './mignatures/'.$id.'.png';
+        list($width, $height) = getimagesize($filename);
+        $thumb = imagecreatetruecolor(267, 197);
+        $source = imagecreatefrompng($filename);
+        $height = round($width * 0.74);
+        if($width < $height){
+            $src_y = round($height/2);
+        }
+
+// Redimensionnement
+        imagecopyresized($thumb, $source, 0, 0, 0, $src_y, 267, 197, $width, $height);
+        imagepng($thumb, $filename);
         $requete = "INSERT INTO fichiers (`id`, `nom_fichier`, `extension`, `auteur`, `date`, `duree`, `size`) VALUES ('$id', '$filename', '$extension', '$mail', '$date', '$duree', '$size')";
         $result = mysqli_query($link, $requete);
         $requete = "INSERT INTO caracteriser (`id_fichier`, `nom_tag`) VALUES ('$id', '$tags_file')";
@@ -59,5 +85,6 @@ for($i = 0 ; $i < $countfiles ; $i++){
         unset($getID3);
     }
 }
-// echo '<script>window.location.replace("my_files.php")</script>';
+
+header('Location:my_files.php');
 ?>
