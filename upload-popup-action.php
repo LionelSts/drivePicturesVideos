@@ -32,7 +32,7 @@ foreach ($str_arr as $tag){
         $requete = "INSERT INTO tags (`nom_tag`, `nom_categorie`) VALUES ('$tag[1]', '$tag[0]')";
         $result = mysqli_query($link, $requete);
     }
-    $tags_file .= $tag[1]."-";
+    $tags_file .= $tag[1]." ";
 }
 for($i = 0 ; $i < $countfiles ; $i++){
     $ext = $_FILES['file']['type'][$i];
@@ -66,10 +66,10 @@ for($i = 0 ; $i < $countfiles ; $i++){
         };
 
         // Chargement
-        $filename = './mignatures/'.$id.'.png';
-        list($width, $height) = getimagesize($filename);
+        $thunmnailName = './mignatures/'.$id.'.png';
+        list($width, $height) = getimagesize($thunmnailName);
         $thumb = imagecreatetruecolor(267, 197);
-        $source = imagecreatefrompng($filename);
+        $source = imagecreatefrompng($thunmnailName);
         $height = round($width * 0.74);
         if($width < $height){
             $src_y = round($height/2);
@@ -77,7 +77,7 @@ for($i = 0 ; $i < $countfiles ; $i++){
 
 // Redimensionnement
         imagecopyresized($thumb, $source, 0, 0, 0, $src_y, 267, 197, $width, $height);
-        imagepng($thumb, $filename);
+        imagepng($thumb, $thunmnailName);
         $requete = "INSERT INTO fichiers (`id`, `nom_fichier`, `extension`, `auteur`, `date`, `duree`, `size`) VALUES ('$id', '$filename', '$extension', '$mail', '$date', '$duree', '$size')";
         $result = mysqli_query($link, $requete);
         $requete = "INSERT INTO caracteriser (`id_fichier`, `nom_tag`) VALUES ('$id', '$tags_file')";

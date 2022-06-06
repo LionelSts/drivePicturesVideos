@@ -11,7 +11,6 @@
     $data = mysqli_fetch_all($result);
     ?>
     <script>
-
         const mapAccounts = new Map();
         <?php foreach ($data as $item) : ?>
         mapAccounts.set( '<?php echo $item[2] ?>', <?php echo json_encode($item)?>);

@@ -27,8 +27,15 @@ $result = mysqli_query($link, $requete); // Saving the result
         echo getMenu();
     ?>
     <div id="pageContent">
-        <h1 class="bigTitle">Récents</h1>
-        <p onclick="openPopup()">Ouvrir le pop-up</p>
+        <h1 class="bigTitle">Mes fichiers</h1>
+        <div id="uploadButtonOpen" onclick="openPopup()">
+            <img src="./images/icons/cloud-computing">
+            <p>Ouvrir le pop-up</p>
+        </div>
+        <h2 class="mediumTitle">Récents</h2>
+        <?php
+            include 'filesDisplay.php';
+        ?>
         <?php
             include 'upload-popup.php';
         ?>
