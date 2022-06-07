@@ -720,6 +720,7 @@ input{
 }
 .fichierSubContainer p{
     padding: 0.5em 0.3em 0.5em 0.3em;
+    font-size:1.25em;
 }
 
 .fichierContainer p{
@@ -753,6 +754,7 @@ input{
 .filesNavigation{
     display: flex;
     justify-content: space-between;
+    text-align: right;
 }
 
 .filesNavigation a{
@@ -761,4 +763,22 @@ input{
 
 .filesNavigation div{
     margin: auto 0 auto 0;
+}
+
+.actionButtonsContainer{
+    display: flex;
+}
+
+.actionButtonsContainer img{
+    background-color: #EA001C;
+    padding: 0.5em;
+    margin-right: 1em;
+    width: 1.5em;
+}
+
+#editFilesTags{
+    margin: auto;
+    padding: 0.5em;
+    background-color: #EA001C;
+    color: #EBEAD4;
 }

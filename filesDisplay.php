@@ -18,6 +18,15 @@
 <div class="filesNavigation">
     <h2 class="mediumTitle">Récents</h2>
     <div>
+        <div id="checkActionButtons">
+            <p id="filesSize"></p>
+            <div class="actionButtonsContainer">
+                <div id="downloadZone"></div>
+                <p id="editFilesTags" >Modifier les tags</p>
+                <img src="./images/icons/download.png" onclick="downloadFiles()">
+                <img src="./images/icons/trash.png">
+            </div>
+        </div>
         <a href="<?php
         if($page <= 0){
             echo './my_files.php?page=0';
@@ -35,13 +44,12 @@
     </div>
 </div>
 <div id="filesDisplayContainer">
-
     <?php
         foreach ($files as $fichier){
             echo '<div class="fichierContainer">
                     <div class="fichierSubContainer">
                     <label class="checkboxContainer checkboxFiles">
-                             <input type="checkbox" id="' . $fichier[0] . '" name="'. $fichier[0] . '" value="Yes">
+                             <input type="checkbox" id="' . $fichier[0] . '" name="'. $fichier[0] . '.' . $fichier[2] . '" value="'.$fichier[6].'" onclick="buttonsAction()">
                              <span class="customCheckBox"></span>
                         </label>
                         <img class="migniatureFichier" src='.".\mignatures\\" . $fichier[0] . ".png" .' >
@@ -56,3 +64,5 @@
         }
     ?>
 </div>
+<script src="selectionComponent.js"></script>
+
