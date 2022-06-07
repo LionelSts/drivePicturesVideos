@@ -17,10 +17,11 @@
         mapAccounts.set( '<?php echo $item[2] ?>', <?php echo json_encode($item)?>);
         <?php endforeach; ?>
     </script>
+    <title>Gestion des comptes - DriveLBR</title>
 </head>
 <body>
     <div id="header">
-        <a href="home.php"> <img  id="logo-header" src="images/graphiqueLBR/logoLONGUEURClassic.png"></a>
+        <a href="home.php"> <img alt="logoLBR" id="logo-header" src="images/graphiqueLBR/logoLONGUEURClassic.png"></a>
     </div>
     <div id="main">
         <?php
@@ -68,7 +69,7 @@
                             <option class="role-choices" id="invite" value='invite'>invité</option>
                             <option class="role-choices-1" id="ecriture" value='ecriture'>ecriture</option>
                             <option class="role-choices" id="lecture" value='lecture'>lecture</option>
-                            <option class="role-choices-1"id="admin" value='admin'>admin</option>
+                            <option class="role-choices-1" id="admin" value='admin'>admin</option>
                         </select required>
                     </div>
                 </div>
@@ -105,7 +106,7 @@
                         <option class="role-choices" id="invite" value='invite'>invité</option>
                         <option class="role-choices-1" id="ecriture" value='ecriture'>ecriture</option>
                         <option class="role-choices" id="lecture" value='lecture'>lecture</option>
-                        <option class="role-choices-1"id="admin" value='admin'>admin</option>
+                        <option class="role-choices-1" id="admin" value='admin'>admin</option>
                     </select required>
                 </div>
             </div>

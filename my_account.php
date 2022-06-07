@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
+    <title>Mon compte - DriveLBR</title>
 </head>
 
 <?php
@@ -11,7 +12,7 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
 ?>
 <body>
     <div id="header">
-        <a href="home.php"> <img  id="logo-header" src="images/graphiqueLBR/logoLONGUEURClassic.png"></a>
+        <a href="home.php"> <img alt="logoLBR" id="logo-header" src="images/graphiqueLBR/logoLONGUEURClassic.png"></a>
     </div>
 
 

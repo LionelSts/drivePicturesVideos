@@ -38,7 +38,7 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
                             <div class="uploadsTagList" >
                             <div id="list' . $categorie[$i] . '">'
                 );
-                foreach ($value1 as $key => $value2) {
+                foreach ($value1 as $key2 => $value2) {
                     echo('
                                 <label class="checkboxContainer">' . $value2 . '
                                     <input type="checkbox" id="' . $value2 . '" name="'. $categorie[$i] .'-' .  $value2 . '" value="Yes">

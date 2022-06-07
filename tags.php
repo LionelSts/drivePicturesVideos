@@ -3,9 +3,13 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
+    <title>Gestion des tags - DriveLBR</title>
 </head>
 
 <?php
+
+use Ds\Map;
+
 require 'vendor/autoload.php';
 session_start();
 $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr");
@@ -18,7 +22,7 @@ while($row = mysqli_fetch_array($result)){
 ?>
 <body>
 <div id="header">
-    <a href="home.php"> <img  id="logo-header" src="images/graphiqueLBR/logoLONGUEURClassic.png"></a>
+    <a href="home.php"> <img alt="logoLBR" id="logo-header" src="images/graphiqueLBR/logoLONGUEURClassic.png"></a>
 </div>
 
 
@@ -78,7 +82,7 @@ while($row = mysqli_fetch_array($result)){
         $requete = "SELECT `nom_categorie`,`nom_tag` FROM `tags`";
         $result = mysqli_query($link, $requete);
         $data = mysqli_fetch_all($result);
-        $map = new \Ds\Map;
+        $map = new Map;
         foreach ($data as $tag){
             $tempArray = $map->get($tag[0], array());
             $tempArray[] = $tag[1];

@@ -26,4 +26,3 @@
     if($role != $_POST['role']) echo '<script> alert("Votre rôle n\'a pas été modifié (vous êtes le seul admin)")</script>';
     else echo '<script> alert("Vos changements ont bien été appliqués")</script>';
     echo '<script>window.location.replace("my_account.php")</script>';
-?>

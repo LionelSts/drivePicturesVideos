@@ -1,6 +1,9 @@
 <?php
 $files = explode(",",$_POST["fichiers"]);
-$bytes = random_bytes(5);
+try {
+    $bytes = random_bytes(5);
+} catch (Exception $e) {
+}
 $randWord = bin2hex($bytes);
 $zip = new ZipArchive;
 $fileName = $randWord.'.zip';
@@ -40,5 +43,4 @@ if (headers_sent()) {
 
     }
 }
-?>
 

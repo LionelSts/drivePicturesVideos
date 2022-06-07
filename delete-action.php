@@ -5,5 +5,3 @@ session_start();
 
 
 header('Location:index.html');
-
-?>

@@ -7,7 +7,7 @@ $str_arr = array();
 foreach ($_POST as $key => $value){
     if($key != "submit" && $key != "newTag"){
         $chaine = explode ("-", $key);
-        array_push($str_arr, $chaine);
+        $str_arr[] = $chaine;
     }
 }
 require_once('getID3-master/getid3/getid3.php');
@@ -47,7 +47,7 @@ for($i = 0 ; $i < $countfiles ; $i++){
         $getID3 = new getID3;
         $file = $getID3->analyze($filePath);
         $size = $_FILES['file']['size'][$i];
-        if(preg_match("/video/", $_FILES['file']['type'][$i])){
+        if(str_contains($_FILES['file']['type'][$i], "video")){
             $duree = date('H:i:s', round($file['playtime_seconds']));
             // We create thumbnail
             $ffmpeg = FFMpeg\FFMpeg::create();
@@ -63,7 +63,7 @@ for($i = 0 ; $i < $countfiles ; $i++){
         else{
             $duree = '00:00:00';
             imagepng(imagecreatefromstring(file_get_contents('./fichiers/'.$id.'.'.$extension)), './mignatures/'.$id.'.png');
-        };
+        }
 
         // Chargement
         $thunmnailName = './mignatures/'.$id.'.png';
@@ -88,4 +88,3 @@ for($i = 0 ; $i < $countfiles ; $i++){
 }
 
 header('Location:my_files.php');
-?>

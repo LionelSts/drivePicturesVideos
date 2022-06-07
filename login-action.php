@@ -23,4 +23,3 @@ else
 {
     echo '<script> alert("Identifiant ou mot de passe incorrecte");window.location.replace("index.html");</script>';
 }
-?>

@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
+    <title>Mes fichiers - DriveLBR</title>
 </head>
 
 <?php
@@ -15,10 +16,10 @@ $result = mysqli_query($link, $requete); // Saving the result
 ?>
 
 <div id="header">
-    <a class="logoTop" href="home.php"><img id="logo-header-home" src="images/graphiqueLBR/logoLONGUEURClassic.png"></a>
+    <a class="logoTop" href="home.php"><img alt="logoLBR" id="logo-header-home" src="images/graphiqueLBR/logoLONGUEURClassic.png"></a>
     <div id="searchbar">
         <input type="text" id="searchInput" placeholder="Barre de recherche"/>
-        <img src="images/icons/search-logo.png" id="search-logo">
+        <img alt="Loupe" src="images/icons/search-logo.png" id="search-logo">
     </div>
 </div>
 <div id="main">
@@ -29,7 +30,7 @@ $result = mysqli_query($link, $requete); // Saving the result
     <div id="pageContent">
         <h1 class="bigTitle">Mes fichiers</h1>
         <div id="uploadButtonOpen" onclick="openPopup()">
-            <img src="./images/icons/cloud-computing">
+            <img alt="téléverser" src="./images/icons/cloud-computing.png">
             <p>Ouvrir le pop-up</p>
         </div>
         <?php
