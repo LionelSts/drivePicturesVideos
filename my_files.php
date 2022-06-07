@@ -32,7 +32,6 @@ $result = mysqli_query($link, $requete); // Saving the result
             <img src="./images/icons/cloud-computing">
             <p>Ouvrir le pop-up</p>
         </div>
-        <h2 class="mediumTitle">Récents</h2>
         <?php
             include 'filesDisplay.php';
         ?>

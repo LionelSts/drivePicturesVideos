@@ -71,6 +71,7 @@ for($i = 0 ; $i < $countfiles ; $i++){
         $thumb = imagecreatetruecolor(267, 197);
         $source = imagecreatefrompng($thunmnailName);
         $height = round($width * 0.74);
+        $src_y = 0;
         if($width < $height){
             $src_y = round($height/2);
         }
