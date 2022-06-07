@@ -11,6 +11,7 @@
     $data = mysqli_fetch_all($result);
     ?>
     <script>
+
         const mapAccounts = new Map();
         <?php foreach ($data as $item) : ?>
         mapAccounts.set( '<?php echo $item[2] ?>', <?php echo json_encode($item)?>);
@@ -32,7 +33,7 @@
                 <div class="formLine">
                     <label class='profile'>Sélectionnez un compte :</label>
                     <div class="lbrSelect">
-                        <select class="profile, role-select" onclick='formReload(mapAccounts)' id='account' name="selectedMail">
+                        <select class="profile, role-select" onclick='formReload(mapAccounts)' id='account'>
                             <?php
                                 $counter =0;
                                 foreach ($data as $item) :
@@ -58,7 +59,7 @@
                 </div>
                 <div class="formLine">
                     <label class='profile' for='mail' >Adresse mail : </label>
-                    <input class='profile' type='text' name="mail" id='mail' required disabled >
+                    <input class='profile' type='text' name="mail" id='mail' required>
                 </div>
                 <div class="formLine">
                     <label class='profile' for='role' >Rôle : </label>
