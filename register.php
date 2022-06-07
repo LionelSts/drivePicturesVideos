@@ -7,10 +7,14 @@
 
 <body>
 
+<?php
+    $tmpPsw = $_GET['tmpPsw'];
+?>
+
 <div id="container">
     <img id="logo" src="./images/graphiqueLBR/Plan%20de%20travail%2010LogoFullBlanc.png"/>
     <h1 id="loginPageTitle">DRIVE</h1>
-    <form action="register-action.php" id="login-form" method="post">
+    <form action="register-action.php<?php echo '?tmpPsw='.$tmpPsw ?>" id="login-form" method="post">
         <label class="textConnexion" for="email">Code de Vérification :</label></br>
         <input class="loginInputs" type="text" name="email" id="email" required/>
         </br></br></br>
