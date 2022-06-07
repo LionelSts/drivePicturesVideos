@@ -23,8 +23,8 @@
             <div class="actionButtonsContainer">
                 <div id="downloadZone"></div>
                 <p id="editFilesTags" >Modifier les tags</p>
-                <img src="./images/icons/download.png" onclick="downloadFiles()">
-                <img src="./images/icons/trash.png">
+                <img alt="télécharger" src="./images/icons/download.png" onclick="downloadFiles(<?php echo $page/20 ?>)">
+                <img alt="supprimer" src="./images/icons/trash.png">
             </div>
         </div>
         <a href="<?php
@@ -40,7 +40,7 @@
         }else{
             echo './my_files.php?page='.$page/20 +1;
         }
-        ?>"">Page suivante ></a>
+        ?>">Page suivante ></a>
     </div>
 </div>
 <div id="filesDisplayContainer">
@@ -52,7 +52,7 @@
                              <input type="checkbox" id="' . $fichier[0] . '" name="'. $fichier[0] . '.' . $fichier[2] . '" value="'.$fichier[6].'" onclick="buttonsAction()">
                              <span class="customCheckBox"></span>
                         </label>
-                        <img class="migniatureFichier" src='.".\mignatures\\" . $fichier[0] . ".png" .' >
+                        <img alt="mignature du fichier '. $fichier[0] . '.' . $fichier[2] .' " class="migniatureFichier" src='.".\mignatures\\" . $fichier[0] . ".png" .' >
                         <p>
                             '.$fichier[1].'
                         </p>
