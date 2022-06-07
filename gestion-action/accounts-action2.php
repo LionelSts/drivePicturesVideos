@@ -13,15 +13,24 @@ $result = mysqli_query($link,$requete); // Applying the request
 $exist = mysqli_num_rows($result); // If the login doesn't exist already then $exist=0 if it exists already then exist= 1
 if($exist==1)
 {
-    echo '<script language="JavaScript"> alert("Le compte saisi existe déjà.");window.location.replace("../home.php");</script>'; // Please chose another login
+    echo '<script> 
+            alert("Le compte saisi existe déjà.");
+            window.location.replace("../account.php");
+          </script>'; // Please chose another login
 }
-else // If that's not the case then all's good you can use it, and enjoy doing Sudoku! (after you log in of course)
+else //
 {
-    if (!isset($_POST['mdp'])) {
-        $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES ('$prenom', '$nom', '$mail', '$password', '$role','$descriptif', 'en attente') "; // So we create your account in our database
+    if (isset($_POST['mdp'])) {
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $message = file_get_contents('template.html');
+        $tmpPassword = bin2hex(random_bytes(24));
+        $hashedPassword = password_hash($tmpPassword, PASSWORD_BCRYPT);
+        $message = str_replace('registerLink', 'register.php?tmpPsw='.$tmpPassword, $message);
+        $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES ('$prenom', '$nom', '$mail', '$hashedPassword', '$role','$descriptif', 'en attente') "; // So we create your account in our database
         $result = mysqli_query($link,$requete); // the request itself
-        $message = "Bonjour ".$_POST['prenom']. "" .$_POST['nom'].",\r\n Pour rappel votre mot de passe est ".$_POST["password"]."";
-        mail($mail, "Confirmation d'inscription", $message);
+        $subject = 'Votre compte Drive Les Briques Rouges';
+        mail($mail, $subject, $message, $headers);
     }
     header("location:../home.php"); // Now you are to login...
 }

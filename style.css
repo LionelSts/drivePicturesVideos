@@ -153,6 +153,7 @@ input{
     background-color: #EBEAD4;
     margin: 0 1em 0 1em;
     width: 17em;
+    height: fit-content;
 }
 
 #menurubrique{
@@ -312,7 +313,7 @@ input{
     width: 90%;
     height: 90%;
     background-color: #161920;
-    text-align: center;
+    text-align: center
 }
 
 .closeButton{
@@ -446,7 +447,7 @@ input{
 }
 
 /* Style the checkmark/indicator */
-.checkboxContainer .customCheckBox:after {
+.customCheckBox:after {
     top: -5.5px;
     left: 12.5px;
     width: 0px;
@@ -667,4 +668,97 @@ input{
     display: flex;
     align-items: center;
     width: 20%;
+}
+
+#uploadButtonOpen{
+    padding: 0.5em;
+    background-color: #EA001C;
+    color : #EBEAD4;
+    font-size: 2em;
+    display: flex;
+    margin: 1em 0 1em 0;
+    width: fit-content;
+}
+
+#uploadButtonOpen img{
+    width: 2em;
+    height: 2em;
+    margin: auto;
+ }
+
+#uploadButtonOpen p{
+    padding: 0 1em 0 1em;
+    margin: auto;
+}
+
+.mediumTitle{
+    font-size: 2.25em;
+    font-weight: normal;
+    margin: 0em;
+}
+
+#filesDisplayContainer{
+    padding: 0.5em;
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.fichierContainer{
+    background-color: #000000;
+    color: #EBEAD4;
+    width: 16.688em;
+    height: 16.438em;
+    padding: 0;
+    margin: 0.5em;
+}
+
+.fichierSubContainer{
+    background-color: #EA001C;
+    color: #EBEAD4;
+    margin: 0;
+    padding: 0;
+}
+.fichierSubContainer p{
+    padding: 0.5em 0.3em 0.5em 0.3em;
+}
+
+.fichierContainer p{
+    margin: 0;
+    padding: 0.3em;
+}
+
+.migniatureFichier{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.checkboxFiles{
+    margin : 0;
+}
+
+.checkboxFiles span{
+    margin: 0.5em;
+    border-color: #EA001C;
+}
+
+.checkboxFiles span:before{
+    border-color: #EA001C;
+}
+
+.checkboxFiles span:after{
+    border-color: #EA001C;
+}
+
+.filesNavigation{
+    display: flex;
+    justify-content: space-between;
+}
+
+.filesNavigation a{
+    margin: auto 0.5em auto auto;
+}
+
+.filesNavigation div{
+    margin: auto 0 auto 0;
 }
