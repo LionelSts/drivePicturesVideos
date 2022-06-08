@@ -13,7 +13,7 @@
         mysqli_query($link, $requete2);
         echo '<script> alert("Catégorie supprimée avec succés.");window.location.replace("./tags.php");</script>';
     } else if (isset($_POST["Modifier"])) {
-        $categorie = str_replace("&Modifier=Modifier", '', $chaine);
+        $categorie = $_POST["categorie"];
         $categorie_apres = $_POST["nomCategorie"];
         $requete1 = "UPDATE `tags` SET `nom_categorie`='$categorie_apres' WHERE `nom_categorie`='$categorie'";
         $requete2 = "UPDATE `categorie` SET `nom_categorie`='$categorie_apres' WHERE `nom_categorie`='$categorie'";

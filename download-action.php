@@ -1,5 +1,4 @@
 <?php
-if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
 $files = explode(",",$_POST["fichiers"]);
 try {
     $bytes = random_bytes(5);

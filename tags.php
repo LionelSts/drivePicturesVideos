@@ -43,6 +43,7 @@ while($row = mysqli_fetch_array($result)){
                             <input class="profile" type="text" id="nomCategorie" name="nomCategorie" value='.$value1.'>
                             <input class="profile" type="submit" id='.$value1.' name="Modifier" value="Modifier">
                             <input class="profile" type="submit" id='.$value1.' name="Supprimer" value="Supprimer">
+                            <input hidden type="text" name="categorie" value='.$value1.'>
                         </div></form>');
                 }
                 ?>
