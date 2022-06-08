@@ -47,22 +47,23 @@ while($row = mysqli_fetch_array($result)){
             <form method="post" action="tags-action.php">
                 <div class="tagsLine">
                     <label for='role'>Nouvelle catégorie :</label>
-                    <input class="profile" type="text" id="nomCategorie" name="nomCategorie1">
-                    <div class="lbrSelect">
-                        <select class="profile, role-select" onclick='formReload(mapAccounts)' id='account'>
+                    <input class="profile" type="text" id="nomCategorie" name="nomCategorie1" required>
+                    <div class="tableContainer">
+                        <ul>
                             <?php
                             $counter =0;
                             $requete = "SELECT `nom_tag` FROM `tags` WHERE `nom_categorie` = 'Autre'";
                             $result = mysqli_query($link, $requete);
                             while($row = mysqli_fetch_array($result))
                             {
-                                if($counter%2) echo '<option class="role-choices" value = `.$row["nom_tag"].`><input type="checkbox" id="mdp" name="mdp" value="mdp"><span class="redCheckbox"></span>'.$row["nom_tag"].'</option><br>';
-                                else echo '<option class="role-choices-1" value= `.$row["nom_tag"].`><input type="checkbox" id="mdp" name="mdp" value="mdp"><span class="redCheckbox"></span>'.$row["nom_tag"].'</option><br>';
+                                if($counter%2) echo"<li style='list-style: none;' class='role-choices'><label class='redCheckboxContainer'><input type='checkbox' name='listeTag' value =".$row["nom_tag"]."><span class='redCheckbox'></span>".$row["nom_tag"]."</label></li>";
+                                else echo"<li style='list-style: none;' class='role-choices-1'><label class='redCheckboxContainer'><input type='checkbox' name='listeTag' value =".$row["nom_tag"]."><span class='redCheckbox'></span>".$row["nom_tag"]."</label></li>";
+                                $counter++;
                             }
                             ?>
-                        </select>
+                        </ul>
                     </div>
-                    <input class="profile" type="submit" value="Créer">
+                    <input class="profile" type="submit" name="Créer" value="Créer">
                 </div>
             </form>
         </div>
@@ -87,38 +88,53 @@ while($row = mysqli_fetch_array($result)){
         foreach ($map as $key => $value){
             echo '<label for="Categories" > '.$key.' </label><div class="tagsContainer">';
             foreach ($value as $tag) {
-                echo '
-                              <form method="post" action="tags-action2.php">
+                echo '<form method="post" action="tags-action2.php">
                                 <div class="tagsLine">
-                                    <label for="nom" >'.$tag.'</label>
-                                    <input class="profile" type="text" id="nomCategorie" name="nomCategorie" value='.$tag.'>
-                                    <input class="profile" type="submit" id='.$tag.' name="Modifier" value="Modifier">
-                                    <input class="profile" type="submit" id='.$tag.' name="Supprimer" value="Supprimer">
-                                </div>
-                              </form>';
+                                    <label for="nom" id="nom">'.$tag.'</label>
+                                    <input class="profile" type="text" id="nomCategorie" name="nomTag" value='.$tag.'>
+                                    <select class="profile, role-select" id="account" name="categorie">';
+                $counter =0;
+                $requete = "SELECT `nom_categorie` FROM `tags` GROUP By `nom_categorie`";
+                $result = mysqli_query($link, $requete);
+                while($row = mysqli_fetch_array($result))
+                {
+                    if($row["nom_categorie"] == $key && $counter%2) echo '<option class="role-choices" selected>'.$row["nom_categorie"].'</option><br>';
+                    else if($row["nom_categorie"] == $key) echo '<option class="role-choices-1" selected>'.$row["nom_categorie"].'</option><br>';
+                    else if($counter%2) echo '<option class="role-choices">'.$row["nom_categorie"].'</option><br>';
+                    else echo '<option class="role-choices-1">'.$row["nom_categorie"].'</option><br>';
+                    $counter++;
+                }
+                echo '</select>
+                <input hidden type="text" name="ancienTag" value='.$tag.'>
+                <input hidden type="text" name="ancienneCategorie" value='.$key.'>
+                <input class="profile" type="submit" id='.$tag.' name="Modifier" value="Modifier">
+                <input class="profile" type="submit" id='.$tag.' name="Supprimer" value="Supprimer">
+                </div>
+                </form>';
             }
             echo '</div>';
         }
         ?>
-        <form method="post" action="tags-action.php">
+        <form method="post" action="tags-action2.php">
             <div class="tagsLine">
                 <label for='role'>Nouveau Tag :</label>
-                <input class="profile" type="text" id="nomCategorie" name="nomCategorie1">
+                <input class="profile" type="text" id="nomCategorie" name="nomTag">
                 <div class="lbrSelect">
-                    <select class="profile, role-select" onclick='formReload(mapAccounts)' id='account'>
+                    <select class="profile, role-select" id='account' name='categorie'>
                         <?php
                         $counter =0;
                         $requete = "SELECT `nom_categorie` FROM `tags` GROUP By `nom_categorie`";
                         $result = mysqli_query($link, $requete);
                         while($row = mysqli_fetch_array($result))
                         {
-                            if($counter%2) echo '<option class="role-choices" value = `.$row["nom_categorie"].`>'.$row["nom_categorie"].'</option><br>';
-                            else echo '<option class="role-choices-1" value= `.$row["nom_categorie"].`>'.$row["nom_categorie"].'</option><br>';
+                            if($counter%2) echo '<option class="role-choices" value = '.$row["nom_categorie"].'>'.$row["nom_categorie"].'</option><br>';
+                            else echo '<option class="role-choices-1" value= '.$row["nom_categorie"].'>'.$row["nom_categorie"].'</option><br>';
+                            $counter++;
                         }
                         ?>
                     </select>
                 </div>
-                <input class="profile" type="submit" value="Créer">
+                <input class="profile" type="submit" name ="Créer" value="Créer">
             </div>
         </form>
     </div>
