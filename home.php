@@ -7,6 +7,7 @@
 </head>
 
 <?php
+if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
 session_start();
 //include("./connexion.php");
 $mail = $_SESSION['mail'];
