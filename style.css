@@ -390,7 +390,7 @@ input{
 }
 
 /* The container */
-.checkboxContainer .redCheckboxContainer {
+.checkboxContainer, .redCheckboxContainer {
     display: block;
     position: relative;
     padding-left: 35px;
