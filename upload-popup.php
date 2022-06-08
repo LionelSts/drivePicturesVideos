@@ -38,7 +38,7 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
                             <div class="uploadsTagList" >
                             <div id="list' . $categorie[$i] . '">'
                 );
-                foreach ($value1 as $key => $value2) {
+                foreach ($value1 as $key2 => $value2) {
                     echo('
                                 <label class="checkboxContainer">' . $value2 . '
                                     <input type="checkbox" id="' . $value2 . '" name="'. $categorie[$i] .'-' .  $value2 . '" value="Yes">
@@ -60,14 +60,20 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
                 <div id="uploadsFiles">
                     <input type="file" accept="image/*,video/*" name="file[]" id="file" multiple required>
                 </div>
-                <input id="uploadButton" type='submit' name='submit' value='Envoyer'>
+                <input id="uploadButton" type='submit' onclick='loadingFiles()' name='submit' value='Envoyer'>
         </div>
     </form>
+<div id="loading"> </div>
+
 </div>
 
 <script src="addTag.js"></script>
-
 <script>
+    function loadingFiles()
+    {
+        document.getElementById('loading').innerHTML = "<img src='/images/graphiqueLBR/Brique_Loading_Rapide.gif' ";
+    }
+
     function closePopup(){
         document.getElementById("uploadPopUp").hidden = true;
     }

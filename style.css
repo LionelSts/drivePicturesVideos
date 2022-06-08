@@ -59,7 +59,7 @@ input{
 
 .textConnexion {
     color: white;
-    font-family: "Arial";
+    font-family: "Arial", sans-serif;
 }
 
 
@@ -91,7 +91,7 @@ input{
 
 
 @media screen and (max-width:868px){
-    login-form{
+    #login-form{
         width:80%;
         text-align:center;
         justify-content: center; /* alignement vertical */
@@ -133,7 +133,7 @@ input{
     background-color: #EBEAD4;
     width: 100%;
     padding: 12px 20px;
-    border: 0em;
+    border: 0;
     font-size:2.25em;
     text-align: center;
 }
@@ -158,7 +158,7 @@ input{
 
 #menurubrique{
     list-style: none;
-    padding: 0em 1em 0em 0em;
+    padding: 0 1em 0 0;
 }
 
 #menurubrique a{
@@ -232,7 +232,7 @@ input{
 .bigTitle {
     font-size: 3.5em;
     font-weight: normal;
-    margin: 0em;
+    margin: 0;
 }
 
 .profile label{
@@ -251,7 +251,7 @@ input{
     right:0.7em;
     background: #EBEAD4;
     height: 2.513em;
-    margin: 0.2em 0em 0.2em 0em;
+    margin: 0.2em 0 0.2em 0;
     padding: 0.2em;
 }
 
@@ -322,7 +322,7 @@ input{
 }
 
 .closeButton h1{
-    margin: 0em;
+    margin: 0;
     cursor: pointer;
     color: #EBEAD4;
     padding: 0.5em;
@@ -342,7 +342,7 @@ input{
 #uploadsTags p{
     font-size: 1.5em;
     padding: 1em;
-    margin: 0em;
+    margin: 0;
 }
 
 .uploadCategories{
@@ -383,14 +383,14 @@ input{
 }
 
 .uploadsTagList{
-    padding: 0em 0.5em 0em 0.5em ;
+    padding: 0 0.5em 0 0.5em ;
     text-align: left;
     height: 70%;
     overflow:auto;
 }
 
 /* The container */
-.checkboxContainer {
+.checkboxContainer, .redCheckboxContainer {
     display: block;
     position: relative;
     padding-left: 35px;
@@ -450,12 +450,10 @@ input{
 .customCheckBox:after {
     top: -5.5px;
     left: 12.5px;
-    width: 0px;
+    width: 0;
     height: 1.7em;
     border: solid #EBEAD4;
     border-width: 0 1px 0 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
 
@@ -463,30 +461,14 @@ input{
 .customCheckBox:before {
     top: -5.5px;
     left: 12.5px;
-    width: 0px;
+    width: 0;
     height: 1.7em;
     border: solid #EBEAD4;
     border-width: 0 1px 0 0;
-    -webkit-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
     transform: rotate(-45deg);
 }
 
 /* Red checkBox */
-
-/* The container */
-.redCheckboxContainer {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
 
 /* Hide the browser's default checkbox */
 .redCheckboxContainer input {
@@ -535,12 +517,10 @@ input{
 .redCheckboxContainer .redCheckbox:after {
     top: -8.5px;
     left: 21px;
-    width: 0px;
+    width: 0;
     height: 1.7em;
     border: solid #EA001C;
     border-width: 0 1px 0 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
 
@@ -548,26 +528,24 @@ input{
 .redCheckbox:before {
     top: -8.5px;
     left: 21px;
-    width: 0px;
+    width: 0;
     height: 1.7em;
     border: solid #EA001C;
     border-width: 0 1px 0 0;
-    -webkit-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
     transform: rotate(-45deg);
 }
 
 .newTag{
     font-size: 1.5em;
     width:fit-content;
-    padding: 0em;
+    padding: 0;
 }
 
 .newTag input{
     background-color: #EBEAD4;
     width: 80%;
-    border: 0em;
-    margin: 0em;
+    border: 0;
+    margin: 0;
     font-size: 1.5em;
 }
 .newTag label{
@@ -610,7 +588,7 @@ input{
     width: 100%;
     border: 1px #EA001C solid;
     float: left;
-    margin: 1em 0em 1em 0em;
+    margin: 1em 0 1em 0;
 }
 
 .lbrTable{
@@ -619,7 +597,7 @@ input{
 }
 
 .lbrTable tr{
-    border: 0px;
+    border: 0;
     width: 100%;
     margin: 0;
 }
@@ -694,7 +672,7 @@ input{
 .mediumTitle{
     font-size: 2.25em;
     font-weight: normal;
-    margin: 0em;
+    margin: 0;
 }
 
 #filesDisplayContainer{
@@ -720,6 +698,9 @@ input{
 }
 .fichierSubContainer p{
     padding: 0.5em 0.3em 0.5em 0.3em;
+    font-size:1.25em;
+    white-space: nowrap;
+    word-wrap: break-word;
 }
 
 .fichierContainer p{
@@ -753,6 +734,7 @@ input{
 .filesNavigation{
     display: flex;
     justify-content: space-between;
+    text-align: right;
 }
 
 .filesNavigation a{
@@ -763,3 +745,25 @@ input{
     margin: auto 0 auto 0;
 }
 
+.actionButtonsContainer{
+    display: flex;
+}
+
+.actionButtonsContainer img{
+    background-color: #EA001C;
+    padding: 0.5em;
+    margin-right: 1em;
+    width: 1.5em;
+    cursor: pointer;
+}
+
+.actionButtonsContainer{
+    cursor: pointer;
+}
+
+#editFilesTags{
+    margin: auto;
+    padding: 0.5em;
+    background-color: #EA001C;
+    color: #EBEAD4;
+}

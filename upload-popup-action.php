@@ -1,13 +1,12 @@
 <?php
 
 require 'vendor/autoload.php';
-
 session_start();
 $str_arr = array();
 foreach ($_POST as $key => $value){
     if($key != "submit" && $key != "newTag"){
         $chaine = explode ("-", $key);
-        array_push($str_arr, $chaine);
+        $str_arr[] = $chaine;
     }
 }
 require_once('getID3-master/getid3/getid3.php');
@@ -16,19 +15,24 @@ $link->query('SET NAMES utf8');
 $countfiles = count($_FILES['file']['name']);
 $requete = "SELECT `id` FROM `fichiers` ORDER BY `id` DESC LIMIT 1";
 $result = mysqli_query($link, $requete);
-$id = mysqli_fetch_array($result)['id'];
+$data = mysqli_fetch_array($result);
+if(!empty($data)){
+    $id = $data['id'];
+}else{
+    $id = 0;
+}
 $mail = $_SESSION['mail'];
-$date = date('Y-m-d');
+$date = date('Y-m-d H:i:s');
 $tags_file = "";
 $requete = "SELECT `nom_tag` FROM `tags`";
 $requestTags = mysqli_query($link, $requete)->fetch_all(MYSQLI_ASSOC);
 $tagList = array();
 foreach ($requestTags as $value){
-    $tagList[] = $value["nom_tag"];
+    $tagList[] = strval($value["nom_tag"]);
 }
 foreach ($str_arr as $tag){
-    $isIn = array_search($tag[1], $tagList);
-    if(!$isIn){
+    $isIn = array_search(strval($tag[1]), $tagList, -1);
+    if($isIn == -1){
         $requete = "INSERT INTO tags (`nom_tag`, `nom_categorie`) VALUES ('$tag[1]', '$tag[0]')";
         $result = mysqli_query($link, $requete);
     }
@@ -47,7 +51,8 @@ for($i = 0 ; $i < $countfiles ; $i++){
         $getID3 = new getID3;
         $file = $getID3->analyze($filePath);
         $size = $_FILES['file']['size'][$i];
-        if(preg_match("/video/", $_FILES['file']['type'][$i])){
+        if(str_contains($_FILES['file']['type'][$i], "video")){
+
             $duree = date('H:i:s', round($file['playtime_seconds']));
             // We create thumbnail
             $ffmpeg = FFMpeg\FFMpeg::create();
@@ -63,7 +68,7 @@ for($i = 0 ; $i < $countfiles ; $i++){
         else{
             $duree = '00:00:00';
             imagepng(imagecreatefromstring(file_get_contents('./fichiers/'.$id.'.'.$extension)), './mignatures/'.$id.'.png');
-        };
+        }
 
         // Chargement
         $thunmnailName = './mignatures/'.$id.'.png';
@@ -75,7 +80,7 @@ for($i = 0 ; $i < $countfiles ; $i++){
         if($width < $height){
             $src_y = round($height/2);
         }
-
+        if($tags_file == null) $tags_file="Sans tag";
 // Redimensionnement
         imagecopyresized($thumb, $source, 0, 0, 0, $src_y, 267, 197, $width, $height);
         imagepng($thumb, $thunmnailName);
@@ -86,6 +91,4 @@ for($i = 0 ; $i < $countfiles ; $i++){
         unset($getID3);
     }
 }
-
 header('Location:my_files.php');
-?>

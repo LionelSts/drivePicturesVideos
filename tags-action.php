@@ -42,4 +42,4 @@
         echo '<script> alert("Catégorie créée avec succés.");window.location.replace("./tags.php");</script>';
     }
 
-?>
+

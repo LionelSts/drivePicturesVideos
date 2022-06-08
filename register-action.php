@@ -21,6 +21,6 @@
     }
     else {
         echo '<script> alert("Veuillez saisir un mot de passe contenant au minimum 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial."); 
-            window.location.replace("register.php?tmpPsw="'.$tmpPsw.');</script>';
+            window.location.replace("register.php?tmpPsw="'. $tmpPsw .');</script>';
     }
 ?>
