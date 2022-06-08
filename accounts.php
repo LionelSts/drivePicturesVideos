@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
     <?php
-    if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
     session_start();
+    if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
     $link = mysqli_connect("127.0.0.1", "root", "", "drivelbr");
     $requete= "SELECT `nom`, `prenom`, `mail`, `role` FROM `utilisateurs`";
     $result = mysqli_query($link,$requete);

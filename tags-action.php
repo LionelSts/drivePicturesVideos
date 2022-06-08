@@ -1,6 +1,6 @@
 <?php
-if(isset($_SESSION["mail"])) {
     session_start();
+    if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
     $link = mysqli_connect("127.0.0.1", "root", "", "drivelbr");
     $link->query('SET NAMES utf8');
     $chaine = urldecode(file_get_contents('php://input'));
@@ -39,6 +39,4 @@ if(isset($_SESSION["mail"])) {
         }
         echo '<script> alert("Catégorie créée avec succés.");window.location.replace("./tags.php");</script>';
     }
-}
-else echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
 ?>

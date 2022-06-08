@@ -9,8 +9,8 @@
 <?php
 use Ds\Map;
 require 'vendor/autoload.php';
-if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
 session_start();
+if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
 $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr");
 $link->query('SET NAMES utf8');
 $requete = "SELECT `nom_categorie` FROM `categorie`";

@@ -1,6 +1,6 @@
 <?php
-    if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
     session_start();
+    if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
     $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
     $chaine = urldecode(file_get_contents('php://input'));
     $mail = str_replace("=Renvoyer le mail",'', $chaine);

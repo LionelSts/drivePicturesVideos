@@ -1,7 +1,7 @@
 <?php
-if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
 require 'vendor/autoload.php';
 session_start();
+if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
 $str_arr = array();
 foreach ($_POST as $key => $value){
     if($key != "submit" && $key != "newTag"){

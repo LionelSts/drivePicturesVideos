@@ -1,6 +1,6 @@
 <?php
-if(isset($_SESSION["mail"])) {
     session_start();
+    if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
     $link = mysqli_connect("127.0.0.1", "root", "", "drivelbr");
     $link->query('SET NAMES utf8');
     $nomTag = $_POST["nomTag"];
@@ -28,6 +28,4 @@ if(isset($_SESSION["mail"])) {
         mysqli_query($link, $requete2);
         echo '<script> alert("Tag crée avec succés.");window.location.replace("./tags.php");</script>';
     }
-}
-else echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
 ?>
