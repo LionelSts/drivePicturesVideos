@@ -1,6 +1,6 @@
 <?php
 
-require 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
 session_start();
 $str_arr = array();
 foreach ($_POST as $key => $value){
@@ -91,4 +91,4 @@ for($i = 0 ; $i < $countfiles ; $i++){
         unset($getID3);
     }
 }
-header('Location:my_files.php');
+header('Location:./my_files.php');
