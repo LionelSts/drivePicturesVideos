@@ -1,5 +1,5 @@
 <?php
-
+if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
 require 'vendor/autoload.php';
 session_start();
 $str_arr = array();
