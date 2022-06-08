@@ -11,7 +11,7 @@
     $result = mysqli_query($link, $requete); // Saving the result
     $files = mysqli_fetch_all($result);
 
-    $requete = "SELECT * FROM `caracteriser`"; // Preparing the request to verify the password where the login entered is found on the database
+    $requete = "SELECT `id_fichier`, `nom_tag` FROM `caracteriser` ORDER BY `id_fichier`";
     $result = mysqli_query($link, $requete); // Saving the result
     $filesTag = mysqli_fetch_all($result);
 ?>
@@ -46,6 +46,16 @@
 <div id="filesDisplayContainer">
     <?php
         foreach ($files as $fichier){
+                $search=$fichier[0];
+
+                $tagIndex=false;
+
+                foreach ($filesTag as $key=>$value){
+                    if (in_array($search, $value)) {
+                        $tagIndex=$key;
+                        break;
+                        }
+                }
             echo '<div class="fichierContainer">
                     <div class="fichierSubContainer">
                     <label class="checkboxContainer checkboxFiles">
@@ -58,7 +68,7 @@
                         </p>
                     </div>
                     <p>
-                            Tags : '.$filesTag[$fichier[0]-1][1].'
+                            Tags : '.$filesTag[$tagIndex][1].'
                         </p>
                   </div>';
         }
