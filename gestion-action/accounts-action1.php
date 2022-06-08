@@ -2,7 +2,7 @@
     session_start();
     if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
     $link = mysqli_connect("127.0.0.1", "root", "", "drivelbr");
-    $mail = $_POST['mail']; $prenom = $_POST['prenom']; $nom = $_POST['nom']; $mdp = $_POST['password']; $role = $_POST['role'];
+    $mail = $_POST['selectedMail']; $prenom = $_POST['prenom']; $nom = $_POST['nom']; $mdp = $_POST['password']; $role = $_POST['role'];
     $password = password_hash($mdp, PASSWORD_BCRYPT);
     if (isset($_POST["supprimer"])){
         $requete = "UPDATE `utilisateurs` SET `etat` = 'inactif' WHERE `mail` = '$mail'";

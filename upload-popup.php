@@ -22,8 +22,8 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
         unset($tab);
     }
 ?>
-<div id="loading">
-    <img id="loadingImage" src='./images/graphiqueLBR/Brique_Loading_Rapide.gif'> 
+<div class="loadingImage" id="loading">
+    <img alt="chargementLBR" src='./images/graphiqueLBR/Brique_Loading_Rapide.gif'>
 </div>
 <div id="uploadPopUp">
     <div class="closeButton"><h1 onclick="closePopup()">X</h1></div>

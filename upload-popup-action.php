@@ -91,4 +91,5 @@ for($i = 0 ; $i < $countfiles ; $i++){
         unset($getID3);
     }
 }
-header('Location:./my_files.php');
+
+header('Location:my_files.php');

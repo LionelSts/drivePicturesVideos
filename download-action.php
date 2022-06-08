@@ -1,4 +1,5 @@
 <?php
+ob_start();
 $files = explode(",",$_POST["fichiers"]);
 try {
     $bytes = random_bytes(5);
@@ -37,10 +38,13 @@ if (headers_sent()) {
         header("Content-Transfer-Encoding: Binary");
         header('Content-Length: ' . filesize($fileToSend));
         header("Content-Disposition: attachment; filename=\"" . basename($fileToSend) . "\"");
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
         readfile($_SERVER['DOCUMENT_ROOT']."/driveBriquesRouges/temporary/".$fileName);
         ignore_user_abort(true);
         unlink($fileToSend);
-
+        exit();
     }
 }
 
