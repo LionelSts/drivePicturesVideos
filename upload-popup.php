@@ -2,7 +2,7 @@
 $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
     $link->query('SET NAMES utf8');
     $final_tab = [];
-    $requete = "SELECT `nom_tag`, `categorie` FROM `tags`";
+    $requete = "SELECT `nom_tag`, `nom_categorie` FROM `tags`";
     $result = mysqli_query($link, $requete);
     $data = mysqli_fetch_all($result);
     $requete = "SELECT `nom_categorie` FROM `categorie`";
