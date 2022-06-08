@@ -2,7 +2,7 @@
 $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
     $link->query('SET NAMES utf8');
     $final_tab = [];
-    $requete = "SELECT `nom_tag`, `nom_categorie` FROM `tags`";
+    $requete = "SELECT `nom_tag`, `categorie` FROM `tags`";
     $result = mysqli_query($link, $requete);
     $data = mysqli_fetch_all($result);
     $requete = "SELECT `nom_categorie` FROM `categorie`";
@@ -60,14 +60,20 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
                 <div id="uploadsFiles">
                     <input type="file" accept="image/*,video/*" name="file[]" id="file" multiple required>
                 </div>
-                <input id="uploadButton" type='submit' name='submit' value='Envoyer'>
+                <input id="uploadButton" type='submit' onclick='loadingFiles()' name='submit' value='Envoyer'>
         </div>
     </form>
+<div id="loading"> </div>
+
 </div>
 
 <script src="addTag.js"></script>
-
 <script>
+    function loadingFiles()
+    {
+        document.getElementById('loading').innerHTML = "<img src='/images/graphiqueLBR/Brique_Loading_Rapide.gif' ";
+    }
+
     function closePopup(){
         document.getElementById("uploadPopUp").hidden = true;
     }
