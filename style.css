@@ -316,6 +316,23 @@ input{
     text-align: center
 }
 
+#loading{
+    position: fixed;
+    z-index: 90;
+    top:0%;
+    right: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: #FFFEE6;
+    margin:auto;
+    text-align:center;
+}
+
+#loadingImg{
+    justify-content: center;
+    margin:auto;
+}
+
 .closeButton{
     right: 0;
     position: absolute;

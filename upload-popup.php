@@ -22,6 +22,9 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
         unset($tab);
     }
 ?>
+<div id="loading">
+    <img id="loadingImage" src='./images/graphiqueLBR/Brique_Loading_Rapide.gif'> 
+</div>
 <div id="uploadPopUp">
     <div class="closeButton"><h1 onclick="closePopup()">X</h1></div>
     <h1 id="uploadTitle">Téléverser vos fichiers</h1>
@@ -64,19 +67,18 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
                 <input id="uploadButton" type='submit' onclick='loadingFiles()' name='submit' value='Envoyer'>
         </div>
     </form>
-<div id="loading"> </div>
-
 </div>
 
 <script src="addTag.js"></script>
 <script>
     function loadingFiles()
     {
-        document.getElementById('loading').innerHTML = "<img src='/images/graphiqueLBR/Brique_Loading_Rapide.gif' ";
+        document.getElementById("loading").hidden = false;
     }
 
     function closePopup(){
         document.getElementById("uploadPopUp").hidden = true;
     }
     document.getElementById("uploadPopUp").hidden = true;
+    document.getElementById("loading").hidden = true;
 </script>

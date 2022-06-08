@@ -80,7 +80,7 @@ for($i = 0 ; $i < $countfiles ; $i++){
         if($width < $height){
             $src_y = round($height/2);
         }
-        if($tags_file == null) $tags_file="Sans tag";
+        if($tags_file == null) $tags_file="Sans_tag";
 // Redimensionnement
         imagecopyresized($thumb, $source, 0, 0, 0, $src_y, 267, 197, $width, $height);
         imagepng($thumb, $thunmnailName);
@@ -91,4 +91,4 @@ for($i = 0 ; $i < $countfiles ; $i++){
         unset($getID3);
     }
 }
-header('Location:my_files.php');
+header('Location:./my_files.php');
