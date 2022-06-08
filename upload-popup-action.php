@@ -1,7 +1,6 @@
 <?php
 
 require 'vendor/autoload.php';
-
 session_start();
 $str_arr = array();
 foreach ($_POST as $key => $value){
