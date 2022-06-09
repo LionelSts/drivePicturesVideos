@@ -216,7 +216,7 @@ input{
 }
 
 #pageContent{
-    width: 100%;
+    width: fit-content;
 }
 
 #pageContent-bottom{
@@ -782,4 +782,33 @@ input{
     padding: 0.5em;
     background-color: #EA001C;
     color: #EBEAD4;
+}
+
+.autreTagsContainer{
+    border: 1px solid #EA001C;
+    height: 150px;
+    padding: 0.5em;
+    overflow: scroll;
+    min-width: 5em;
+}
+
+.tagCheckbox, .redCheckbox{
+    height: 0.8em;
+    width: 0.8em;
+    top:auto;
+    left:0.1em;
+}
+
+.tag-choices{
+    background-color: #EBEAD4;
+    min-width: 5em;
+}
+
+.tag-choices-1{
+    background-color: #FFFEE6;
+    min-width: 5em;
+}
+
+.tag-select{
+    padding-right: 1.5em;
 }

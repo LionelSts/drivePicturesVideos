@@ -81,88 +81,85 @@
                 <input class="profile" type="submit" name="modifier" value="Appliquer les modifications">
             </form>
             <div id="limit"></div>
-        </div>
-    </div>
-
-    <div id="pageContent-bottom" class="pageContent">
-        <h1 class="bigTitle">Créer un compte</h1>
-        <form class="profile" method="post" action="./gestion-action/accounts-action2.php">
-            <div class="formLine">
-                <label class='profile' for='nom' >Nom : </label>
-                <input class='profile' name="nom" type='text' id='nom' required>
-            </div>
-            <div class="formLine">
-                <label class='profile' for='prenom'>Prénom : </label>
-                <input class='profile' name="prenom" type='text' id='prenom' required>
-            </div>
-            <div class="formLine">
-                <label class='profile' for='mail' >Adresse mail : </label>
-                <input class='profile' name="mail" type='text' id='mail' required>
-            </div>
-            <div class="formLine">
-                <label class='profile' for='role' >Rôle : </label>
-                <div class="lbrSelect">
-                    <select class="profile, role-select" id="modifRole" name='role'>
-                        <option class="role-choices" id="invite" value='invite'>invité</option>
-                        <option class="role-choices-1" id="ecriture" value='ecriture'>ecriture</option>
-                        <option class="role-choices" id="lecture" value='lecture'>lecture</option>
-                        <option class="role-choices-1" id="admin" value='admin'>admin</option>
-                    </select required>
+            <h1 class="bigTitle">Créer un compte</h1>
+            <form class="profile" method="post" action="./gestion-action/accounts-action2.php">
+                <div class="formLine">
+                    <label class='profile' for='nom' >Nom : </label>
+                    <input class='profile' name="nom" type='text' id='nom' required>
                 </div>
-            </div>
-            <div class="formLine">
-                <label class='profile' for='descriptif' >Descriptif : </label>
-                <input class='profile' name="descriptif" type='text' id='descriptif' required>
-            </div>
-            <div class="formLine">
-                <label class='profile' for='password' >Mot de passe : </label>
-                <input class='profile' name="password" type='password' id='password' required>
-            </div>
-            <div class="formLine">
-                <label for="mdp">Laisser choisir le mot de passe :</label>
-                <label class="redCheckboxContainer">
-                    <input type="checkbox" id="mdp" name="mdp" value="mdp">
-                    <span class="redCheckbox "></span>
-                </label>
-            </div>
-            <input class="profile" type="submit" value="Créer le compte">
-        </form>
-        <div id="limit"></div>
-        <h1 class="bigTitle">Comptes en attente :</h1>
-        <form class="profile" method="post" action="./gestion-action/accounts-action3.php">
-            <div class="tableContainer">
-                <TABLE class="lbrTable" >
-                    <tbody>
-                    <?php
-                    $requete="SELECT `mail`, `prenom`,`nom`,`mot_de_passe` FROM `utilisateurs` WHERE `etat` = 'en attente'"; // Preparing the request to verify the password where the login entered is found on the database
-                    $result = mysqli_query($link, $requete); // Saving the result
-                    while($row = mysqli_fetch_array($result)) // Searching the right line
-                    {
-                        echo "<tr><td> ".$row["mail"]." </td><td><input class='profile' type='submit' name='".$row["mail"]."' value='Renvoyer le mail'></td></tr>";
-                    }
-                    ?>
-                    </tbody>
-                </TABLE>
-            </div>
-        </form>
-        <div id="limit"></div>
-        <h1 class="bigTitle">Comptes supprimés:</h1>
-        <form class="profile" method="post" action="./gestion-action/accounts-action4.php">
-            <div class="tableContainer">
-                <TABLE class="lbrTable" >
-                    <tbody>
-                    <?php
-                    $requete="SELECT `mail` FROM `utilisateurs` WHERE `etat` = 'inactif'"; // Preparing the request to verify the password where the login entered is found on the database
-                    $result = mysqli_query($link, $requete); // Saving the result
-                    while($row = mysqli_fetch_array($result)) // Searching the right line
-                    {
-                        echo "<tr><td> ".$row["mail"]." </td><td><input class='profile' type='submit' name='".$row["mail"]."' value='Réactiver le compte'></td></tr>";
-                    }
-                    ?>
-                    </tbody>
-                </TABLE>
-            </div>
-        </form>
+                <div class="formLine">
+                    <label class='profile' for='prenom'>Prénom : </label>
+                    <input class='profile' name="prenom" type='text' id='prenom' required>
+                </div>
+                <div class="formLine">
+                    <label class='profile' for='mail' >Adresse mail : </label>
+                    <input class='profile' name="mail" type='text' id='mail' required>
+                </div>
+                <div class="formLine">
+                    <label class='profile' for='role' >Rôle : </label>
+                    <div class="lbrSelect">
+                        <select class="profile, role-select" id="modifRole" name='role'>
+                            <option class="role-choices" id="invite" value='invite'>invité</option>
+                            <option class="role-choices-1" id="ecriture" value='ecriture'>ecriture</option>
+                            <option class="role-choices" id="lecture" value='lecture'>lecture</option>
+                            <option class="role-choices-1" id="admin" value='admin'>admin</option>
+                        </select required>
+                    </div>
+                </div>
+                <div class="formLine">
+                    <label class='profile' for='descriptif' >Descriptif : </label>
+                    <input class='profile' name="descriptif" type='text' id='descriptif' required>
+                </div>
+                <div class="formLine">
+                    <label class='profile' for='password' >Mot de passe : </label>
+                    <input class='profile' name="password" type='password' id='password' required>
+                </div>
+                <div class="formLine">
+                    <label for="mdp">Laisser choisir le mot de passe :</label>
+                    <label class="redCheckboxContainer">
+                        <input type="checkbox" id="mdp" name="mdp" value="mdp">
+                        <span class="redCheckbox "></span>
+                    </label>
+                </div>
+                <input class="profile" type="submit" value="Créer le compte">
+            </form>
+            <div id="limit"></div>
+            <h1 class="bigTitle">Comptes en attente :</h1>
+            <form class="profile" method="post" action="./gestion-action/accounts-action3.php">
+                <div class="tableContainer">
+                    <TABLE class="lbrTable" >
+                        <tbody>
+                        <?php
+                        $requete="SELECT `mail`, `prenom`,`nom`,`mot_de_passe` FROM `utilisateurs` WHERE `etat` = 'en attente'"; // Preparing the request to verify the password where the login entered is found on the database
+                        $result = mysqli_query($link, $requete); // Saving the result
+                        while($row = mysqli_fetch_array($result)) // Searching the right line
+                        {
+                            echo "<tr><td> ".$row["mail"]." </td><td><input class='profile' type='submit' name='".$row["mail"]."' value='Renvoyer le mail'></td></tr>";
+                        }
+                        ?>
+                        </tbody>
+                    </TABLE>
+                </div>
+            </form>
+            <div id="limit"></div>
+            <h1 class="bigTitle">Comptes supprimés:</h1>
+            <form class="profile" method="post" action="./gestion-action/accounts-action4.php">
+                <div class="tableContainer">
+                    <TABLE class="lbrTable" >
+                        <tbody>
+                        <?php
+                        $requete="SELECT `mail` FROM `utilisateurs` WHERE `etat` = 'inactif'"; // Preparing the request to verify the password where the login entered is found on the database
+                        $result = mysqli_query($link, $requete); // Saving the result
+                        while($row = mysqli_fetch_array($result)) // Searching the right line
+                        {
+                            echo "<tr><td> ".$row["mail"]." </td><td><input class='profile' type='submit' name='".$row["mail"]."' value='Réactiver le compte'></td></tr>";
+                        }
+                        ?>
+                        </tbody>
+                    </TABLE>
+                </div>
+            </form>
+        </div>
     </div>
     <script src="./accounts.js"></script>
 </body>
