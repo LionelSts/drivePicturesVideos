@@ -1,5 +1,6 @@
 <?php
 require 'vendor/autoload.php';
+include 'thumbnail.php';
 session_start();
 if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
 $str_arr = array();
@@ -53,13 +54,8 @@ for($i = 0 ; $i < $countfiles ; $i++){
             $ffmpeg = FFMpeg\FFMpeg::create();
             $video = $ffmpeg->open('./fichiers/'.$id.'.'.$extension);
             $video
-                ->filters()
-                ->resize(new FFMpeg\Coordinate\Dimension(320, 240))
-                ->synchronize();
-            $video
                 ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(5))
                 ->save('./mignatures/'.$id.'.png');
-
             $ffprobe = FFMpeg\FFProbe::create();
             $duree = $ffprobe
                 ->format('./fichiers/'.$id.'.'.$extension) // extracts file informations
@@ -69,26 +65,15 @@ for($i = 0 ; $i < $countfiles ; $i++){
             $duree = '00:00:00';
             imagepng(imagecreatefromstring(file_get_contents('./fichiers/'.$id.'.'.$extension)), './mignatures/'.$id.'.png');
         }
-
-        // Chargement
-        $thunmnailName = './mignatures/'.$id.'.png';
-        list($width, $height) = getimagesize($thunmnailName);
-        $thumb = imagecreatetruecolor(267, 197);
-        $source = imagecreatefrompng($thunmnailName);
-        $height = round($width * 0.74);
-        $src_y = 0;
-        if($width < $height){
-            $src_y = round($height/2);
-        }
         if($tags_file == null) $tags_file="Sans_tag";
-// Redimensionnement
-        imagecopyresized($thumb, $source, 0, 0, 0, $src_y, 267, 197, $width, $height);
-        imagepng($thumb, $thunmnailName);
+
+        $path = './mignatures/'.$id.'.png';
+        $size = 400;
+        createThumbnail($path, $path, 267, 197);
         $requete = "INSERT INTO fichiers (`id`, `nom_fichier`, `extension`, `auteur`, `date`, `duree`, `size`) VALUES ('$id', '$filename', '$extension', '$mail', '$date', '$duree', '$size')";
         $result = mysqli_query($link, $requete);
         $requete = "INSERT INTO caracteriser (`id_fichier`, `nom_tag`) VALUES ('$id', '$tags_file')";
         $result = mysqli_query($link, $requete);
-        unset($getID3);
     }
 }
 
