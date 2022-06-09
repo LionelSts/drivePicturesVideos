@@ -7,7 +7,7 @@
     if (isset($_POST["supprimer"])){
         $requete = "UPDATE `utilisateurs` SET `etat` = 'inactif' WHERE `mail` = '$mail'";
         $result = mysqli_query($link,$requete);
-        echo '<script> alert("Compte supprimé avec succés.");window.location.replace("../home.php");</script>';
+        echo '<script> alert("Compte supprimé avec succès.");window.location.replace("../home.php");</script>';
     }
     else if(isset($_POST["modifier"])){
         if($_POST["password"] != ""){
@@ -15,13 +15,13 @@
             if(preg_match($regex, $mdp)) {
                 $requete = "UPDATE `utilisateurs` SET `prenom` = '$prenom', `nom` = '$nom', `mot_de_passe` = '$password', `role` = '$role' WHERE `mail` = '$mail'";
                 $result = mysqli_query($link, $requete);
-                echo '<script> alert("Compte modifié avec succés.");window.location.replace("../home.php");</script>';
+                echo '<script> alert("Compte modifié avec succès.");window.location.replace("../home.php");</script>';
             }
             else echo '<script> alert("Veuillez saisir un mot de passe contenant au minimum 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial."); window.location.replace("../accounts.php");</script>';
         }else{
             $requete = "UPDATE `utilisateurs` SET `prenom` = '$prenom', `nom` = '$nom', `role` = '$role' WHERE `mail` = '$mail'";
             $result = mysqli_query($link, $requete);
-            echo '<script> alert("Compte modifié avec succés.");window.location.replace("../home.php");</script>';
+            echo '<script> alert("Compte modifié avec succès.");window.location.replace("../home.php");</script>';
         }
     }
 ?>

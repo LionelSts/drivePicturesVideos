@@ -152,7 +152,7 @@ input{
 #leftmenu{
     background-color: #EBEAD4;
     margin: 0 1em 0 1em;
-    width: 17em;
+    width: 23em;
     height: fit-content;
 }
 
@@ -215,9 +215,8 @@ input{
     right: 1em;
 }
 
-.pageContent{
-    margin: 2em;
-    flex: 1;
+#pageContent{
+    width: 100%;
 }
 
 #pageContent-bottom{
@@ -313,7 +312,8 @@ input{
     width: 90%;
     height: 90%;
     background-color: #161920;
-    text-align: center
+    text-align: center;
+    display: table-row;
 }
 
 .loadingImage{
@@ -351,7 +351,8 @@ input{
     display: flex;
     justify-content: flex-start;
     color: #EBEAD4;
-
+    overflow-x:auto;
+    overflow-y: hidden;
 }
 
 #uploadsTags p{
@@ -712,10 +713,10 @@ input{
     padding: 0;
 }
 .fichierSubContainer p{
-    padding: 0.5em 0.3em 0.5em 0.3em;
     font-size:1.25em;
     white-space: nowrap;
     word-wrap: break-word;
+    overflow: hidden;
 }
 
 .fichierContainer p{
