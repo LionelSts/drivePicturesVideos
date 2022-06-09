@@ -9,7 +9,6 @@ foreach ($_POST as $key => $value){
         $str_arr[] = $chaine;
     }
 }
-require_once('getID3-master/getid3/getid3.php');
 $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
 $link->query('SET NAMES utf8');
 $countfiles = count($_FILES['file']['name']);
@@ -48,12 +47,8 @@ for($i = 0 ; $i < $countfiles ; $i++){
         $filename = str_replace('.'.$extension, "", $filename);
         move_uploaded_file($_FILES['file']['tmp_name'][$i],'fichiers/'.$id.'.'.$extension);
         $filePath = 'fichiers/'.$id.'.'.$extension;
-        $getID3 = new getID3;
-        $file = $getID3->analyze($filePath);
         $size = $_FILES['file']['size'][$i];
         if(str_contains($_FILES['file']['type'][$i], "video")){
-
-            $duree = date('H:i:s', round($file['playtime_seconds']));
             // We create thumbnail
             $ffmpeg = FFMpeg\FFMpeg::create();
             $video = $ffmpeg->open('./fichiers/'.$id.'.'.$extension);
@@ -64,6 +59,11 @@ for($i = 0 ; $i < $countfiles ; $i++){
             $video
                 ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(5))
                 ->save('./mignatures/'.$id.'.png');
+            
+            $ffprobe = FFMpeg\FFProbe::create();
+            $duree = $ffprobe
+                ->format('./fichiers/'.$id.'.'.$extension) // extracts file informations
+                ->get('duration');             // returns the duration property
         }
         else{
             $duree = '00:00:00';
