@@ -1,5 +1,5 @@
 <?php
-    if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
+    if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
     if(isset($_GET["page"])){
         $page = $_GET["page"]*20;
     }else{

@@ -1,7 +1,7 @@
 <?php
 require 'vendor/autoload.php';
 session_start();
-if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
+if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
 $str_arr = array();
 foreach ($_POST as $key => $value){
     if($key != "submit" && $key != "newTag"){
@@ -59,7 +59,7 @@ for($i = 0 ; $i < $countfiles ; $i++){
             $video
                 ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(5))
                 ->save('./mignatures/'.$id.'.png');
-            
+
             $ffprobe = FFMpeg\FFProbe::create();
             $duree = $ffprobe
                 ->format('./fichiers/'.$id.'.'.$extension) // extracts file informations
