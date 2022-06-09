@@ -7,6 +7,7 @@
     session_start();
     if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
     $link = mysqli_connect("127.0.0.1", "root", "", "drivelbr");
+    $link->query('SET NAMES utf8');
     $requete= "SELECT `nom`, `prenom`, `mail`, `role` FROM `utilisateurs`";
     $result = mysqli_query($link,$requete);
     $data = mysqli_fetch_all($result);
@@ -178,7 +179,6 @@
                 </div>
             </form>
         </div>
-        </div>
     </div>
 
     <div id="pageContent-bottom" class="pageContent">
@@ -283,7 +283,7 @@
     <script>
         let code = document.getElementById("tags2").innerHTML;
         function check(index){
-            if (index == 1) {
+            if (index === 1) {
                 if (document.getElementById("modifRoleCrea").value === "invite") {
                     document.getElementById("tags2").style.visibility = "visible";
                     document.getElementById("tags2").innerHTML = code;
