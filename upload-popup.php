@@ -73,12 +73,12 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
 <script>
     function loadingFiles()
     {
-        document.getElementById("loading").hidden = false;
+        document.getElementById("loading").style.display = "block";
     }
 
     function closePopup(){
-        document.getElementById("uploadPopUp").hidden = true;
+        document.getElementById("uploadPopUp").style.display = "none";
     }
-    document.getElementById("uploadPopUp").hidden = true;
-    document.getElementById("loading").hidden = true;
+    document.getElementById("uploadPopUp").style.display = "none";
+    document.getElementById("loading").style.display = "none";
 </script>

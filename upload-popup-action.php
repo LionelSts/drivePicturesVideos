@@ -23,7 +23,7 @@ if(!empty($data)){
 }
 $mail = $_SESSION['mail'];
 $date = date('Y-m-d H:i:s');
-$tags_file = "";
+$tags_file = array();
 $requete = "SELECT `nom_tag` FROM `tags`";
 $requestTags = mysqli_query($link, $requete)->fetch_all(MYSQLI_ASSOC);
 $tagList = array();
@@ -36,7 +36,7 @@ foreach ($str_arr as $tag){
         $requete = "INSERT INTO tags (`nom_tag`, `nom_categorie`) VALUES ('$tag[1]', '$tag[0]')";
         $result = mysqli_query($link, $requete);
     }
-    $tags_file .= $tag[1]." ";
+    $tags_file[]=str_replace("_", " ", $tag[1]);
 }
 for($i = 0 ; $i < $countfiles ; $i++){
     $ext = $_FILES['file']['type'][$i];
@@ -65,15 +65,15 @@ for($i = 0 ; $i < $countfiles ; $i++){
             $duree = '00:00:00';
             imagepng(imagecreatefromstring(file_get_contents('./fichiers/'.$id.'.'.$extension)), './mignatures/'.$id.'.png');
         }
-        if($tags_file == null) $tags_file="Sans_tag";
-
+        if($tags_file == null) $tags_file[]="Sans tag";
         $path = './mignatures/'.$id.'.png';
-        $size = 400;
         createThumbnail($path, $path, 267, 197);
         $requete = "INSERT INTO fichiers (`id`, `nom_fichier`, `extension`, `auteur`, `date`, `duree`, `size`) VALUES ('$id', '$filename', '$extension', '$mail', '$date', '$duree', '$size')";
-        $result = mysqli_query($link, $requete);
-        $requete = "INSERT INTO caracteriser (`id_fichier`, `nom_tag`) VALUES ('$id', '$tags_file')";
-        $result = mysqli_query($link, $requete);
+        mysqli_query($link, $requete);
+        foreach ($tags_file as $tag){
+            $requete = "INSERT INTO caracteriser (`id_fichier`, `nom_tag`) VALUES ('$id', '$tag')";
+            mysqli_query($link, $requete);
+        }
     }
 }
 

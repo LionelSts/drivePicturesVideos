@@ -45,7 +45,7 @@ $result = mysqli_query($link, $requete); // Saving the result
 
 <script>
     function openPopup(){
-        document.getElementById("uploadPopUp").hidden = false;
+        document.getElementById("uploadPopUp").style.display = "table-row";
     }
 </script>
 

@@ -11,10 +11,6 @@
     $requete = "SELECT * FROM `fichiers` WHERE `auteur` = '$mail' ORDER BY `date` DESC LIMIT 20 OFFSET ".intval($page); // Preparing the request to verify the password where the login entered is found on the database
     $result = mysqli_query($link, $requete); // Saving the result
     $files = mysqli_fetch_all($result);
-
-    $requete = "SELECT `id_fichier`, `nom_tag` FROM `caracteriser` ORDER BY `id_fichier`";
-    $result = mysqli_query($link, $requete); // Saving the result
-    $filesTag = mysqli_fetch_all($result);
 ?>
 <div class="filesNavigation">
     <h2 class="mediumTitle">Récents</h2>
@@ -48,14 +44,12 @@
     <?php
         foreach ($files as $fichier){
                 $search=$fichier[0];
-
-                $tagIndex=false;
-
-                foreach ($filesTag as $key=>$value){
-                    if (in_array($search, $value)) {
-                        $tagIndex=$key;
-                        break;
-                        }
+                $requete = "SELECT `nom_tag` FROM `caracteriser` WHERE `id_fichier` = $fichier[0]";
+                $result = mysqli_query($link, $requete); // Saving the result
+                $fileTags = mysqli_fetch_all($result);
+                $taglist="";
+                foreach ($fileTags as $key=>$value){
+                    $taglist .= $value[0] ." ";
                 }
             echo '<div class="fichierContainer">
                     <div class="fichierSubContainer">
@@ -78,7 +72,7 @@
                         </p>
                     </div>
                     <p>
-                            Tags : '.$filesTag[$tagIndex][1].'
+                            Tags : '.$taglist.'
                         </p>
                   </div>';
         }
