@@ -6,7 +6,7 @@
     $chaine = urldecode(file_get_contents('php://input'));
     $chaine = str_replace("nomCategorie=", '', $chaine);
     if (isset($_POST["Supprimer"])) {
-        $categorie = str_replace("&Supprimer=Supprimer", '', $chaine);
+        $categorie = $_POST["categorie"];
         $requete1 = "UPDATE `tags` SET `nom_categorie`='Autre' WHERE `nom_categorie`='$categorie'";
         $requete2 = "DELETE FROM `categorie` WHERE `nom_categorie`= '$categorie'";
         mysqli_query($link, $requete1);

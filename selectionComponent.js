@@ -25,8 +25,19 @@ let buttonsAction = () => {
     }
 }
 
-let downloadFiles = (page) => {
-    let newForm = "<form method=\"post\" action=\"download-action.php?page="+ page +"\" hidden>";
+let downloadFiles = () => {
+    let newForm = "<form method=\"post\" action=\"download-action.php\" hidden>";
+    document.getElementById("downloadZone").innerHTML = "";
+    newForm += "<input type=\"text\" name=\"fichiers\" value=\""+activeContent+"\">";
+    newForm +=" <input type=\"submit\" id=\"download\">" +
+        "</form>"
+
+    document.getElementById('downloadZone').innerHTML += newForm;
+    document.getElementById('download').click();
+}
+
+let deleteFiles = () => {
+    let newForm = "<form method=\"post\" action=\"delete-action.php\" hidden>";
     document.getElementById("downloadZone").innerHTML = "";
     newForm += "<input type=\"text\" name=\"fichiers\" value=\""+activeContent+"\">";
     newForm +=" <input type=\"submit\" id=\"download\">" +

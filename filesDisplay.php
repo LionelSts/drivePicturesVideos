@@ -20,8 +20,8 @@
             <div class="actionButtonsContainer">
                 <div id="downloadZone"></div>
                 <p id="editFilesTags" >Modifier les tags</p>
-                <img alt="télécharger" src="./images/icons/download.png" onclick="downloadFiles(<?php echo $page/20 ?>)">
-                <img alt="supprimer" src="./images/icons/trash.png">
+                <img alt="télécharger" src="./images/icons/download.png" onclick="downloadFiles()">
+                <img alt="supprimer" src="./images/icons/trash.png" onclick="deleteFiles()">
             </div>
         </div>
         <a href="<?php
