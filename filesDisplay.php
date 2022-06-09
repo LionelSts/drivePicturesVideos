@@ -1,5 +1,5 @@
 <?php
-    if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
+    if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
     if(isset($_GET["page"])){
         $page = $_GET["page"]*20;
     }else{
@@ -11,10 +11,6 @@
     $requete = "SELECT * FROM `fichiers` WHERE `auteur` = '$mail' ORDER BY `date` DESC LIMIT 20 OFFSET ".intval($page); // Preparing the request to verify the password where the login entered is found on the database
     $result = mysqli_query($link, $requete); // Saving the result
     $files = mysqli_fetch_all($result);
-
-    $requete = "SELECT `id_fichier`, `nom_tag` FROM `caracteriser` ORDER BY `id_fichier`";
-    $result = mysqli_query($link, $requete); // Saving the result
-    $filesTag = mysqli_fetch_all($result);
 ?>
 <div class="filesNavigation">
     <h2 class="mediumTitle">Récents</h2>
@@ -24,8 +20,8 @@
             <div class="actionButtonsContainer">
                 <div id="downloadZone"></div>
                 <p id="editFilesTags" >Modifier les tags</p>
-                <img alt="télécharger" src="./images/icons/download.png" onclick="downloadFiles(<?php echo $page/20 ?>)">
-                <img alt="supprimer" src="./images/icons/trash.png">
+                <img alt="télécharger" src="./images/icons/download.png" onclick="downloadFiles()">
+                <img alt="supprimer" src="./images/icons/trash.png" onclick="deleteFiles()">
             </div>
         </div>
         <a href="<?php
@@ -48,28 +44,35 @@
     <?php
         foreach ($files as $fichier){
                 $search=$fichier[0];
-
-                $tagIndex=false;
-
-                foreach ($filesTag as $key=>$value){
-                    if (in_array($search, $value)) {
-                        $tagIndex=$key;
-                        break;
-                        }
+                $requete = "SELECT `nom_tag` FROM `caracteriser` WHERE `id_fichier` = $fichier[0]";
+                $result = mysqli_query($link, $requete); // Saving the result
+                $fileTags = mysqli_fetch_all($result);
+                $taglist="";
+                foreach ($fileTags as $key=>$value){
+                    $taglist .= $value[0] ." ";
                 }
             echo '<div class="fichierContainer">
                     <div class="fichierSubContainer">
                     <label class="checkboxContainer checkboxFiles">
                              <input type="checkbox" id="' . $fichier[0] . '" name="'. $fichier[0] . '.' . $fichier[2] . '" value="'.$fichier[6].'" onclick="buttonsAction()">
                              <span class="customCheckBox"></span>
-                        </label>
-                        <img alt="mignature du fichier '. $fichier[0] . '.' . $fichier[2] .' " class="migniatureFichier" src='.".\mignatures\\" . $fichier[0] . ".png" .' >
-                        <p>
+                        </label>';
+
+                $migature= ".\mignatures\\" . $fichier[0] . ".png";
+            $imageData = base64_encode(file_get_contents($migature));
+
+            // Format the image SRC:  data:{mime};base64,{data};
+            $src = 'data: '.mime_content_type($migature).';base64,'.$imageData;
+
+            // Echo out a sample image
+            echo '<img alt="mignature du fichier '. $fichier[0] . '.' . $fichier[2] .' class="migniatureFichier"  src="' . $src . '">';
+
+            echo '      <p>
                             '.$fichier[1].'
                         </p>
                     </div>
                     <p>
-                            Tags : '.$filesTag[$tagIndex][1].'
+                            Tags : '.$taglist.'
                         </p>
                   </div>';
         }

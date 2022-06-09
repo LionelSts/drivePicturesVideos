@@ -12,10 +12,10 @@
             $mdp = password_hash($_POST['password'], PASSWORD_BCRYPT);
             $requete = "UPDATE `utilisateurs` SET `mot_de_passe` = '$mdp', `etat` = 'actif' WHERE `mail` = '$mail' AND `etat` = 'en attente'";
             $result = mysqli_query($link, $requete); // Saving the result
-            echo '<script> alert("Nouveau mot de passe enregistré."); window.location.replace("index.html");</script>';
+            echo '<script> alert("Nouveau mot de passe enregistré."); window.location.replace("index.php");</script>';
         }
         else{
-            echo '<script> alert("Lien erroné."); window.location.replace("index.html");</script>';
+            echo '<script> alert("Lien erroné."); window.location.replace("index.php");</script>';
         }
 
     }

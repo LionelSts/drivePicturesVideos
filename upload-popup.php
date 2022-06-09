@@ -1,5 +1,5 @@
 <?php
-if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
+if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
 $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
     $link->query('SET NAMES utf8');
     $final_tab = [];
@@ -22,8 +22,8 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
         unset($tab);
     }
 ?>
-<div id="loading">
-    <img id="loadingImage" src='./images/graphiqueLBR/Brique_Loading_Rapide.gif'> 
+<div class="loadingImage" id="loading">
+    <img alt="chargementLBR" src='./images/graphiqueLBR/Brique_Loading_Rapide.gif'>
 </div>
 <div id="uploadPopUp">
     <div class="closeButton"><h1 onclick="closePopup()">X</h1></div>
@@ -73,12 +73,12 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
 <script>
     function loadingFiles()
     {
-        document.getElementById("loading").hidden = false;
+        document.getElementById("loading").style.display = "block";
     }
 
     function closePopup(){
-        document.getElementById("uploadPopUp").hidden = true;
+        document.getElementById("uploadPopUp").style.display = "none";
     }
-    document.getElementById("uploadPopUp").hidden = true;
-    document.getElementById("loading").hidden = true;
+    document.getElementById("uploadPopUp").style.display = "none";
+    document.getElementById("loading").style.display = "none";
 </script>

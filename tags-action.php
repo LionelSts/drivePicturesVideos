@@ -1,17 +1,17 @@
 <?php
     session_start();
-    if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
+    if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
     $link = mysqli_connect("127.0.0.1", "root", "", "drivelbr");
     $link->query('SET NAMES utf8');
     $chaine = urldecode(file_get_contents('php://input'));
     $chaine = str_replace("nomCategorie=", '', $chaine);
     if (isset($_POST["Supprimer"])) {
-        $categorie = str_replace("&Supprimer=Supprimer", '', $chaine);
+        $categorie = $_POST["categorie"];
         $requete1 = "UPDATE `tags` SET `nom_categorie`='Autre' WHERE `nom_categorie`='$categorie'";
         $requete2 = "DELETE FROM `categorie` WHERE `nom_categorie`= '$categorie'";
         mysqli_query($link, $requete1);
         mysqli_query($link, $requete2);
-        echo '<script> alert("Catégorie supprimée avec succés.");window.location.replace("./tags.php");</script>';
+        echo '<script> alert("Catégorie supprimée avec succès.");window.location.replace("./tags.php");</script>';
     } else if (isset($_POST["Modifier"])) {
         $categorie = $_POST["categorie"];
         $categorie_apres = $_POST["nomCategorie"];
@@ -19,7 +19,7 @@
         $requete2 = "UPDATE `categorie` SET `nom_categorie`='$categorie_apres' WHERE `nom_categorie`='$categorie'";
         mysqli_query($link, $requete1);
         mysqli_query($link, $requete2);
-        echo '<script> alert("Catégorie modifiée avec succés.");window.location.replace("./tags.php");</script>';
+        echo '<script> alert("Catégorie modifiée avec succès.");window.location.replace("./tags.php");</script>';
     } else if (isset($_POST["Créer"])) {
         $nouvelle_categorie = $_POST["nomCategorie1"];
         if (isset($_POST['listeTag'])) {
@@ -37,6 +37,6 @@
             $requete = "INSERT INTO `categorie` (`nom_categorie`) VALUES ('$nouvelle_categorie') ";
             mysqli_query($link, $requete);
         }
-        echo '<script> alert("Catégorie créée avec succés.");window.location.replace("./tags.php");</script>';
+        echo '<script> alert("Catégorie créée avec succès.");window.location.replace("./tags.php");</script>';
     }
 ?>

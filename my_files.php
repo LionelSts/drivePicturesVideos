@@ -8,7 +8,7 @@
 
 <?php
 session_start();
-if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
+if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
 //include("./connexion.php");
 $mail = $_SESSION['mail'];
 $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
@@ -45,7 +45,7 @@ $result = mysqli_query($link, $requete); // Saving the result
 
 <script>
     function openPopup(){
-        document.getElementById("uploadPopUp").hidden = false;
+        document.getElementById("uploadPopUp").style.display = "table-row";
     }
 </script>
 

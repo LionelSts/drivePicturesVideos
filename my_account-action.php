@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
+    if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
     $prenom = $_POST['prenom'];
     $nom = $_POST['nom'];
     $mail = $_SESSION['mail'];

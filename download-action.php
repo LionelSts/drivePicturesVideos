@@ -1,4 +1,5 @@
 <?php
+ob_start();
 $files = explode(",",$_POST["fichiers"]);
 try {
     $bytes = random_bytes(5);
@@ -11,8 +12,8 @@ $path = '/temporary/'.$fileName;
 if ($zip->open($_SERVER['DOCUMENT_ROOT']."/driveBriquesRouges/temporary/".$fileName, ZipArchive::CREATE) === TRUE)
 {
     foreach ($files as $file){
-        $file = "./fichiers/".$file;
-        $zip->addFile($file);
+        $filePath = "./fichiers/".$file;
+        $zip->addFile($filePath, $file);
     }
     // All files are added, so close the zip file.
     $zip->close();
@@ -36,11 +37,14 @@ if (headers_sent()) {
         header('Content-Type: application/zip');
         header("Content-Transfer-Encoding: Binary");
         header('Content-Length: ' . filesize($fileToSend));
-        header("Content-Disposition: attachment; filename=\"" . basename($fileToSend) . "\"");
+        header("Content-Disposition: attachment; filename=\"" . basename($fileName) . "\"");
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
         readfile($_SERVER['DOCUMENT_ROOT']."/driveBriquesRouges/temporary/".$fileName);
         ignore_user_abort(true);
         unlink($fileToSend);
-
+        exit();
     }
 }
 

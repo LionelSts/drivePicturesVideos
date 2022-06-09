@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.html");</script>';
+if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
 $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
 $chaine = urldecode(file_get_contents('php://input'));
 $mail = str_replace("=Réactiver le compte",'', $chaine);
