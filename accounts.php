@@ -34,7 +34,7 @@
                 <div class="formLine">
                     <label class='profile'>Sélectionnez un compte :</label>
                     <div class="lbrSelect">
-                        <select class="profile, role-select" onclick='formReload(mapAccounts)' id='account' name="selectedMail">
+                        <select class="profile, role-select" onclick='formReload(mapAccounts);check(2)' id='account' name="selectedMail">
                             <?php
                                 $counter =0;
                                 foreach ($data as $item) :
@@ -60,17 +60,35 @@
                 </div>
                 <div class="formLine">
                     <label class='profile' for='mail' >Adresse mail : </label>
-                    <input class='profile' type='text' name="mail" id='mail' required disabled >
+                    <input class='profile' type='text' name="mail" id='mail' required disabled>
                 </div>
                 <div class="formLine">
                     <label class='profile' for='role' >Rôle : </label>
                     <div class="lbrSelect">
-                        <select class="profile, role-select" id="modifRole" name='role'>
+                        <select class="profile, role-select" id="modifRole" name='role' onclick="check(2)">
                             <option class="role-choices" id="invite" value='invite'>invité</option>
                             <option class="role-choices-1" id="ecriture" value='ecriture'>ecriture</option>
                             <option class="role-choices" id="lecture" value='lecture'>lecture</option>
                             <option class="role-choices-1" id="admin" value='admin'>admin</option>
                         </select required>
+                    </div>
+                </div>
+                <div class="formLine" id="tags1">
+                <label class='profile' for='tags' >Accès au(x) tag(s) : </label>
+                    <div class="tableContainer">
+                        <ul>
+                            <?php
+                                $counter =0;
+                                $requete = "SELECT `nom_tag` FROM `tags`";
+                                $result = mysqli_query($link, $requete);
+                                while($row = mysqli_fetch_array($result))
+                                {
+                                    if($counter%2) echo"<li style='list-style: none;' class='role-choices'><label class='redCheckboxContainer'><input type='checkbox' name='listeTag' value =".$row["nom_tag"]."><span class='redCheckbox'></span>".$row["nom_tag"]."</label></li>";
+                                    else echo"<li style='list-style: none;' class='role-choices-1'><label class='redCheckboxContainer'><input type='checkbox' name='listeTag' value =".$row["nom_tag"]."><span class='redCheckbox'></span>".$row["nom_tag"]."</label></li>";
+                                    $counter++;
+                                }
+                            ?>
+                        </ul>
                     </div>
                 </div>
                 <div class="formLine">
@@ -99,15 +117,33 @@
                 <label class='profile' for='mail' >Adresse mail : </label>
                 <input class='profile' name="mail" type='text' id='mail' required>
             </div>
-            <div class="formLine">
+            <div class="formLine" id="role">
                 <label class='profile' for='role' >Rôle : </label>
                 <div class="lbrSelect">
-                    <select class="profile, role-select" id="modifRole" name='role'>
+                    <select class="profile, role-select" id="modifRoleCrea" name='role' onclick="check(1)">
                         <option class="role-choices" id="invite" value='invite'>invité</option>
                         <option class="role-choices-1" id="ecriture" value='ecriture'>ecriture</option>
                         <option class="role-choices" id="lecture" value='lecture'>lecture</option>
                         <option class="role-choices-1" id="admin" value='admin'>admin</option>
                     </select required>
+                </div>
+            </div>
+            <div class="formLine" id="tags2">
+                <label class='profile' for='tags' >Accès au(x) tag(s) : </label>
+                <div class="tableContainer">
+                    <ul>
+                        <?php
+                        $counter =0;
+                        $requete = "SELECT `nom_tag` FROM `tags`";
+                        $result = mysqli_query($link, $requete);
+                        while($row = mysqli_fetch_array($result))
+                        {
+                            if($counter%2) echo"<li style='list-style: none;' class='role-choices'><label class='redCheckboxContainer'><input type='checkbox' name='listeTag' value =".$row["nom_tag"]."><span class='redCheckbox'></span>".$row["nom_tag"]."</label></li>";
+                            else echo"<li style='list-style: none;' class='role-choices-1'><label class='redCheckboxContainer'><input type='checkbox' name='listeTag' value =".$row["nom_tag"]."><span class='redCheckbox'></span>".$row["nom_tag"]."</label></li>";
+                            $counter++;
+                        }
+                        ?>
+                    </ul>
                 </div>
             </div>
             <div class="formLine">
@@ -165,5 +201,29 @@
         </form>
     </div>
     <script src="./accounts.js"></script>
+    <script>
+        let code = document.getElementById("tags2").innerHTML;
+        function check(index){
+            if (index == 1) {
+                if (document.getElementById("modifRoleCrea").value === "invite") {
+                    document.getElementById("tags2").style.visibility = "visible";
+                    document.getElementById("tags2").innerHTML = code;
+                } else {
+                    document.getElementById("tags2").style.visibility = "hidden";
+                    document.getElementById("tags2").innerHTML = "";
+                }
+            }
+            else{
+                if (document.getElementById("modifRole").value === "invite") {
+                    document.getElementById("tags1").style.visibility = "visible";
+                    document.getElementById("tags1").innerHTML = code;
+                } else {
+                    document.getElementById("tags1").style.visibility = "hidden";
+                    document.getElementById("tags1").innerHTML = "";
+                }
+            }
+        }
+    </script>
 </body>
 </html>
+
