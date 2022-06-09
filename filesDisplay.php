@@ -62,9 +62,18 @@
                     <label class="checkboxContainer checkboxFiles">
                              <input type="checkbox" id="' . $fichier[0] . '" name="'. $fichier[0] . '.' . $fichier[2] . '" value="'.$fichier[6].'" onclick="buttonsAction()">
                              <span class="customCheckBox"></span>
-                        </label>
-                        <img alt="mignature du fichier '. $fichier[0] . '.' . $fichier[2] .' " class="migniatureFichier" src='.".\mignatures\\" . $fichier[0] . ".png" .' >
-                        <p>
+                        </label>';
+
+                $migature= ".\mignatures\\" . $fichier[0] . ".png";
+            $imageData = base64_encode(file_get_contents($migature));
+
+            // Format the image SRC:  data:{mime};base64,{data};
+            $src = 'data: '.mime_content_type($migature).';base64,'.$imageData;
+
+            // Echo out a sample image
+            echo '<img alt="mignature du fichier '. $fichier[0] . '.' . $fichier[2] .' class="migniatureFichier"  src="' . $src . '">';
+
+            echo '      <p>
                             '.$fichier[1].'
                         </p>
                     </div>
