@@ -18,7 +18,11 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
                 $tab[] = $value1;
             }
         }
-        $final_tab[] = $tab;
+        if(!empty($tab)){
+            $final_tab[] = $tab;
+        }else{
+            $final_tab[] = [];
+        }
         unset($tab);
     }
 ?>

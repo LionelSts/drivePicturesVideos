@@ -107,13 +107,11 @@ while($row = mysqli_fetch_array($result)){
                                     <input type="text" id="nomCategorie" name="nomTag" value="' . $tag . '">
                                     <select class="tag-select role-select" id="account" name="categorie">';
                             $counter = 0;
-                            $requete = "SELECT `nom_categorie` FROM `tags` GROUP By `nom_categorie`";
-                            $result = mysqli_query($link, $requete);
-                            while ($row = mysqli_fetch_array($result)) {
-                                if ($row["nom_categorie"] == $key && $counter % 2) echo '<option class="role-choices" selected>' . $row["nom_categorie"] . '</option>';
-                                else if ($row["nom_categorie"] == $key) echo '<option class="role-choices-1" selected>' . $row["nom_categorie"] . '</option>';
-                                else if ($counter % 2) echo '<option class="role-choices">' . $row["nom_categorie"] . '</option>';
-                                else echo '<option class="role-choices-1">' . $row["nom_categorie"] . '</option>';
+                            foreach ($categorie as $categ) {
+                                if ($categ == $key && $counter % 2) echo '<option class="role-choices" selected>' .$categ. '</option>';
+                                else if ($categ == $key) echo '<option class="role-choices-1" selected>' .$categ. '</option>';
+                                else if ($counter % 2) echo '<option class="role-choices">' .$categ. '</option>';
+                                else echo '<option class="role-choices-1">' .$categ. '</option>';
                                 $counter++;
                             }
                             echo '      </select>
@@ -135,12 +133,9 @@ while($row = mysqli_fetch_array($result)){
                             <select class="tag-select role-select" id='account' name='categorie'>
                                 <?php
                                 $counter =0;
-                                $requete = "SELECT `nom_categorie` FROM `tags` GROUP By `nom_categorie`";
-                                $result = mysqli_query($link, $requete);
-                                while($row = mysqli_fetch_array($result))
-                                {
-                                    if($counter%2) echo '<option class="role-choices" value ="'.$row["nom_categorie"].'">'.$row["nom_categorie"].'</option>';
-                                    else echo '<option class="role-choices-1" value="'.$row["nom_categorie"].'">'.$row["nom_categorie"].'</option>';
+                                foreach ($categorie as $categ){
+                                    if($counter%2) echo '<option class="role-choices" value ="'.$categ.'">'.$categ.'</option>';
+                                    else echo '<option class="role-choices-1" value="'.$categ.'">'.$categ.'</option>';
                                     $counter++;
                                 }
                                 ?>
