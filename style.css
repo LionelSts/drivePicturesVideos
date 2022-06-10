@@ -216,7 +216,7 @@ input{
 }
 
 #pageContent{
-    width: fit-content;
+    width: 100%;
 }
 
 #pageContent-bottom{
