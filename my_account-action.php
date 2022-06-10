@@ -1,9 +1,11 @@
 <?php
     session_start();
     if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
-    $prenom = $_POST['prenom'];
-    $nom = $_POST['nom'];
-    $mail = $_SESSION['mail'];
+    if($_SESSION['role'] == "admin"){
+        $mail = $_SESSION['mail']; $prenom = $_POST['prenom']; $nom = $_POST['nom']; $role = $_POST['role'];
+    }else{
+        $mail = $_SESSION['mail']; $prenom = $_SESSION['prenom']; $nom = $_SESSION['nom']; $role = $_SESSION['role'];
+    }
     $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
     $requete = "SELECT `nom`, `prenom`, `mail`, `role`, `mot_de_passe` FROM `utilisateurs` WHERE `mail` = '$mail'";
     $result = mysqli_query($link,$requete);
@@ -20,10 +22,11 @@
         $_SESSION['role'] = $role;
     }
     else $requete = "UPDATE `utilisateurs` SET `prenom` = '$prenom', `nom` = '$nom', `mot_de_passe` = '$mdp' WHERE `mail` = '$mail'";
+    if($_SESSION['role'] == "admin" && $role != $_POST['role']) echo '<script> alert("Votre rôle n\'a pas été modifié (vous êtes le seul admin)")</script>';
+    else echo '<script> alert("Vos changements ont bien été appliqués")</script>';
     $_SESSION['mail'] = $mail; // Saving the user ID needed later
     $_SESSION['nom'] = $nom;
     $_SESSION['prenom'] = $prenom;
-    $result = mysqli_query($link, $requete); // Saving the result
-    if($role != $_POST['role']) echo '<script> alert("Votre rôle n\'a pas été modifié (vous êtes le seul admin)")</script>';
-    else echo '<script> alert("Vos changements ont bien été appliqués")</script>';
+    $result = mysqli_query($link, $requete);
+    // Saving the result
     echo '<script>window.location.replace("my_account.php")</script>';
