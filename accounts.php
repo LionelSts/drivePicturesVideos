@@ -76,20 +76,33 @@
                 </div>
                 <div class="formLine" id="tags1">
                     <label class='profile' for='tags' >Accès au(x) tag(s) : </label>
-                    <div class="tableContainer">
-                        <ul>
-                            <?php
-                                $counter =0;
-                                $requete = "SELECT `nom_tag` FROM `tags`";
-                                $result = mysqli_query($link, $requete);
-                                while($row = mysqli_fetch_array($result))
-                                {
-                                    if($counter%2) echo"<li style='list-style: none;' class='role-choices'><label class='redCheckboxContainer'><input type='checkbox' name='listeTag' value =".$row["nom_tag"]."><span class='redCheckbox'></span>".$row["nom_tag"]."</label></li>";
-                                    else echo"<li style='list-style: none;' class='role-choices-1'><label class='redCheckboxContainer'><input type='checkbox' name='listeTag' value =".$row["nom_tag"]."><span class='redCheckbox'></span>".$row["nom_tag"]."</label></li>";
+                    <div class="autreTagsContainer">
+                        <?php
+                            $counter = 0;
+                            $requete = "SELECT `nom_tag` FROM `tags`";
+                            $result = mysqli_query($link, $requete);
+                            while($row = mysqli_fetch_array($result))
+                            {
+                                if($row["nom_tag"] != "Sans tag") {
+                                    if ($counter % 2) {
+                                        echo "<div class='tag-choices'>
+                                            <label class='redCheckboxContainer'>" . $row["nom_tag"] . "
+                                                <input type='checkbox' name='listeTag' value =" . $row["nom_tag"] . ">
+                                                <span class='tagCheckbox redCheckbox'></span>
+                                            </label>
+                                         </div>";
+                                    } else {
+                                        echo "<div class='tag-choices-1'>
+                                            <label class='redCheckboxContainer'>
+                                                <input type='checkbox' name='listeTag' value =" . $row["nom_tag"] . ">
+                                                <span class='tagCheckbox redCheckbox'></span>" . $row["nom_tag"] . "
+                                            </label>
+                                         </div>";
+                                    }
                                     $counter++;
                                 }
-                            ?>
-                        </ul>
+                            }
+                        ?>
                     </div>
                 </div>
                 <div class="formLine">
@@ -127,20 +140,33 @@
                 </div>
                 <div class="formLine" id="tags2">
                     <label class='profile' for='tags' >Accès au(x) tag(s) : </label>
-                    <div class="tableContainer">
-                        <ul>
-                            <?php
+                    <div class="autreTagsContainer">
+                        <?php
                             $counter =0;
                             $requete = "SELECT `nom_tag` FROM `tags`";
                             $result = mysqli_query($link, $requete);
                             while($row = mysqli_fetch_array($result))
                             {
-                                if($counter%2) echo"<li style='list-style: none;' class='role-choices'><label class='redCheckboxContainer'><input type='checkbox' name='listeTag' value =".$row["nom_tag"]."><span class='redCheckbox'></span>".$row["nom_tag"]."</label></li>";
-                                else echo"<li style='list-style: none;' class='role-choices-1'><label class='redCheckboxContainer'><input type='checkbox' name='listeTag' value =".$row["nom_tag"]."><span class='redCheckbox'></span>".$row["nom_tag"]."</label></li>";
-                                $counter++;
+                                if($row["nom_tag"] != "Sans tag") {
+                                    if ($counter % 2) {
+                                        echo "<div class='tag-choices'>
+                                                <label class='redCheckboxContainer'>" . $row["nom_tag"] . "
+                                                    <input type='checkbox' name='listeTag' value =" . $row["nom_tag"] . ">
+                                                    <span class='tagCheckbox redCheckbox'></span>
+                                                </label>
+                                             </div>";
+                                    } else {
+                                        echo "<div class='tag-choices-1'>
+                                                <label class='redCheckboxContainer'>
+                                                    <input type='checkbox' name='listeTag' value =" . $row["nom_tag"] . ">
+                                                    <span class='tagCheckbox redCheckbox'></span>" . $row["nom_tag"] . "
+                                                </label>
+                                             </div>";
+                                    }
+                                    $counter++;
+                                }
                             }
                             ?>
-                        </ul>
                     </div>
                 </div>
                 <div class="formLine">

@@ -45,6 +45,10 @@ for($i = 0 ; $i < $countfiles ; $i++){
         $id++;
         $extension = str_replace("video/", "", $ext);
         $extension = str_replace("image/", "", $extension);
+        if($extension){
+            $filename = str_replace('.jpeg', "", $filename);
+            $filename = str_replace('.jpg', "", $filename);
+        }
         $filename = str_replace('.'.$extension, "", $filename);
         move_uploaded_file($_FILES['file']['tmp_name'][$i],'fichiers/'.$id.'.'.$extension);
         $filePath = 'fichiers/'.$id.'.'.$extension;
