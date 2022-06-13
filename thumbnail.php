@@ -1,46 +1,39 @@
 <?php
 
 function createThumbnail($path, $dest, $Width, $Height){
+    $resize_Width=$Width;
+    $resize_Height=$Height;
+
     $image = imagecreatefrompng($path);
     $imgWidth = imagesx($image);
     $imgHeight = imagesy($image);
-    /*
-    if($Height == null){
-        $ratio = $imgWidth / $imgHeight;
-        if ($imgWidth > $imgHeight){
-            $Height = floor($Width / $ratio);
-        }
-        else{
-            $Height = $Width;
-            $Width = floor($Width * $ratio);
-        }
-    }*/
+    $ratio = $imgWidth / $imgHeight;
+
     $dest_x=0;
     $dest_y=0;
     $src_x=0;
     $src_y=0;
+
+
     //resize image
-    if($imgWidth/297 > $imgHeight/197){
-
-    }else if($imgWidth/297 < $imgHeight/197){
-
-    }else{
-
+    if($imgWidth<=$imgHeight){
+        $resize_Width=floor($Height*$ratio);
+        $dest_x = intval(($Width - $resize_Width) / 2);
     }
-
+    elseif($imgWidth>$imgHeight){
+        $resize_Height=floor($Width/$ratio);
+        $dest_y = intval(($Height - $resize_Height) / 2);
+    }
     $thumbnail = imagecreatetruecolor($Width, $Height);
-    imagecolortransparent($thumbnail,imagecolorallocate($thumbnail, 0, 0, 0));
-    imagealphablending($thumbnail, false);
-    imagesavealpha($thumbnail, true);
+    imagealphablending( $thumbnail, false );
+    imagesavealpha( $thumbnail, true );
     imagecopyresampled(
         $thumbnail,
         $image,
-        0, 0, 0, 0,
-        $Width, $Height,
+        $dest_x, $dest_y, 0, 0,
+        $resize_Width, $resize_Height,
         $imgWidth, $imgHeight
     );
 
-    return imagepng($thumbnail, $dest, 0);
+    return imagepng($thumbnail, $dest, 9);
 }
-
-?>
