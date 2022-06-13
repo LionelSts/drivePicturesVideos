@@ -1,7 +1,7 @@
 <?php
-session_start();
+session_start();    // démarage de la session
 
-$link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
+$link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;  // connexion à la base de données
 $link->query('SET NAMES utf8');
 
 $requete = "SELECT `id` FROM `corbeille` ORDER BY `id` DESC LIMIT 1";

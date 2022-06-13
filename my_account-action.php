@@ -1,32 +1,31 @@
 <?php
-    session_start();
-    if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
-    if($_SESSION['role'] == "admin"){
-        $mail = $_SESSION['mail']; $prenom = $_POST['prenom']; $nom = $_POST['nom']; $role = $_POST['role'];
-    }else{
-        $mail = $_SESSION['mail']; $prenom = $_SESSION['prenom']; $nom = $_SESSION['nom']; $role = $_SESSION['role'];
+    session_start();    // démarage de la session
+    if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>'; // redirection vers le login si l'utilisateur n'est pas connecté
+    if($_SESSION['role'] == "admin"){   // si l'utilisateur est un admin...
+        $mail = $_SESSION['mail']; $prenom = $_POST['prenom']; $nom = $_POST['nom']; $role = $_POST['role'];    // on enregistre le mail de sa session et les autres infos saisies
+    }else{  // si l'utilisateur n'est pas un admin
+        $mail = $_SESSION['mail']; $prenom = $_SESSION['prenom']; $nom = $_SESSION['nom']; $role = $_SESSION['role'];   // on enregistre les infos de sa session
     }
-    $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
-    $requete = "SELECT `nom`, `prenom`, `mail`, `role`, `mot_de_passe` FROM `utilisateurs` WHERE `mail` = '$mail'";
+    $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;  // connexion à la bdd
+    $requete = "SELECT `nom`, `prenom`, `mail`, `role`, `mot_de_passe` FROM `utilisateurs` WHERE `mail` = '$mail'"; // on récupère les infos associées à l'email de l'utilisateur connecté
     $result = mysqli_query($link,$requete);
-    $data = mysqli_fetch_array($result);
-    if($_POST['password'] != "") $mdp = password_hash($_POST['password'], PASSWORD_BCRYPT);
-    else $mdp = $data['mot_de_passe'];
-    $requete = "SELECT COUNT(*) FROM `utilisateurs` WHERE `role` = 'admin'";
+    $data = mysqli_fetch_array($result);    // on crée un tableau avec les infos trouvées dans la bdd
+    if($_POST['password'] != "") $mdp = password_hash($_POST['password'], PASSWORD_BCRYPT); // si le mot de passe renseigné n'est pas nul alors on le hash
+    else $mdp = $data['mot_de_passe'];  // dans le cas contraire on récupère le mot de passe dans le tableau précédent
+    $requete = "SELECT COUNT(*) FROM `utilisateurs` WHERE `role` = 'admin'";    // on compte le nombre d'admin dans la bdd
     $result = mysqli_query($link,$requete);
     $countAdmin = mysqli_fetch_array($result);
-    if ($_SESSION['role'] == "admin"){
-        if($countAdmin[0] > 1) $role = $_POST['role'];
-        else $role = $_SESSION['role'];
-        $requete = "UPDATE `utilisateurs` SET `prenom` = '$prenom', `nom` = '$nom', `mot_de_passe` = '$mdp', `role` = '$role' WHERE `mail` = '$mail'";
-        $_SESSION['role'] = $role;
+    if ($_SESSION['role'] == "admin"){  // si l'utilisateur connecté est un admin...
+        if($countAdmin[0] > 1) $role = $_POST['role'];  // on vérifie qu'il y ait toujours au moins 2 admin, si oui l'admin peut changer son rôle
+        else $role = $_SESSION['role']; // dans le cas contraire, il ne peut pas, son rôle reste 'admin'
+        $requete = "UPDATE `utilisateurs` SET `prenom` = '$prenom', `nom` = '$nom', `mot_de_passe` = '$mdp', `role` = '$role' WHERE `mail` = '$mail'";  // on modifie les infos dans la bdd
+        $_SESSION['role'] = $role;  // enregistrement du (posssible nouveau) rôle de l'utilisateur connecté
     }
-    else $requete = "UPDATE `utilisateurs` SET `prenom` = '$prenom', `nom` = '$nom', `mot_de_passe` = '$mdp' WHERE `mail` = '$mail'";
+    else $requete = "UPDATE `utilisateurs` SET `prenom` = '$prenom', `nom` = '$nom', `mot_de_passe` = '$mdp' WHERE `mail` = '$mail'"; // si l'utilisateur connecté n'est pas un admin, modifie ses infos dans la bdd mais pas son rôle
     if($_SESSION['role'] == "admin" && $role != $_POST['role']) echo '<script> alert("Votre rôle n\'a pas été modifié (vous êtes le seul admin)")</script>';
     else echo '<script> alert("Vos changements ont bien été appliqués")</script>';
-    $_SESSION['mail'] = $mail; // Saving the user ID needed later
-    $_SESSION['nom'] = $nom;
-    $_SESSION['prenom'] = $prenom;
+    $_SESSION['mail'] = $mail; // enregistrement du (posssible nouveau) mail de l'utilisateur connecté
+    $_SESSION['nom'] = $nom; // enregistrement du (possible nouveau) nom de l'utilisateur connecté
+    $_SESSION['prenom'] = $prenom;  // enregistrement du (possible nouveau) prénom de l'utilisateur connecté
     $result = mysqli_query($link, $requete);
-    // Saving the result
-    echo '<script>window.location.replace("my_account.php")</script>';
+    echo '<script>window.location.replace("my_account.php")</script>';  // redirection vers la page "my_account.php"

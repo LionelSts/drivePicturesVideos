@@ -7,13 +7,13 @@
 </head>
 
 <?php
-session_start();
-if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
+session_start();    // démarage de la session
+if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';  // redirection vers le login si l'utilisateur n'est pas connecté
 //include("./connexion.php");
-$mail = $_SESSION['mail'];
-$link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
-$requete = "SELECT `role` FROM `utilisateurs` WHERE `mail` = '$mail'"; // Preparing the request to verify the password where the login entered is found on the database
-$result = mysqli_query($link, $requete); // Saving the result
+$mail = $_SESSION['mail'];  // récupération de l'email de l'utilisateur connecté
+$link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;  // connexion à la base de données
+$requete = "SELECT `role` FROM `utilisateurs` WHERE `mail` = '$mail'";  // recherche dans la bdd, du rôle associé à l'email de l'utilisateur
+$result = mysqli_query($link, $requete);
 
 ?>
 <body>
@@ -25,7 +25,7 @@ $result = mysqli_query($link, $requete); // Saving the result
 </div>
 
 </div>
-<?php
+<?php   // affichage du menu
     include 'menu.php';
     echo getMenu();
 ?>
