@@ -7,7 +7,7 @@ function formReload(index){
 }
 
 
-let code = document.getElementById("tags2").innerHTML;
+let code = document.getElementById("tags1").innerHTML;
 function check(index) {
     if (index === 1) {
         if (document.getElementById("modifRoleCrea").value === "invite") {
