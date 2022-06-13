@@ -216,7 +216,7 @@ input{
 }
 
 #pageContent{
-    width: fit-content;
+    width: 100%;
 }
 
 #pageContent-bottom{
@@ -792,7 +792,7 @@ input{
     min-width: 5em;
 }
 
-.tagCheckbox, .redCheckbox{
+.tagCheckbox.redCheckbox{
     height: 0.8em;
     width: 0.8em;
     top:auto;
@@ -811,4 +811,18 @@ input{
 
 .tag-select{
     padding-right: 1.5em;
+}
+
+.tagCheckbox.redCheckbox::before{
+    top: -5px;
+    left: 14px;
+    width: 0;
+    height: 1.1em;
+}
+
+.tagCheckbox.redCheckbox::after{
+    top: -5px;
+    left: 14px;
+    width: 0;
+    height: 1.1em;
 }

@@ -1,11 +1,10 @@
 <?php
 
 function createThumbnail($path, $dest, $Width, $Height){
-
     $image = imagecreatefrompng($path);
     $imgWidth = imagesx($image);
     $imgHeight = imagesy($image);
-    
+    /*
     if($Height == null){
         $ratio = $imgWidth / $imgHeight;
         if ($imgWidth > $imgHeight){
@@ -15,6 +14,18 @@ function createThumbnail($path, $dest, $Width, $Height){
             $Height = $Width;
             $Width = floor($Width * $ratio);
         }
+    }*/
+    $dest_x=0;
+    $dest_y=0;
+    $src_x=0;
+    $src_y=0;
+    //resize image
+    if($imgWidth/297 > $imgHeight/197){
+
+    }else if($imgWidth/297 < $imgHeight/197){
+
+    }else{
+
     }
 
     $thumbnail = imagecreatetruecolor($Width, $Height);

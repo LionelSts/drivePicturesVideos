@@ -45,6 +45,10 @@ for($i = 0 ; $i < $countfiles ; $i++){
         $id++;
         $extension = str_replace("video/", "", $ext);
         $extension = str_replace("image/", "", $extension);
+        if($extension){
+            $filename = str_replace('.jpeg', "", $filename);
+            $filename = str_replace('.jpg', "", $filename);
+        }
         $filename = str_replace('.'.$extension, "", $filename);
         move_uploaded_file($_FILES['file']['tmp_name'][$i],'fichiers/'.$id.'.'.$extension);
         $filePath = 'fichiers/'.$id.'.'.$extension;
@@ -65,9 +69,10 @@ for($i = 0 ; $i < $countfiles ; $i++){
             $duree = '00:00:00';
             imagepng(imagecreatefromstring(file_get_contents('./fichiers/'.$id.'.'.$extension)), './mignatures/'.$id.'.png');
         }
-        if($tags_file == null) $tags_file[]="Sans tag";
         $path = './mignatures/'.$id.'.png';
         createThumbnail($path, $path, 267, 197);
+
+        if($tags_file == null) $tags_file[]="Sans tag";
         $requete = "INSERT INTO fichiers (`id`, `nom_fichier`, `extension`, `auteur`, `date`, `duree`, `size`) VALUES ('$id', '$filename', '$extension', '$mail', '$date', '$duree', '$size')";
         mysqli_query($link, $requete);
         foreach ($tags_file as $tag){
