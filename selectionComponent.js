@@ -25,6 +25,19 @@ let buttonsAction = () => {
     }
 }
 
+let confirmDelete = () => {
+    const confirmPopUp = "<div id='confirmPopUp'>" +
+                            " <p>Voulez vous vraiment supprimer ces "+activeContent.length+ " éléments ?</p>" +
+                            "<div class='confirmButtons'><div onclick='deleteFiles()' class='confirmButton'>Oui</div><div onclick='annulDelete()' class='confirmButton'>Non</div></div>"+
+                        "</div>";
+
+    document.getElementById("pageContent").innerHTML += confirmPopUp;
+}
+
+let annulDelete = () => {
+    document.getElementById("confirmPopUp").remove();
+}
+
 let downloadFiles = () => {
     let newForm = "<form method=\"post\" action=\"download-action.php\" hidden>";
     document.getElementById("downloadZone").innerHTML = "";

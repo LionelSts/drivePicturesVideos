@@ -826,3 +826,29 @@ input{
     width: 0;
     height: 1.1em;
 }
+
+#confirmPopUp{
+    position: fixed;
+    left:0;
+    right:0;
+    bottom: 0;
+    top:0;
+    margin: auto;
+    text-align: center;
+    width: fit-content;
+    height: fit-content;
+    background-color: #161920;
+    color:#EBEAD4;
+    padding: 0.5em;
+}
+.confirmButtons{
+    display: flex;
+    justify-content: space-around;
+}
+
+.confirmButton{
+    background-color: #EA001C;
+    padding: 0.5em;
+    margin: 0.5em;
+    cursor: pointer;
+}

@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="style.css">
     <title>Mes fichiers - DriveLBR</title>
 </head>
-
 <?php
 session_start();
 if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
@@ -15,7 +14,7 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
 $requete = "SELECT `role` FROM `utilisateurs` WHERE `mail` = '$mail'"; // Preparing the request to verify the password where the login entered is found on the database
 $result = mysqli_query($link, $requete); // Saving the result
 ?>
-
+<body>
 <div id="header">
     <a class="logoTop" href="home.php"><img alt="logoLBR" id="logo-header-home" src="images/graphiqueLBR/logoLONGUEURClassic.png"></a>
     <div id="searchbar">
@@ -42,7 +41,7 @@ $result = mysqli_query($link, $requete); // Saving the result
         ?>
     </div>
 </div>
-
+</body>
 <script>
     function openPopup(){
         document.getElementById("uploadPopUp").style.display = "table-row";
