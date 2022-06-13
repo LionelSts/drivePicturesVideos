@@ -27,7 +27,7 @@
             $message = file_get_contents('template.html');
             $tmpPassword = bin2hex(random_bytes(24));
             $hashedPassword = password_hash($tmpPassword, PASSWORD_BCRYPT);
-            $message = str_replace('registerLink', 'register.php?tmpPsw='.$tmpPassword, $message);
+            $message = str_replace('registerLink', 'localhost/driveBriquesRouges/register.php?tmpPsw='.$tmpPassword, $message);
             $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES ('$prenom', '$nom', '$mail', '$hashedPassword', '$role','$descriptif', 'en attente') "; // So we create your account in our database
             $result = mysqli_query($link,$requete); // the request itself
             $subject = 'Votre compte Drive Les Briques Rouges';
