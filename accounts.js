@@ -6,23 +6,19 @@ function formReload(index){
     document.getElementById('modifRole').value = index.get(mail)[3];
 }
 
-let code = document.getElementById("tags1").innerHTML;
-function check(index){
+
+let code = document.getElementById("tags2").innerHTML;
+function check(index) {
     if (index === 1) {
         if (document.getElementById("modifRoleCrea").value === "invite") {
-            document.getElementById("tags2").style.visibility = "visible";
             document.getElementById("tags2").innerHTML = code;
         } else {
-            document.getElementById("tags2").style.visibility = "hidden";
             document.getElementById("tags2").innerHTML = "";
         }
-    }
-    else{
+    } else {
         if (document.getElementById("modifRole").value === "invite") {
-            document.getElementById("tags1").style.visibility = "visible";
             document.getElementById("tags1").innerHTML = code;
         } else {
-            document.getElementById("tags1").style.visibility = "hidden";
             document.getElementById("tags1").innerHTML = "";
         }
     }
@@ -32,7 +28,5 @@ function check(index){
         console.log(element[1]);
         document.getElementById(element[1]).checked = true;
     });
-
-
 }
 
