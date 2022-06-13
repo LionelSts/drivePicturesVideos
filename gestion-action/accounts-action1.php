@@ -16,8 +16,13 @@
         echo '<script> alert("Compte supprimé avec succès.");window.location.replace("../home.php");</script>';
     }
     else if(isset($_POST["modifier"])){
-        $requete1 = "UPDATE `attribuer` SET `nom_tag`= '$chaine' WHERE `email` ='$mail'";
-        mysqli_query($link, $requete1);
+        $tab = explode(" ",$chaine);
+        $requete1 = "DELETE FROM `attribuer` WHERE `email` ='$mail'";
+        $result1 = mysqli_query($link, $requete1);
+        for ($i = 1; $i < count($tab)-1; $i++){
+            $requete2 = "INSERT INTO `attribuer` (`email`,`nom_tag`) VALUES ('$mail', '$tab[$i]')";
+            $result2 = mysqli_query($link, $requete2);
+        }
         if($_POST["password"] != ""){
             $regex = "/^(?=.*\w)(?=.*\W)[\w\W]{8,}$/";
             if(preg_match($regex, $mdp)) {

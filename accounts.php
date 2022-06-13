@@ -25,6 +25,7 @@
         <a href="home.php"> <img alt="logoLBR" id="logo-header" src="images/graphiqueLBR/logoLONGUEURClassic.png"></a>
     </div>
     <div id="main">
+        <input hidden type="text" name="emailConcerne" value="">
         <?php
         include './menu.php';
         echo getMenu();
@@ -61,7 +62,7 @@
                 </div>
                 <div class="formLine">
                     <label class='profile' for='mail' >Adresse mail : </label>
-                    <input class='profile' type='text' name="mail" id='mail' required disabled>
+                    <input class='profile' type='text' name="mail" id="mailCompte" required disabled>
                 </div>
                 <div class="formLine">
                     <label class='profile' for='role' >Rôle : </label>
@@ -74,6 +75,18 @@
                         </select required>
                     </div>
                 </div>
+                <?php
+                    $tableau = []; $i = 0;
+                    $requete2 = "SELECT * FROM `attribuer`";
+                    $result2 = mysqli_query($link, $requete2);
+                    $data2 = mysqli_fetch_all($result2);
+                    $jsCode = "let tabTags = [];";
+                    foreach ($data2 as $info){
+                        $jsCode .= 'tabTags.push(["'. $info[0] .'","'. $info[1] .'"]);';
+                    }
+                    $jsCode .= 'let filtre = (mail) => tabTags.filter(word => word[0] == mail);';
+                    echo '<script>' . $jsCode . '</script>';
+                ?>
                 <div class="formLine" id="tags1">
                 <label class='profile' for='tags' >Accès au(x) tag(s) : </label>
                     <div class="tableContainer">
@@ -84,8 +97,8 @@
                                 $result = mysqli_query($link, $requete);
                                 while($row = mysqli_fetch_array($result))
                                 {
-                                    if($counter%2) echo"<li style='list-style: none;' class='role-choices'><label class='redCheckboxContainer'><input type='checkbox' name='listeTag' value =".$row["nom_tag"]."><span class='redCheckbox'></span>".$row["nom_tag"]."</label></li>";
-                                    else echo"<li style='list-style: none;' class='role-choices-1'><label class='redCheckboxContainer'><input type='checkbox' name='listeTag' value =".$row["nom_tag"]."><span class='redCheckbox'></span>".$row["nom_tag"]."</label></li>";
+                                    if($counter%2) echo"<li style='list-style: none;' class='role-choices'><label class='redCheckboxContainer'><input id='".$row["nom_tag"]."' type='checkbox' name='listeTag' value =".$row["nom_tag"]."><span class='redCheckbox'></span>".$row["nom_tag"]."</label></li>";
+                                    else echo"<li style='list-style: none;' class='role-choices-1'><label class='redCheckboxContainer'><input id='".$row["nom_tag"]."' type='checkbox' name='listeTag' value =".$row["nom_tag"]."><span class='redCheckbox'></span>".$row["nom_tag"]."</label></li>";
                                     $counter++;
                                 }
                             ?>
@@ -280,28 +293,5 @@
         </form>
     </div>
     <script src="./accounts.js"></script>
-    <script>
-        let code = document.getElementById("tags2").innerHTML;
-        function check(index){
-            if (index === 1) {
-                if (document.getElementById("modifRoleCrea").value === "invite") {
-                    document.getElementById("tags2").style.visibility = "visible";
-                    document.getElementById("tags2").innerHTML = code;
-                } else {
-                    document.getElementById("tags2").style.visibility = "hidden";
-                    document.getElementById("tags2").innerHTML = "";
-                }
-            }
-            else{
-                if (document.getElementById("modifRole").value === "invite") {
-                    document.getElementById("tags1").style.visibility = "visible";
-                    document.getElementById("tags1").innerHTML = code;
-                } else {
-                    document.getElementById("tags1").style.visibility = "hidden";
-                    document.getElementById("tags1").innerHTML = "";
-                }
-            }
-        }
-    </script>
 </body>
 </html>
