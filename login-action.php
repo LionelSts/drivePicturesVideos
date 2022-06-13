@@ -4,6 +4,7 @@ $mail = $_POST['email'];    // enregistrement du mail saisi dans la variable "$m
 $mdp = $_POST['password'];  // enregistrement du mot de passe saisi dans la variable "$mdp"
 //include("connexion.php");
 $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;  // connexion à la bdd
+$link->query('SET NAMES utf8');
 $requete = "SELECT `prenom`, `nom`, `mail`, `mot_de_passe`,`role` FROM `utilisateurs` WHERE `mail` = '$mail' "; // redirection vers le login si l'utilisateur n'est pas connecté
 $result = mysqli_query($link, $requete);
 $row = mysqli_fetch_array($result);

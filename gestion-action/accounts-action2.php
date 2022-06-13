@@ -2,6 +2,7 @@
     session_start();    // démarage de la session
     if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';  // redirection vers le login si l'utilisateur n'est pas connecté
     $link = mysqli_connect("127.0.0.1", "root", "", "drivelbr");    // connexion à la base de données
+    $link->query('SET NAMES utf8');
     $nom = $_POST['nom'];   // récupération des données du formulaire de Création de compte
     $prenom = $_POST['prenom'];
     $mail = $_POST['mail'];

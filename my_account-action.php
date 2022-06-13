@@ -7,6 +7,7 @@
         $mail = $_SESSION['mail']; $prenom = $_SESSION['prenom']; $nom = $_SESSION['nom']; $role = $_SESSION['role'];   // on enregistre les infos de sa session
     }
     $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;  // connexion à la bdd
+    $link->query('SET NAMES utf8');
     $requete = "SELECT `nom`, `prenom`, `mail`, `role`, `mot_de_passe` FROM `utilisateurs` WHERE `mail` = '$mail'"; // on récupère les infos associées à l'email de l'utilisateur connecté
     $result = mysqli_query($link,$requete);
     $data = mysqli_fetch_array($result);    // on crée un tableau avec les infos trouvées dans la bdd

@@ -2,6 +2,7 @@
     session_start();    // démarage de la session
     if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';  // redirection vers le login si l'utilisateur n'est pas connecté
     $link = mysqli_connect("127.0.0.1", "root", "", "drivelbr");    // connexion à la base de données
+    $link->query('SET NAMES utf8');
     $mail = $_POST['selectedMail']; $prenom = $_POST['prenom']; $nom = $_POST['nom']; $mdp = $_POST['password']; $role = $_POST['role'];    // récupération des données du formulaire de Gestion des comptes
     $password = password_hash($mdp, PASSWORD_BCRYPT);   // hashage du mot de passe avec la méthode 'PASSWORD_BCRYPT'
     $chaine = urldecode(file_get_contents('php://input'));  // récupération de la liste des tags sélectionné en enlevant les données inutiles

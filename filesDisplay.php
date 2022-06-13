@@ -19,7 +19,7 @@
             <p id="filesSize"></p>
             <div class="actionButtonsContainer">
                 <div id="downloadZone"></div>
-                <p id="editFilesTags" >Modifier les tags</p>
+                <p id="editFilesTags" onclick="tagSelection()">Modifier les tags</p>
                 <img alt="télécharger" src="./images/icons/download.png" onclick="downloadFiles()">
                 <img alt="supprimer" src="./images/icons/trash.png" onclick="deleteFiles()">
             </div>
@@ -44,7 +44,7 @@
     <?php
         foreach ($files as $fichier){
                 $search=$fichier[0];
-                $requete = "SELECT `nom_tag` FROM `caracteriser` WHERE `id_fichier` = $fichier[0]";
+                $requete = "SELECT `nom_tag` FROM `caracteriser` WHERE `id_fichier` = '$fichier[0]'";
                 $result = mysqli_query($link, $requete); // Saving the result
                 $fileTags = mysqli_fetch_all($result);
                 $taglist="";
@@ -79,4 +79,18 @@
     ?>
 </div>
 <script src="selectionComponent.js"></script>
+<?php
+$requete = "SELECT `nom_tag` FROM `tags`";
+$result = mysqli_query($link, $requete); // Saving the result
+$tags = mysqli_fetch_all($result);
+$tagsString = "[";
+foreach ($tags as $tag){
+    $tagsString .= "'".$tag[0]."'".",";
+}
+$tagsString = rtrim($tagsString, ',');
+$tagsString.=']';
+?>
+<script>
+    const listTag = <?php echo $tagsString ?>;
+</script>
 

@@ -419,6 +419,10 @@ input{
     user-select: none;
 }
 
+.redCheckboxContainer{
+    margin-bottom:0;
+}
+
 /* Hide the browser's default checkbox */
 .checkboxContainer input {
     position: absolute;
@@ -839,7 +843,7 @@ input{
     height: fit-content;
     background-color: #161920;
     color:#EBEAD4;
-    padding: 0.5em;
+    padding: 0.5em 1em 0.5em 1em;
 }
 .confirmButtons{
     display: flex;
@@ -852,3 +856,19 @@ input{
     margin: 0.5em;
     cursor: pointer;
 }
+
+.tagsFichiers label{
+    color: #161920;
+}
+
+.tagsFichiers input[type="submit"]{
+    border: 0;
+    background-color: #EA001C;
+    padding: 0.5em;
+    margin: 0.5em;
+    cursor: pointer;
+    color: #EBEAD4;
+    font-size: 1em;
+}
+
+

@@ -2,6 +2,7 @@
     session_start();     // démarage de la session
     if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';  // redirection vers le login si l'utilisateur n'est pas connecté
     $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;  // connexion à la base de données
+    $link->query('SET NAMES utf8');
     $chaine = urldecode(file_get_contents('php://input'));  // récupération d'une chaine contenant le mail sélectionné
     $mail = str_replace("=Renvoyer le mail",'', $chaine);   // suppression des éléments inutiles de cette chaine
     $requete = "SELECT  `prenom`, `nom` FROM utilisateurs WHERE `mail`='$mail'";    // recherche dans la bdd du nom et prénom associé à cet email
