@@ -882,3 +882,28 @@ input{
     height: 1.2em;
 }
 
+.filePreviewContainer{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin:auto;
+    width: 80%;
+    background-color: #161920;
+    color: #EBEAD4;
+    display: table;
+}
+
+.filePreviewContainer img, .filePreviewContainer video{
+    padding: 0 1em 1em 1em;
+    margin:auto;
+    display: table-row;
+}
+
+#previewHeader{
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+
+}

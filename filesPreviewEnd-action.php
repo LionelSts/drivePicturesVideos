@@ -1,2 +1,3 @@
 <?php
-unlink($_POST['file']);
+$fileName = str_replace("'","", $_POST['file']);
+unlink("./temporary/".$fileName);

@@ -1,24 +1,25 @@
 let files =  document.getElementsByClassName('fichierContainer');
-
-let playFile = (file) => {
-    $.post( "filesPreviewBegin-action.php", { file: file }, function( data ) {
+let fileGeneration;
+let playFile = (file, fileName) => {
+    fileGeneration ='';
+    $.post( "filesPreviewBegin-action.php", { file: file, fileName: fileName }, function( data ) {
         document.getElementById('filesDisplayContainer').innerHTML += data;
+        fileGeneration = document.getElementById("filePreviewContainerDiv").children[1].id;
+        window.addEventListener('beforeunload', () => closeFile(fileGeneration));
     }, "html");
+
 }
 
 let closeFile = () => {
-    let fichierTemporaire = document.getElementById('preview');
-
-    console.log(document.getElementById('preview').className);
-    $.post( "filesPreviewEnd-action.php", { file: fichierTemporaire }, function( data ) {
+    console.log(fileGeneration);
+    $.post( "filesPreviewEnd-action.php", { file: fileGeneration }, function( data ) {
 
     }, "html");
-    fichierTemporaire.remove();
+    document.getElementById('filePreviewContainerDiv').remove();
 }
 
 for(let i = 0; i < files.length; i++){
-    let fileInfos = files[i].children[0].children[0].children[0];
-    files[i].addEventListener('dblclick', () => playFile(fileInfos.name));
+    let fileInfo = files[i].children[0].children[0].children[0];
+    let fileName = files[i].children[0].children[2].outerText;
+    files[i].addEventListener('dblclick', () => playFile(fileInfo.name, fileName));
 }
-
-window.addEventListener('beforeunload', () => closeFile());
