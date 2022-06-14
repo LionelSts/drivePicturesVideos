@@ -871,4 +871,14 @@ input{
     font-size: 1em;
 }
 
+.tagCheckbox.redCheckbox.tagChoiceCheckbox::before{
+    top: -4px;
+    left: 9px;
+    height: 1.2em;
+}
+.tagCheckbox.redCheckbox.tagChoiceCheckbox::after{
+    top: -4px;
+    left: 9px;
+    height: 1.2em;
+}
 
