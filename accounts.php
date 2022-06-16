@@ -195,7 +195,7 @@ session_start();
                 <div class="formLine">
                     <label for="mdp">Laisser choisir le mot de passe :</label>
                     <label class="redCheckboxContainer">
-                        <input type="checkbox" id="mdp" name="mdp" value="mdp">
+                        <input type="checkbox" id="randomPassword" name="randomPassword" value="randomPassword">
                         <span class="redCheckbox "></span>
                     </label>
                 </div>

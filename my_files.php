@@ -39,6 +39,7 @@ $result = mysqli_query($link, $requete); // Saving the result
         </div>
         <?php
             include 'filesDisplay.php';
+            loadFiles(1);
         ?>
         <?php
             include 'upload-popup.php';

@@ -8,11 +8,11 @@ try {
 $randWord = bin2hex($bytes);
 $zip = new ZipArchive;
 $fileName = $randWord.'.zip';
-$path = '/temporary/'.$fileName;
+$path = '../temporary/'.$fileName;
 if ($zip->open($_SERVER['DOCUMENT_ROOT']."/driveBriquesRouges/temporary/".$fileName, ZipArchive::CREATE) === TRUE)
 {
     foreach ($files as $file){
-        $filePath = "./fichiers/".$file;
+        $filePath = "../fichiers/".$file;
         $zip->addFile($filePath, $file);
     }
     // All files are added, so close the zip file.
@@ -21,7 +21,7 @@ if ($zip->open($_SERVER['DOCUMENT_ROOT']."/driveBriquesRouges/temporary/".$fileN
     exit("Impossible d'ouvrir le fichier <$randWord>\n");
 }
 
-$fileToSend = './temporary/'.$fileName;
+$fileToSend = '../temporary/'.$fileName;
 
 if (headers_sent()) {
     echo 'HTTP header already sent';

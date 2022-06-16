@@ -38,9 +38,9 @@ while($row = mysqli_fetch_array($result)){
                     <?php
                     foreach ($categorie as $value1) {
                         if($value1 != "Autre"){
-                        echo('<form class="profile" method="post" action="tags-action.php">
+                        echo('<form class="profile" method="post" action="actions/tags-action.php">
                                 <div class="tagsLine">
-                                    <label for="nom" >'.$value1.'</label>
+                                    <label for="nom" >' .$value1.'</label>
                                     <input type="text" id="nomCategorie" name="nomCategorie" value="'.$value1.'">
                                     <input type="submit" id="'.$value1.'" name="Modifier" value="Modifier">
                                     <input type="submit" id="'.$value1.'" name="Supprimer" value="Supprimer">
@@ -51,7 +51,7 @@ while($row = mysqli_fetch_array($result)){
                     }
                     ?>
                 </div>
-                <form class="profile" method="post" action="tags-action.php">
+                <form class="profile" method="post" action="actions/tags-action.php">
                     <div class="tagsLine">
                         <label for='role'>Nouvelle catégorie :</label>
                         <input type="text" id="nomCategorie" name="nomCategorie1" required>
@@ -103,7 +103,7 @@ while($row = mysqli_fetch_array($result)){
                     echo '<h2 class="mediumTitle"> '.$key.' </h2><div class="tagsContainer">';
                     foreach ($value as $tag) {
                         if ($tag != "Sans tag") {
-                            echo '<form  class="profile" method="post" action="tags-action2.php">
+                            echo '<form  class="profile" method="post" action="actions/tags-action2.php">
                                 <div class="tagsLine">
                                     <label for="nom" id="nom">' . $tag . '</label>
                                     <input type="text" id="nomCategorie" name="nomTag" value="' . $tag . '">
@@ -128,7 +128,7 @@ while($row = mysqli_fetch_array($result)){
                     echo '</div>';
                 }
                 ?>
-                <form class="profile" method="post" action="tags-action2.php">
+                <form class="profile" method="post" action="actions/tags-action2.php">
                     <div class="tagsLine">
                         <label for='role'>Nouveau Tag :</label>
                         <input type="text" id="nomCategorie" name="nomTag">

@@ -24,4 +24,4 @@ foreach ($filesData as $file){                                              // p
     }
 }
 
-header('location:my_files.php'); // on renvoie l'utilisateur vers la page "my_files.php"
+header('location:../my_files.php'); // on renvoie l'utilisateur vers la page "my_files.php"

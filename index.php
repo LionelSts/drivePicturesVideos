@@ -14,7 +14,7 @@ if(isset($_SESSION["mail"])) echo '<script> alert("Vous êtes déjà connecté."
 <div id="container">
         <img alt="loboLBR" id="logo" src="./images/graphiqueLBR/Plan%20de%20travail%2010LogoFullBlanc.png"/>
         <h1 id="loginPageTitle">DRIVE</h1>
-        <form action="login-action.php" id="login-form" method="post">
+        <form action="actions/login-action.php" id="login-form" method="post">
             <label class="textConnexion" for="email">Identifiant</label><br>
             <input class="loginInputs" type="text" name="email" id="email" required/>
             <br><br>

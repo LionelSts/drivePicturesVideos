@@ -733,9 +733,18 @@ input{
 }
 .fichierSubContainer p{
     font-size:1.25em;
-    white-space: nowrap;
-    word-wrap: break-word;
     overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: flex;
+}
+.fileNameContainer{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.fileExtensionContainer{
+    width: fit-content;
 }
 
 .fichierContainer p{

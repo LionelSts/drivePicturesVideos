@@ -1,8 +1,8 @@
 <?php
 session_start();// démarage de la session
-require 'vendor/autoload.php';
-include 'thumbnail.php';
-if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
+require '../vendor/autoload.php';
+include '../thumbnail.php';
+if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("../index.php");</script>';
 $str_arr = array();
 foreach ($_POST as $key => $value){
     if($key != "submit" && $key != "newTag"){
@@ -50,26 +50,26 @@ for($i = 0 ; $i < $countfiles ; $i++){
             $filename = str_replace('.jpg', "", $filename);
         }
         $filename = str_replace('.'.$extension, "", $filename);
-        move_uploaded_file($_FILES['file']['tmp_name'][$i],'fichiers/'.$id.'.'.$extension);
-        $filePath = 'fichiers/'.$id.'.'.$extension;
+        move_uploaded_file($_FILES['file']['tmp_name'][$i],'../fichiers/'.$id.'.'.$extension);
+        $filePath = '../fichiers/'.$id.'.'.$extension;
         $size = $_FILES['file']['size'][$i];
         if(str_contains($_FILES['file']['type'][$i], "video")){
             // We create thumbnail
             $ffmpeg = FFMpeg\FFMpeg::create();
-            $video = $ffmpeg->open('./fichiers/'.$id.'.'.$extension);
+            $video = $ffmpeg->open($filePath);
             $video
                 ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(5))
-                ->save('./mignatures/'.$id.'.png');
+                ->save('../mignatures/'.$id.'.png');
             $ffprobe = FFMpeg\FFProbe::create();
             $duree = $ffprobe
-                ->format('./fichiers/'.$id.'.'.$extension) // extracts file informations
+                ->format($filePath) // extracts file informations
                 ->get('duration');             // returns the duration property
         }
         else{
             $duree = '00:00:00';
-            imagepng(imagecreatefromstring(file_get_contents('./fichiers/'.$id.'.'.$extension)), './mignatures/'.$id.'.png');
+            imagepng(imagecreatefromstring(file_get_contents($filePath)), '../mignatures/'.$id.'.png');
         }
-        $path = './mignatures/'.$id.'.png';
+        $path = '../mignatures/'.$id.'.png';
         createThumbnail($path, $path, 267, 197);
 
         if($tags_file == null) $tags_file[]="Sans tag";
@@ -82,4 +82,4 @@ for($i = 0 ; $i < $countfiles ; $i++){
     }
 }
 
-header('Location:my_files.php');
+header('Location:../my_files.php');

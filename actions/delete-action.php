@@ -25,8 +25,8 @@ foreach ($files as $file){
     $size = $results['size'];
     $delete_date = date('Y-m-d H:i:s');
     $delete_user = $_SESSION['mail'];
-    rename('./fichiers/'.$fileName.'.'.$extension, './corbeille/'.$id.'.'.$extension);
-    rename('./mignatures/'.$fileName.'.png', './corbeille/mignature-'.$id.'.png');
+    rename('../fichiers/'.$fileName.'.'.$extension, '../corbeille/'.$id.'.'.$extension);
+    rename('../mignatures/'.$fileName.'.png', '../corbeille/mignature-'.$id.'.png');
     $requete = "DELETE FROM `fichiers` WHERE `id` = $fileName";
     mysqli_query($link, $requete);
     $requete = "DELETE FROM `caracteriser` WHERE `id_fichier` = $fileName";
@@ -35,4 +35,4 @@ foreach ($files as $file){
     mysqli_query($link, $requete);
 }
 
-header('Location:my_files.php');
+header('Location:../my_files.php');

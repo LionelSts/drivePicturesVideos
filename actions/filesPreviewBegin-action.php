@@ -6,10 +6,10 @@ try {
 } catch (Exception $e) {
 }
 $randWord = bin2hex($bytes);
-$filePath = './fichiers/'.$_POST['file'];
+$filePath = '../fichiers/'.$_POST['file'];
 $fileName = $_POST['fileName'].'.'.$fileExtension;
 $newFile = './temporary/'.$randWord.'.'.$fileExtension;
-copy($filePath, $newFile);
+copy($filePath, '.'.$newFile);
 $generateFileName = "'".$randWord.'.'.$fileExtension."'";
 $htmlCode = '<div id="filePreviewContainerDiv" class="filePreviewContainer" ><div id="previewHeader"><h1>'.$fileName.'</h1>
 <h1 onclick="closeFile()">X</h1></div>';
