@@ -17,11 +17,11 @@ if(isset($_SESSION["mail"])) echo '<script> alert("Vous êtes déjà connecté."
         <form action="login-action.php" id="login-form" method="post">
             <label class="textConnexion" for="email">Identifiant</label><br>
             <input class="loginInputs" type="text" name="email" id="email" required/>
-            <br><br><br>
+            <br><br>
             <label class="textConnexion" for="password">Mot de passe</label><br>
             <input class="loginInputs" type="password" name="password" id="password" required/>
             <br>
-            <br>
+            <p id="mdpOublie"> Mot de passe oublié ? <a class="mdpOublie" href="./mdpOublie.php">Cliquez ici</a></p>
             <input type="submit" name="Connection" id="Connection" value="Connexion"/>
             <br>
             <input type="submit" name="Google" id="Google" value="Se connecter avec Google"/>

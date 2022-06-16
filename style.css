@@ -63,6 +63,21 @@ input{
 }
 
 
+#mdpOublie{
+    color: white;
+}
+
+
+.mdpOublie{
+    color: white;
+}
+
+
+.mdpOublie:hover{
+    color: #EA001C;
+}
+
+
 #Connection, #Google {
     background-color: #EA001C;
     color: white;
