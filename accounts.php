@@ -188,7 +188,7 @@
                 </div>
                 <div class="formLine">
                     <label class='profile' for='password' >Mot de passe : </label>
-                    <input class='profile' name="password" type='password' id='password' required>
+                    <input class='profile' name="password" type='password' id='password'>
                 </div>
                 <div class="formLine">
                     <label for="mdp">Laisser choisir le mot de passe :</label>
