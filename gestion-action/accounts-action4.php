@@ -8,4 +8,3 @@ $mail = str_replace("=Réactiver le compte",'', $chaine);
 $requete = "UPDATE `utilisateurs` SET `etat` = 'actif' WHERE `mail` = '$mail'"; // on met à jour l'état (on passe en 'actif') associé au mail
 $result = mysqli_query($link,$requete);
 header('location:../accounts.php'); // redirection vers la page "accounts.php"
-?>

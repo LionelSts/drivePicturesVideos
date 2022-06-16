@@ -22,7 +22,7 @@ $result = mysqli_query($link, $requete); // Saving the result
 <div id="header">
     <a class="logoTop" href="home.php"><img alt="logoLBR" id="logo-header-home" src="images/graphiqueLBR/logoLONGUEURClassic.png"></a>
     <div id="searchbar">
-        <input type="text" id="searchInput" placeholder="Barre de recherche"/>
+        <label for="searchInput"></label><input type="text" id="searchInput" placeholder="Barre de recherche"/>
         <img alt="Loupe" src="images/icons/search-logo.png" id="search-logo">
     </div>
 </div>

@@ -13,7 +13,7 @@ copy($filePath, '.'.$newFile);
 $generateFileName = "'".$randWord.'.'.$fileExtension."'";
 $htmlCode = '<div id="filePreviewContainerDiv" class="filePreviewContainer" ><div id="previewHeader"><h1>'.$fileName.'</h1>
 <h1 onclick="closeFile()">X</h1></div>';
-if(strstr(mime_content_type($filePath), "image/")){
+if(str_contains(mime_content_type($filePath), "image/")){
     $htmlCode .= '<img id="'.$generateFileName.'" alt="preview du fichier" src="' . $newFile . '"></div>';
 }else if(strstr(mime_content_type($filePath), "video/") || strstr(mime_content_type($filePath), "audio/") ){
     $htmlCode .= '<video id="'.$generateFileName.'" controls autoplay>

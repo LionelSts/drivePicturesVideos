@@ -1,6 +1,6 @@
 <?php
     session_start();    // lancement de la session
-    $regex = "/^(?=.*[\w])(?=.*[\W])[\w\W]{8,}$/";  // expression régulière des régles du mot de passe
+    $regex = "/^(?=.*\w)(?=.*\W)[\w\W]{8,}$/";  // expression régulière des régles du mot de passe
     $tmpPsw = $_GET['tmpPsw'];  // récupération du mot de passe par la méthode GET
     $psw = $_POST['password'];
     $mail = $_POST["email"];    // récupération du mail saisi
@@ -26,4 +26,3 @@
     else{
         echo '<script> alert("Lien erroné.");window.location.replace("../index.php");</script>';   // message d'erreur et redirection sur  la page de login
     }
-?>

@@ -1,6 +1,7 @@
 <?php
 
-function createThumbnail($path, $dest, $Width, $Height){
+function createThumbnail($path, $dest, $Width, $Height): bool
+{
     $resize_Width=$Width;
     $resize_Height=$Height;
 
@@ -11,16 +12,13 @@ function createThumbnail($path, $dest, $Width, $Height){
 
     $dest_x=0;
     $dest_y=0;
-    $src_x=0;
-    $src_y=0;
-
 
     //resize image
     if($imgWidth<=$imgHeight){
         $resize_Width=floor($Height*$ratio);
         $dest_x = intval(($Width - $resize_Width) / 2);
     }
-    elseif($imgWidth>$imgHeight){
+    else {
         $resize_Height=floor($Width/$ratio);
         $dest_y = intval(($Height - $resize_Height) / 2);
     }

@@ -32,11 +32,9 @@
                 mysqli_query($link, $requete1);
             }
             $requete = "INSERT INTO `categorie` (`nom_categorie`) VALUES ('$nouvelle_categorie')";
-            mysqli_query($link, $requete);
         } else {
             $requete = "INSERT INTO `categorie` (`nom_categorie`) VALUES ('$nouvelle_categorie') ";
-            mysqli_query($link, $requete);
         }
+        mysqli_query($link, $requete);
         echo '<script> alert("Catégorie créée avec succès.");window.location.replace("../tags.php");</script>';
     }
-?>

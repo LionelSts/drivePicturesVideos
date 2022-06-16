@@ -28,4 +28,3 @@
         mysqli_query($link, $requete2);
         echo '<script> alert("Tag crée avec succès.");window.location.replace("../tags.php");</script>';
     }
-?>

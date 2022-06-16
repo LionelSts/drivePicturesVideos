@@ -8,6 +8,7 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
     $data = mysqli_fetch_all($result);
     $requete = "SELECT `nom_categorie` FROM `categorie`";
     $result = mysqli_query($link, $requete);
+    $categorie = [];
     while($row = mysqli_fetch_array($result)){
         $categorie[] = $row['nom_categorie'];
     }
