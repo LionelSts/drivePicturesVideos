@@ -10,6 +10,7 @@
         $requete2 = "DELETE FROM `caracteriser` WHERE `nom_tag`='$nomTag'";
         $requete3 = "DELETE FROM `attribuer` WHERE `nom_tag`='$nomTag'";
         $requete4 = "DELETE FROM `tags` WHERE `nom_tag`='$nomTag'";
+        $requete5 = "INSERT INTO tableau_de_bord (modification) VALUES ('Compte ".$_SESSION["nom"]." {$} ({$}) a supprimé le tag '$nomTag'')";
         mysqli_query($link, $requete1);
         mysqli_query($link, $requete2);
         mysqli_query($link, $requete3);
