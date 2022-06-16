@@ -1,3 +1,6 @@
+<?php
+session_start();// démarage de la session
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,7 +12,6 @@
 <?php
 use Ds\Map;
 require 'vendor/autoload.php';
-session_start();
 if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
 $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr");
 $link->query('SET NAMES utf8');

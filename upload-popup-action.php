@@ -1,7 +1,7 @@
 <?php
+session_start();// démarage de la session
 require 'vendor/autoload.php';
 include 'thumbnail.php';
-session_start();
 if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
 $str_arr = array();
 foreach ($_POST as $key => $value){

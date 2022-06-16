@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<?php
+session_start();// démarage de la session
+?>
 <html lang="fr">
 <head>
     <meta charset="utf-8">
@@ -7,11 +9,11 @@
 </head>
 
 <?php
-session_start();    // démarage de la session
 if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';  // redirection vers le login si l'utilisateur n'est pas connecté
 //include("./connexion.php");
 $mail = $_SESSION['mail'];  // récupération de l'email de l'utilisateur connecté
 $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;  // connexion à la base de données
+$link->query('SET NAMES utf8');
 $requete = "SELECT `role` FROM `utilisateurs` WHERE `mail` = '$mail'";  // recherche dans la bdd, du rôle associé à l'email de l'utilisateur
 $result = mysqli_query($link, $requete);
 

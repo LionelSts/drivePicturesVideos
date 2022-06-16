@@ -1,16 +1,20 @@
+<?php
+session_start();// démarage de la session
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
     <title>Mes fichiers - DriveLBR</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <?php
-session_start();
 if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
 //include("./connexion.php");
 $mail = $_SESSION['mail'];
-$link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
+$link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr");
+$link->query('SET NAMES utf8');
 $requete = "SELECT `role` FROM `utilisateurs` WHERE `mail` = '$mail'"; // Preparing the request to verify the password where the login entered is found on the database
 $result = mysqli_query($link, $requete); // Saving the result
 ?>

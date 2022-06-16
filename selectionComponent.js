@@ -46,14 +46,14 @@ let tagSelection = () => {                                                  // P
             window += "<div class='tag-choices'>" +
                 "          <label class='redCheckboxContainer'>" + listTag[i] +
                 "               <input type='checkbox' id='"+ listTag[i] +"' name='listeTag[]' value ='"+ listTag[i] +"' \>" +
-                "               <span class='tagCheckbox redCheckbox'></span>\n" +
+                "               <span class='tagChoiceCheckbox tagCheckbox redCheckbox'></span>\n" +
                 "           </label>\n" +
                 "     </div>";
         }else{
             window += "<div class='tag-choices-1'>" +
                 "          <label class='redCheckboxContainer'>" + listTag[i] +
                 "               <input type='checkbox' id='"+ listTag[i] +"' name='listeTag[]' value ='"+ listTag[i] +"' \>" +
-                "               <span class='tagCheckbox redCheckbox'></span>\n" +
+                "               <span class='tagChoiceCheckbox tagCheckbox redCheckbox'></span>\n" +
                 "           </label>\n" +
                 "     </div>";
         }

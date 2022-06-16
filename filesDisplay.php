@@ -65,16 +65,16 @@
             $src = 'data: '.mime_content_type($migature).';base64,'.$imageData;
 
             // Echo out a sample image
-            echo '<img alt="mignature du fichier '. $fichier[0] . '.' . $fichier[2] .' class="migniatureFichier"  src="' . $src . '">';
+            echo '<img alt="mignature du fichier '. $fichier[0] . '.' . $fichier[2] .'" class="migniatureFichier"  src="' . $src . '">';
 
             echo '      <p>
                             '.$fichier[1].'
                         </p>
                     </div>
                     <p>
-                            Tags : '.$taglist.'
-                        </p>
-                  </div>';
+                        Tags : '.$taglist.'
+                    </p>
+               </div>';
         }
     ?>
 </div>
@@ -94,3 +94,4 @@ $tagsString.=']';
     const listTag = <?php echo $tagsString ?>;
 </script>
 
+<script src="filesPreview.js"></script>
