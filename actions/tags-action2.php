@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
+    if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("../index.php");</script>';
     $link = mysqli_connect("127.0.0.1", "root", "", "drivelbr");
     $link->query('SET NAMES utf8');
     $nomTag = $_POST["nomTag"];
@@ -14,7 +14,7 @@
         mysqli_query($link, $requete2);
         mysqli_query($link, $requete3);
         mysqli_query($link, $requete4);
-        echo '<script> alert("Tag supprimé avec succès.");window.location.replace("./tags.php");</script>';
+        echo '<script> alert("Tag supprimé avec succès.");window.location.replace("../tags.php");</script>';
     } else if (isset($_POST["Modifier"])) {
         $ancienTag = $_POST["ancienTag"];
         $ancienneCategorie = $_POST["ancienneCategorie"];
@@ -22,10 +22,10 @@
         else if ($categorie != $ancienneCategorie) $requete1 = "UPDATE `tags` SET `nom_categorie`='$categorie' WHERE `nom_tag`='$nomTag'";
         else $requete1 = "UPDATE `tags` SET `nom_tag`='$nomTag' WHERE `nom_categorie`='$categorie'";
         mysqli_query($link, $requete1);
-        echo '<script> alert("Tag modifié avec succès.");window.location.replace("./tags.php");</script>';
+        echo '<script> alert("Tag modifié avec succès.");window.location.replace("../tags.php");</script>';
     } else if (isset($_POST["Créer"])) {
         $requete2 = "INSERT INTO `tags` VALUES ('$nomTag','$categorie') ";
         mysqli_query($link, $requete2);
-        echo '<script> alert("Tag crée avec succès.");window.location.replace("./tags.php");</script>';
+        echo '<script> alert("Tag crée avec succès.");window.location.replace("../tags.php");</script>';
     }
 ?>

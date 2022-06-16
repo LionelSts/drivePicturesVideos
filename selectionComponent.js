@@ -35,7 +35,7 @@ let confirmDelete = () => {                                                 // P
 }
 
 let tagSelection = () => {                                                  // Popup affichant les différents tags pour modifier les tags des fichiers selectionnés
-    let window = " <form class=\"tagsFichiers\" method=\"post\" action=\"./contentTags-action.php\"> <div id='confirmPopUp'>" +
+    let window = " <form class=\"tagsFichiers\" method=\"post\" action=\"actions/contentTags-action.php\"> <div id='confirmPopUp'>" +
     " <p>Vous modifiez les tags de "+activeContent.length+ " élément(s)</p>" +
         "<div class=\"autreTagsContainer\">";
     let counter = 0;
@@ -77,7 +77,7 @@ let annulDelete = () => {                                           // On ferme 
 }
 
 let downloadFiles = () => {                                         // On fait la requête post pour télécharger les fichiers
-    let newForm = "<form method=\"post\" action=\"download-action.php\" hidden>";
+    let newForm = "<form method=\"post\" action=\"./actions/download-action.php\" hidden>";
     document.getElementById("downloadZone").innerHTML = "";
     newForm += "<input type=\"text\" name=\"fichiers\" value=\""+activeContent+"\">";
     newForm +=" <input type=\"submit\" id=\"download\">" +
@@ -88,7 +88,7 @@ let downloadFiles = () => {                                         // On fait l
 }
 
 let deleteFiles = () => {                                           // On fait la requête post pour supprimer les fichiers
-    let newForm = "<form method=\"post\" action=\"delete-action.php\" hidden>";
+    let newForm = "<form method=\"post\" action=\"./actions/delete-action.php\" hidden>";
     document.getElementById("downloadZone").innerHTML = "";
     newForm += "<input type=\"text\" name=\"fichiers\" value=\""+activeContent+"\">";
     newForm +=" <input type=\"submit\" id=\"download\">" +

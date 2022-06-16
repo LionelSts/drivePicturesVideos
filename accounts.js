@@ -25,7 +25,6 @@ function check(index) {
     const mail = document.getElementById("account").value;
     const tabTrie = filtre(mail);
     tabTrie.forEach( element => {
-        console.log(element[1]);
         document.getElementById(element[1]).checked = true;
     });
 }

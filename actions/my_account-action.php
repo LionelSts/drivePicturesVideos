@@ -32,6 +32,6 @@
         $_SESSION['nom'] = $nom; // enregistrement du (possible nouveau) nom de l'utilisateur connecté
         $_SESSION['prenom'] = $prenom;  // enregistrement du (possible nouveau) prénom de l'utilisateur connecté
         $result = mysqli_query($link, $requete);
-        echo '<script>window.location.replace("my_account.php")</script>';  // redirection vers la page "my_account.php"
+        echo '<script>window.location.replace("../my_account.php")</script>';  // redirection vers la page "my_account.php"
     }
 

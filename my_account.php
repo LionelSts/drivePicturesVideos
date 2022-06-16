@@ -27,7 +27,7 @@ $link->query('SET NAMES utf8');
         ?>
         <div class="pageContent">
             <h1 class="bigTitle">Gestion de compte</h1>
-            <form class="profile" method="post" action="my_account-action.php">
+            <form class="profile" method="post" action="actions/my_account-action.php">
                 <div class="formLine">
                     <label for="nom" >Nom : </label>
                     <input class="profile" type="text" id="nom" name="nom" value='<?php echo $_SESSION["nom"]?>' <?php if($_SESSION['role'] != "admin") echo "disabled" ?> >

@@ -17,13 +17,13 @@
             $psw = password_hash($psw, PASSWORD_BCRYPT);    // hashage du mot de passe saisi
             $requete = "UPDATE `utilisateurs` SET `mot_de_passe` = '$psw', `etat` = 'actif' WHERE `mail` = '$mail' AND `etat` = 'en attente'";   // insertion du nouveau mot de passe dans la bdd
             $result = mysqli_query($link, $requete);
-            echo '<script> alert("Nouveau mot de passe enregistré."); window.location.replace("index.php");</script>';  // redirection vers le login avec un message de confirmation
+            echo '<script> alert("Nouveau mot de passe enregistré."); window.location.replace("../index.php");</script>';  // redirection vers le login avec un message de confirmation
         } else {    // mot de passe ne respectant pas les régles => redirection + message d'erreur
             echo '<script> alert("Veuillez saisir un mot de passe contenant au minimum 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial.")</script>;';
-            echo '<script> window.location.replace("register.php?tmpPsw='. $tmpPsw .'");</script>';
+            echo '<script> window.location.replace("../register.php?tmpPsw='. $tmpPsw .'");</script>';
         }
     }
     else{
-        echo '<script> alert("Lien erroné.");/*window.location.replace("index.php");*/</script>';   // message d'erreur et redirection sur  la page de login
+        echo '<script> alert("Lien erroné.");window.location.replace("../index.php");</script>';   // message d'erreur et redirection sur  la page de login
     }
 ?>

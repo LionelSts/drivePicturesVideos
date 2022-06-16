@@ -32,7 +32,7 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
 <div id="uploadPopUp">
     <div class="closeButton"><h1 onclick="closePopup()">X</h1></div>
     <h1 id="uploadTitle">Téléverser vos fichiers</h1>
-    <form id="uploadForm" method='post' action='upload-popup-action.php' enctype="multipart/form-data">
+    <form id="uploadForm" method='post' action='actions/upload-popup-action.php' enctype="multipart/form-data">
         <div id="uploadsTags">
             <div>
                 <p class="bold">Tags :</p>

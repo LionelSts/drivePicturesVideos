@@ -16,9 +16,9 @@ if(password_verify($mdp, $hashedpsw) && $row['etat']!= "inactif")   // si le mot
     $_SESSION['role'] = $row['role'];  // enregistrement du role de l'utilisateur connecté
     $_SESSION['nom'] = $row['nom'];    // enregistrement du nom de l'utilisateur connecté
     $_SESSION['prenom'] = $row['prenom'];   // enregistrement du prénom de l'utilisateur connecté
-    header('Location:home.php');    // l'utilisateur est connecté et on le renvoie vers la page d'accueil
+    header('Location:../home.php');    // l'utilisateur est connecté et on le renvoie vers la page d'accueil
 }
 else    // dans le cas contraire...
 {
-    echo '<script> alert("Identifiant ou mot de passe incorrecte");window.location.replace("index.php");</script>'; // l'utilisateur n'a pas saisie les bonnes infos, il est redirigé
+    echo '<script> alert("Identifiant ou mot de passe incorrecte");window.location.replace("../index.php");</script>'; // l'utilisateur n'a pas saisie les bonnes infos, il est redirigé
 }

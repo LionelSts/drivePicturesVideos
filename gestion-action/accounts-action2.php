@@ -7,9 +7,7 @@
     $prenom = $_POST['prenom'];
     $mail = $_POST['mail'];
     $role = $_POST['role'];
-    $psw = $_POST['password'];
     $descriptif = $_POST['descriptif'];
-    $password = password_hash($psw, PASSWORD_BCRYPT); // Hashing du mot de passe récupéré
     $requete = "SELECT `mail` FROM `utilisateurs` Where `mail`= '$mail'"; // on vérifie dans la bdd que le mail saisi est bien disponible
     $result = mysqli_query($link,$requete);
     $exist = mysqli_num_rows($result); // on associe la variable '$exists' au nombre d'apparition de l'email saisi dans la bdd
@@ -22,19 +20,27 @@
     else    // si le mail n'existe pas dans la bdd...
     {
         $message = file_get_contents('template.html');  // contenu du mail
-        if (isset($_POST['mdp'])) { // si la person
+        if (isset($_POST['randomPassword'])) { // si la person
+            $messageBienvenuRandom = 'Bienvenue sur le drive LBR ! 
+            Choisis ton mot de passe en cliquant sur le boutton pour vlaider ton mdp !';
             $tmpPassword = bin2hex(random_bytes(24));   // génération automatique d'un mot de passe permetant "l'unicité" du lien
             $hashedPassword = password_hash($tmpPassword, PASSWORD_BCRYPT); // hashing du mot de passe
+            $message = str_replace('TEXTEVAR', $messageBienvenuRandom, $message);  // message du mail avec lien
             $message = str_replace('registerLink', 'register.php?tmpPsw='.$tmpPassword, $message);  // message du mail avec lien
             $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES ('$prenom', '$nom', '$mail', '$hashedPassword', '$role','$descriptif', 'en attente') "; // Insertion du compte saisi, dans la bdd avec le statut "en attente"
-            $result = mysqli_query($link,$requete);
+            mysqli_query($link,$requete);
         }
         else if($_POST["password"] != ""){  // si l'utilisateur rentre un mot de passe ...
             if (preg_match($regex, $_POST['password'])) {   // si le mot de passe répond aux critères de sécurité
-                $mdp = password_hash($_POST['password'], PASSWORD_BCRYPT); // hashing du mot de passe;  // on hash le mot de passe
-                $message = str_replace('registerLink', 'register.php?tmpPsw='.$_POST['password'], $message);  // message du mail avec lien
+                $messageBienvenu = 'Bienvenue sur le drive LBR !
+                Tu peux maintenant te connecter !
+                Ton identifiant est ton adresse mail.
+                Ton mot de passe est : ';
+                $mdp = password_hash($_POST['password'], PASSWORD_BCRYPT); // hashing du mot de passe
+                $message = str_replace('TEXTEVAR', $messageBienvenu.$_POST['password'], $message);  // message du mail avec lien
+                $message = str_replace('registerLink', 'http://localhost/driveBriquesRouges/index.php', $message);  // message du mail avec lien
                 $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES ('$prenom', '$nom', '$mail', '$mdp', '$role','$descriptif', 'en attente') "; // Insertion du compte saisi, dans la bdd avec le statut "en attente"
-                $result = mysqli_query($link,$requete);
+                mysqli_query($link,$requete);
             }
             else echo '<script> alert("Veuillez saisir un mot de passe contenant au minimum 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial."); window.location.replace("../accounts.php");</script>';   //si le mot de passe ne respecte pas les régles, on affiche un message d'erreur et on réactualise la page
         }
