@@ -6,20 +6,23 @@ let playFile = (file, fileName) => {
         document.getElementById('filesDisplayContainer').innerHTML += data;
         fileGeneration = document.getElementById("filePreviewContainerDiv").children[1].id;
         window.addEventListener('beforeunload', () => closeFile(fileGeneration));
-    }, "html");
+
+        }, "html");
 
 }
 
 let closeFile = () => {
-    console.log(fileGeneration);
-    $.post( "filesPreviewEnd-action.php", { file: fileGeneration }, function( data ) {
-
-    }, "html");
+    $.post( "filesPreviewEnd-action.php", { file: fileGeneration });
     document.getElementById('filePreviewContainerDiv').remove();
+    setListener();
 }
 
-for(let i = 0; i < files.length; i++){
-    let fileInfo = files[i].children[0].children[0].children[0];
-    let fileName = files[i].children[0].children[2].outerText;
-    files[i].addEventListener('dblclick', () => playFile(fileInfo.name, fileName));
+let setListener = () => {
+    for(let i = 0; i < files.length; i++){
+        let fileInfo = files[i].children[0].children[0].children[0];
+        let fileName = files[i].children[0].children[2].outerText;
+        files[i].ondblclick = () => playFile(fileInfo.name, fileName);
+    }
 }
+
+setListener();

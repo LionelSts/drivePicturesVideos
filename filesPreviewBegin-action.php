@@ -15,11 +15,11 @@ $htmlCode = '<div id="filePreviewContainerDiv" class="filePreviewContainer" ><di
 <h1 onclick="closeFile()">X</h1></div>';
 if(strstr(mime_content_type($filePath), "image/")){
     $htmlCode .= '<img id="'.$generateFileName.'" alt="preview du fichier" src="' . $newFile . '"></div>';
-}else if(strstr(mime_content_type($filePath), "video/")){
-    $htmlCode .= '<video id="'.$generateFileName.'" >
+}else if(strstr(mime_content_type($filePath), "video/") || strstr(mime_content_type($filePath), "audio/") ){
+    $htmlCode .= '<video id="'.$generateFileName.'" controls autoplay>
                     <source src="'.$newFile.'" type="'.mime_content_type($filePath).'">
                  </video></div>';
 }else{
-    $htmlCode="";
+    $htmlCode.='</div>';
 }
 echo $htmlCode;

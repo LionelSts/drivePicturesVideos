@@ -884,26 +884,35 @@ input{
 
 .filePreviewContainer{
     position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    top: 10%;
+    bottom: 10%;
+    left: 10%;
+    right: 10%;
     margin:auto;
     width: 80%;
     background-color: #161920;
     color: #EBEAD4;
-    display: table;
+    text-align: center;
 }
 
-.filePreviewContainer img, .filePreviewContainer video{
-    padding: 0 1em 1em 1em;
-    margin:auto;
-    display: table-row;
+.filePreviewContainer video{
+    height: 85%;
+    width: 100%;
+}
+
+.filePreviewContainer img{
+    max-height: 85%;
+    max-width: 100%;
 }
 
 #previewHeader{
     display: flex;
     justify-content: space-between;
     padding: 1em;
+}
 
+.fileViewContainer{
+    width: 100%;
+    height: 80%;
+    vertical-align: middle;
 }
