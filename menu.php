@@ -4,13 +4,10 @@
         $role = $_SESSION['role'];
         $html = "<div id='leftmenu'>
         <ul id='menurubrique'>
-            <li id='title'>Mon compte</li>";
-        if($role != 'lecture') $html .= "<ul>
-            <li class='menuLine'><img alt='dossier' class='iconMenu' src='images/icons/folder.png'><a href='my_files.php' id='page'>Mes fichiers</a></li>
-            <ul id='menufichiers'>
-                <li><a href='#' id='page'>Fichier 1</a></li>
-                <li><a href='#' id='page'>Fichier 2</a></li>
-            </ul>";
+            <li id='title'>Mon compte</li><ul>
+            <li class='menuLine'><img alt='dossier' class='iconMenu' src='images/icons/home.png'><a href='home.php' id='page'>accueil</a></li>";
+        if($role != 'lecture') $html .= "
+            <li class='menuLine'><img alt='dossier' class='iconMenu' src='images/icons/folder.png'><a href='my_files.php' id='page'>Mes fichiers</a></li>";
         if($role != 'lecture') $html.= "<li class='menuLine'><img alt='poubelle' class='iconMenu' src='images/icons/trash_red.png'><a href='#' id='page'>Corbeille</a></li>";
         $html.="<li class='menuLine'><img alt='engrenages' class='iconMenu' src='images/icons/engrenages.png'><a>Gestion</a></li><ul>
             <li class='menuLine'><img alt='personnage' class='iconMenu' src='images/icons/user.png'><a href='my_account.php' id='page'>Gérer mon compte</a></li>";

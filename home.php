@@ -19,20 +19,25 @@ $result = mysqli_query($link, $requete);
 
 ?>
 <body>
-<div id="header">
-<a class="logoTop" href="home.php"><img alt="logoLBR" id="logo-header-home" src="images/graphiqueLBR/logoLONGUEURClassic.png"></a>
-<div id="searchbar">
-    <input type="text" id="searchInput" placeholder="Barre de recherche"/>
-    <img alt="loupe" src="images/icons/search-logo.png" id="search-logo">
-</div>
-
-</div>
-<?php   // affichage du menu
-    include 'menu.php';
-    echo getMenu();
-?>
-
-
+    <div id="header">
+        <a class="logoTop" href="home.php"><img alt="logoLBR" id="logo-header-home" src="images/graphiqueLBR/logoLONGUEURClassic.png"></a>
+        <div id="searchbar">
+            <input type="text" id="searchInput" placeholder="Barre de recherche"/>
+            <img alt="loupe" src="images/icons/search-logo.png" id="search-logo">
+        </div>
+    </div>
+    <div id="main">
+        <?php   // affichage du menu
+            include 'menu.php';
+            echo getMenu();
+        ?>
+        <div id="pageContent">
+        <?php
+        include 'filesDisplay.php';
+        loadFiles(0);
+        ?>
+        </div>
+    </div>
 </body>
 
 
