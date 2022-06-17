@@ -13,7 +13,7 @@
 ?>
 
 <div id="container">
-    <img id="logo" src="./images/graphiqueLBR/Plan%20de%20travail%2010LogoFullBlanc.png"/>
+    <img id="logo" src="./images/graphiqueLBR/Plan%20de%20travail%2010LogoFullBlanc.png" alt="logoLBR"/>
     <h1 id="loginPageTitle">DRIVE</h1>
     <form action="register-action.php<?php echo '?tmpPsw='.$tmpPsw ?>" id="login-form" method="post">
         <label class="textConnexion" for="email">Email :</label><br>

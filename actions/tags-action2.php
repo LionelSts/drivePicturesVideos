@@ -41,4 +41,3 @@
         mysqli_query($link, $requete2); mysqli_query($link, $requete1);
         echo '<script> alert("Tag crée avec succès.");window.location.replace("../tags.php");</script>';
     }
-?>

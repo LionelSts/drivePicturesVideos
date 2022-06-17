@@ -33,13 +33,11 @@
                 mysqli_query($link, $requete1);
             }
             $requete = "INSERT INTO `categorie` (`nom_categorie`) VALUES ('$nouvelle_categorie')";
-            mysqli_query($link, $requete);
         } else {
             $requete = "INSERT INTO `categorie` (`nom_categorie`) VALUES ('$nouvelle_categorie') ";
-            mysqli_query($link, $requete);
         }
         $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$lastname."  ".$name." (".$role.") a ajouté la catégorie ".$nouvelle_categorie."')";
         mysqli_query($link, $requete2);
+        mysqli_query($link, $requete);
         echo '<script> alert("Catégorie créée avec succès.");window.location.replace("../tags.php");</script>';
     }
-?>

@@ -9,7 +9,10 @@ if($exist==1)   // si le mail existe dans la bdd...
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
     $message = file_get_contents('template.html');
-    $tmpPassword = bin2hex(random_bytes(24));   // génération automatique d'un mot de passe permetant "l'unicité" du lien
+    try {
+        $tmpPassword = bin2hex(random_bytes(24));
+    } catch (Exception $e) {
+    }   // génération automatique d'un mot de passe permetant "l'unicité" du lien
     $hashedPassword = password_hash($tmpPassword, PASSWORD_BCRYPT); // hashing du mot de passe
     $message = str_replace('registerLink', 'register.php?tmpPsw='.$tmpPassword, $message);  // message du mail avec lien
     $subject = 'Cliquez sur le lien pour rénitialiser votre mot de passe'; // sujet du mail

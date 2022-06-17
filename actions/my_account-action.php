@@ -1,10 +1,11 @@
 <?php
     session_start();    // démarage de la session
     if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>'; // redirection vers le login si l'utilisateur n'est pas connecté
+    $mail = $_SESSION['mail'];
     if($_SESSION['role'] == "admin"){   // si l'utilisateur est un admin...
-        $mail = $_SESSION['mail']; $prenom = $_POST['prenom']; $nom = $_POST['nom']; $role = $_POST['role'];    // on enregistre le mail de sa session et les autres infos saisies
+    $prenom = $_POST['prenom']; $nom = $_POST['nom']; $role = $_POST['role'];    // on enregistre le mail de sa session et les autres infos saisies
     }else{  // si l'utilisateur n'est pas un admin
-        $mail = $_SESSION['mail']; $prenom = $_SESSION['prenom']; $nom = $_SESSION['nom']; $role = $_SESSION['role'];   // on enregistre les infos de sa session
+    $prenom = $_SESSION['prenom']; $nom = $_SESSION['nom']; $role = $_SESSION['role'];   // on enregistre les infos de sa session
     }
     $regex = "/^(?=.*\w)(?=.*\W)[\w\W]{8,}$/";
     $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;  // connexion à la bdd

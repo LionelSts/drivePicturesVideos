@@ -23,7 +23,8 @@
             $result = mysqli_query($link, $requete); // Saving the result
             $files = mysqli_fetch_all($result);
         }else{
-
+            // TODO
+            $files = "";
         }
         echo'
     <div class="filesNavigation">
@@ -56,12 +57,11 @@
     </div>
     <div id="filesDisplayContainer">';
         foreach ($files as $fichier){
-            $search=$fichier[0];
             $requete = "SELECT `nom_tag` FROM `caracteriser` WHERE `id_fichier` = '$fichier[0]'";
             $result = mysqli_query($link, $requete); // Saving the result
             $fileTags = mysqli_fetch_all($result);
             $taglist="";
-            foreach ($fileTags as $key=>$value){
+            foreach ($fileTags as $value){
                 $taglist .= $value[0] ." ";
             }
             echo '<div class="fichierContainer">
@@ -104,7 +104,7 @@
         $tagsString.=']';
         echo'
     <script>
-        const listTag = '.$tagsString;
+        let listTag = '.$tagsString;
         echo'
     </script>
     

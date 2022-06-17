@@ -27,7 +27,9 @@ session_start();
         <a href="home.php"> <img alt="logoLBR" id="logo-header" src="images/graphiqueLBR/logoLONGUEURClassic.png"></a>
     </div>
     <div id="main">
-        <input hidden type="text" name="emailConcerne" value="">
+        <label>
+            <input hidden type="text" name="emailConcerne" value="">
+        </label>
         <?php
         include './menu.php';
         echo getMenu();
@@ -38,7 +40,7 @@ session_start();
                 <div class="formLine">
                     <label class='profile'>Sélectionnez un compte :</label>
                     <div class="lbrSelect">
-                        <select class="profile, role-select" onclick='formReload(mapAccounts);check(2)' id='account' name="selectedMail">
+                        <label for='account'></label><select class="profile, role-select" onclick='formReload(mapAccounts);check(2)' id='account' name="selectedMail">
                             <?php
                                 $counter =0;
                                 foreach ($data as $item) :
@@ -48,6 +50,7 @@ session_start();
                                    }else {
                                        echo "<option class='role-choices-1' value= " . $item[2] . ">" . $item[2] . "</option><br>";
                                    }
+                                   $counter++;
                                 }
                                 endforeach;
                             ?>
@@ -63,13 +66,13 @@ session_start();
                     <input class='profile' type='text' name="prenom" id='prenom' required>
                 </div>
                 <div class="formLine">
-                    <label class='profile' for='mail' >Adresse mail : </label>
+                    <label class='profile' for='mailCompte' >Adresse mail : </label>
                     <input class='profile' type='text' name="mail" id="mailCompte" required disabled>
                 </div>
                 <div class="formLine">
                     <label class='profile' for='role' >Rôle : </label>
                     <div class="lbrSelect">
-                        <select class="profile, role-select" id="modifRole" name='role' onclick="check(2)">
+                        <label for="modifRole"></label><select class="profile, role-select" id="modifRole" name='role' onclick="check(2)">
                             <option class="role-choices" id="invite" value='invite'>invité</option>
                             <option class="role-choices-1" id="ecriture" value='ecriture'>ecriture</option>
                             <option class="role-choices" id="lecture" value='lecture'>lecture</option>
@@ -145,7 +148,7 @@ session_start();
                 <div class="formLine">
                     <label class='profile' for='role' >Rôle : </label>
                     <div class="lbrSelect">
-                        <select class="profile, role-select" id="modifRoleCrea" name='role' onclick="check(1)" >
+                        <label for="modifRoleCrea"></label><select class="profile, role-select" id="modifRoleCrea" name='role' onclick="check(1)" >
                             <option class="role-choices" id="invite" value='invite'>invité</option>
                             <option class="role-choices-1" id="ecriture" value='ecriture'>ecriture</option>
                             <option class="role-choices" id="lecture" value='lecture'>lecture</option>
@@ -158,7 +161,7 @@ session_start();
                     <div class="autreTagsContainer">
                         <?php
                             $counter =0;
-                            $requete = "SELECT `nom_tag` FROM `tags`";
+                            // On adéjà exactement la même requête plus haut, pas besoin de la refaire
                             $result = mysqli_query($link, $requete);
                             while($row = mysqli_fetch_array($result))
                             {

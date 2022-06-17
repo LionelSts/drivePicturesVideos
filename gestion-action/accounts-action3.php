@@ -17,7 +17,10 @@
     $message = file_get_contents('template.html');
     $messageBienvenuRandom = 'Bienvenue sur le drive LBR ! 
             Choisis ton mot de passe en cliquant sur le boutton pour vlaider ton mdp !';
-    $tmpPassword = bin2hex(random_bytes(24));   // génération automatique d'un mot de passe permetant "l'unicité" du lien
+try {
+    $tmpPassword = bin2hex(random_bytes(24));
+} catch (Exception $e) {
+}   // génération automatique d'un mot de passe permetant "l'unicité" du lien
     $hashedPassword = password_hash($tmpPassword, PASSWORD_BCRYPT); // hashing du mot de passe
     $message = str_replace('TEXTEVAR', $messageBienvenuRandom, $message);  // message du mail avec lien
     $message = str_replace('registerLink', 'register.php?tmpPsw='.$tmpPassword, $message);  // message du mail avec lien
@@ -26,4 +29,3 @@
     $subject = 'Votre compte Drive Les Briques Rouges'; // sujet du mail
     mail($mail, $subject, $message, $headers);  // envoi du mail
     header('location:../accounts.php'); // on renvoie l'utilisateur vers la page "accounts.php"
-?>

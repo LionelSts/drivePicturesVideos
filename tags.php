@@ -17,6 +17,7 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr");
 $link->query('SET NAMES utf8');
 $requete = "SELECT `nom_categorie` FROM `categorie`";
 $result = mysqli_query($link, $requete);
+$categorie = [];
 while($row = mysqli_fetch_array($result)){
     $categorie[] = $row['nom_categorie'];
 }
@@ -54,7 +55,7 @@ while($row = mysqli_fetch_array($result)){
                 <form class="profile" method="post" action="actions/tags-action.php">
                     <div class="tagsLine">
                         <label for='role'>Nouvelle catégorie :</label>
-                        <input type="text" id="nomCategorie" name="nomCategorie1" required>
+                        <label for="nomCategorie"></label><input type="text" id="nomCategorie" name="nomCategorie1" required>
                         <div class="autreTagsContainer">
                             <?php
                             $counter =0;
@@ -132,7 +133,7 @@ while($row = mysqli_fetch_array($result)){
                     <div class="tagsLine">
                         <label for='role'>Nouveau Tag :</label>
                         <input type="text" id="nomCategorie" name="nomTag">
-                            <select class="tag-select role-select" id='account' name='categorie'>
+                        <label for='account'></label><select class="tag-select role-select" id='account' name='categorie'>
                                 <?php
                                 $counter =0;
                                 foreach ($categorie as $categ){
