@@ -3,6 +3,7 @@ session_start();// démarage de la session
 require '../vendor/autoload.php';
 include '../thumbnail.php';
 if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("../index.php");</script>';
+$name = $_SESSION["prenom"]; $lastname = $_SESSION["nom"]; $role2 = $_SESSION["role"];
 $str_arr = array();
 foreach ($_POST as $key => $value){
     if($key != "submit" && $key != "newTag"){
@@ -79,6 +80,8 @@ for($i = 0 ; $i < $countfiles ; $i++){
             $requete = "INSERT INTO caracteriser (`id_fichier`, `nom_tag`) VALUES ('$id', '$tag')";
             mysqli_query($link, $requete);
         }
+        $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$lastname." ".$name." (".$role2.") a téléversé le fichier ".$filename." avec le(s) tag(s) : ".$tags_file."')";
+        mysqli_query($link, $requete2);
     }
 }
 

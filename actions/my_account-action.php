@@ -31,7 +31,8 @@
         $_SESSION['mail'] = $mail; // enregistrement du (posssible nouveau) mail de l'utilisateur connecté
         $_SESSION['nom'] = $nom; // enregistrement du (possible nouveau) nom de l'utilisateur connecté
         $_SESSION['prenom'] = $prenom;  // enregistrement du (possible nouveau) prénom de l'utilisateur connecté
-        $result = mysqli_query($link, $requete);
+        $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$mail." (".$role.") a modifié ses informations de compte'";
+        $result = mysqli_query($link, $requete); $result2 = mysqli_query($link, $requete2);
         echo '<script>window.location.replace("../my_account.php")</script>';  // redirection vers la page "my_account.php"
     }
 

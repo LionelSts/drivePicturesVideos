@@ -8,6 +8,7 @@
     $mail = $_POST['mail'];
     $role = $_POST['role'];
     $descriptif = $_POST['descriptif'];
+    $name = $_SESSION["prenom"]; $lastname = $_SESSION["nom"]; $role2 = $_SESSION["role"];
     $requete = "SELECT `mail` FROM `utilisateurs` Where `mail`= '$mail'"; // on vérifie dans la bdd que le mail saisi est bien disponible
     $result = mysqli_query($link,$requete);
     $exist = mysqli_num_rows($result); // on associe la variable '$exists' au nombre d'apparition de l'email saisi dans la bdd
@@ -28,7 +29,8 @@
             $message = str_replace('TEXTEVAR', $messageBienvenuRandom, $message);  // message du mail avec lien
             $message = str_replace('registerLink', 'register.php?tmpPsw='.$tmpPassword, $message);  // message du mail avec lien
             $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES ('$prenom', '$nom', '$mail', '$hashedPassword', '$role','$descriptif', 'en attente') "; // Insertion du compte saisi, dans la bdd avec le statut "en attente"
-            mysqli_query($link,$requete);
+            $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$nom." ".$prenom." (".$role.") crée par ".$lastname." ".$name." (".$role2.") - choix du mot de passe par l`utilisateur')";
+            mysqli_query($link,$requete); mysqli_query($link,$requete2);
         }
         else if($_POST["password"] != ""){  // si l'utilisateur rentre un mot de passe ...
             if (preg_match($regex, $_POST['password'])) {   // si le mot de passe répond aux critères de sécurité
@@ -40,7 +42,8 @@
                 $message = str_replace('TEXTEVAR', $messageBienvenu.$_POST['password'], $message);  // message du mail avec lien
                 $message = str_replace('registerLink', 'http://localhost/driveBriquesRouges/index.php', $message);  // message du mail avec lien
                 $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES ('$prenom', '$nom', '$mail', '$mdp', '$role','$descriptif', 'en attente') "; // Insertion du compte saisi, dans la bdd avec le statut "en attente"
-                mysqli_query($link,$requete);
+                $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$nom." ".$prenom." (".$role.") crée par ".$lastname." ".$name." (".$role2.") - choix du mot de passe par l`admin')";
+                mysqli_query($link,$requete); mysqli_query($link,$requete2);
             }
             else echo '<script> alert("Veuillez saisir un mot de passe contenant au minimum 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial."); window.location.replace("../accounts.php");</script>';   //si le mot de passe ne respecte pas les régles, on affiche un message d'erreur et on réactualise la page
         }

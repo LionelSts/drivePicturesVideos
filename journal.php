@@ -28,7 +28,7 @@ session_start();
                         <th>Action</th>
                     </tr>
                     <?php
-                        $requete = "SELECT * FROM `tableau_de_bord`";
+                        $requete = "SELECT * FROM `tableau_de_bord` ORDER BY `id_modif`";
                         $result = mysqli_query($link, $requete);
                         while($row = mysqli_fetch_assoc($result)){
                             echo "<tr><td id='colonne'>" . $row["date"] . "</td><td id='colonne'>" . $row["modification"] . "</td></tr >";

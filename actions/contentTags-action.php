@@ -1,4 +1,5 @@
 <?php
+$name = $_SESSION["prenom"]; $lastname = $_SESSION["nom"]; $role2 = $_SESSION["role"];
 $tagsList = $_POST['listeTag']; // récupération des tags
 $chaine = urldecode(file_get_contents('php://input'));  // récupération de la liste des tags sélectionné en enlevant les données inutiles
 $chaine = substr($chaine,strrpos($chaine, '&'));
@@ -15,6 +16,8 @@ $link->query('SET NAMES utf8');
 foreach ($filesData as $file){                                              // On supprime toutes les lignes tags éxistantes pour ces fichiers
     $requete = "DELETE FROM `caracteriser` WHERE `id_fichier` = $file[0]";
     mysqli_query($link, $requete);
+    $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$lastname." ".$name." (".$role2.") a mis le(s) tag(s) sur le fichier ".$file[0]."')";
+    mysqli_query($link, $requete2);
 }
 
 foreach ($filesData as $file){                                              // pour chaque fichier on lui attribue ses tags
