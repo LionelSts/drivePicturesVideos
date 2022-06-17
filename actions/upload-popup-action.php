@@ -76,11 +76,13 @@ for($i = 0 ; $i < $countfiles ; $i++){
         if($tags_file == null) $tags_file[]="Sans tag";
         $requete = "INSERT INTO fichiers (`id`, `nom_fichier`, `extension`, `auteur`, `date`, `duree`, `size`) VALUES ('$id', '$filename', '$extension', '$mail', '$date', '$duree', '$size')";
         mysqli_query($link, $requete);
+        $chaine = "";
         foreach ($tags_file as $tag){
+            $chaine .= $tag." ";
             $requete = "INSERT INTO caracteriser (`id_fichier`, `nom_tag`) VALUES ('$id', '$tag')";
             mysqli_query($link, $requete);
         }
-        $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$lastname." ".$name." (".$role2.") a téléversé le fichier ".$filename." avec le(s) tag(s) : ".$tags_file."')";
+        $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$lastname." ".$name." (".$role2.") a téléversé le fichier ".$filename." avec le(s) tag(s) : ".$chaine."')";
         mysqli_query($link, $requete2);
     }
 }
