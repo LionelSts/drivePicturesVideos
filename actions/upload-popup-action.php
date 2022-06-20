@@ -3,7 +3,9 @@ session_start();// démarage de la session
 require '../vendor/autoload.php';
 include '../thumbnail.php';
 if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("../index.php");</script>';
-$name = $_SESSION["prenom"]; $lastname = $_SESSION["nom"]; $role2 = $_SESSION["role"];
+$name = $_SESSION["prenom"];
+$lastname = $_SESSION["nom"];
+$role2 = $_SESSION["role"];
 $str_arr = array();
 foreach ($_POST as $key => $value){
     if($key != "submit" && $key != "newTag"){
@@ -22,6 +24,7 @@ if(!empty($data)){
 }else{
     $id = 0;
 }
+
 $mail = $_SESSION['mail'];
 $date = date('Y-m-d H:i:s');
 $tags_file = array();
@@ -42,6 +45,21 @@ foreach ($str_arr as $tag){
     $tags_file[]=str_replace("_", " ", $tag[1]);
 }
 for($i = 0 ; $i < $countfiles ; $i++){
+    $requete = "SELECT `nom_stockage` FROM `fichiers`";
+    $result = mysqli_query($link, $requete);
+    $filesName = [];
+    while($row = mysqli_fetch_row($result)) $filesName[] = $row;
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $nomFichier = '';
+    for ($y = 0; $y < 65; $y++) {
+        $nomFichier .= $characters[rand(0, strlen($characters)-1)];
+    }
+    while(array_search($nomFichier, $filesName)){
+        $nomFichier = '';
+        for ($y = 0; $y < 65; $y++) {
+            $nomFichier .= $characters[rand(0, strlen($characters)-1)];
+        }
+    }
     $ext = $_FILES['file']['type'][$i];
     $filename = $_FILES['file']['name'][$i];
     if(preg_match("/image|video/", $_FILES['file']['type'][$i])){
@@ -53,31 +71,28 @@ for($i = 0 ; $i < $countfiles ; $i++){
             $filename = str_replace('.jpg', "", $filename);
         }
         $filename = str_replace('.'.$extension, "", $filename);
-        move_uploaded_file($_FILES['file']['tmp_name'][$i],'../fichiers/'.$id.'.'.$extension);
-        $filePath = '../fichiers/'.$id.'.'.$extension;
+        move_uploaded_file($_FILES['file']['tmp_name'][$i],'../fichiers/'.$nomFichier.'.'.$extension);
+        $filePath = '../fichiers/'.$nomFichier.'.'.$extension;
         $size = $_FILES['file']['size'][$i];
         if(str_contains($_FILES['file']['type'][$i], "video")){
             // We create thumbnail
-            $ffmpeg = FFMpeg\FFMpeg::create();
-            $video = $ffmpeg->open($filePath);
-            $video
-                ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(5))
-                ->save('../mignatures/'.$id.'.png');
-            $ffprobe = FFMpeg\FFProbe::create();
-            $duree = $ffprobe
-                ->format($filePath) // extracts file informations
-                ->get('duration');             // returns the duration property
+            copy('../images/thumbnail.png', '../miniatures/'.$nomFichier.'.png');
+            // We get duration
+            $getID3 = new getID3;
+            $file = $getID3->analyze($filePath);
+            $duree = date('H:i:s', round($file['playtime_seconds']));
         }
         else{
             $duree = '00:00:00';
-            imagepng(imagecreatefromstring(file_get_contents($filePath)), '../mignatures/'.$id.'.png');
+            imagepng(imagecreatefromstring(file_get_contents($filePath)), '../miniatures/'.$nomFichier.'.png');
         }
-        $path = '../mignatures/'.$id.'.png';
+        $path = '../miniatures/'.$nomFichier.'.png';
         createThumbnail($path, $path, 267, 197);
 
         if($tags_file == null) $tags_file[]="Sans tag";
-        $requete = "INSERT INTO fichiers (`id`, `nom_fichier`, `extension`, `auteur`, `date`, `duree`, `size`) VALUES ('$id', '$filename', '$extension', '$mail', '$date', '$duree', '$size')";
+        $requete = "INSERT INTO fichiers (`id`, `nom_fichier`, `extension`, `auteur`, `date`, `duree`, `size`, `nom_stockage`) VALUES ('$id', '$filename', '$extension', '$mail', '$date', '$duree', '$size','$nomFichier')";
         mysqli_query($link, $requete);
+        unset($getID3);
         $chaine = "";
         foreach ($tags_file as $tag){
             $chaine .= $tag." ";

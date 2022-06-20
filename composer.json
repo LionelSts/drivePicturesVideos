@@ -1,11 +1,11 @@
 {
     "require": {
         "php-ds/php-ds": "^1.4",
-        "php-ffmpeg/php-ffmpeg": "1.0.1",
         "ext-json": "*",
         "ext-mysqli": "*",
         "ext-fileinfo": "*",
         "ext-zip": "*",
-        "ext-gd": "*"
+        "ext-gd": "*",
+        "james-heinrich/getid3": "^1.9"
     }
 }

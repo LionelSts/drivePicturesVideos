@@ -5,19 +5,12 @@ let playFile = (file, fileName) => {
     $.post( "./actions/filesPreviewBegin-action.php", { file: file, fileName: fileName }, function( data ) {
         document.getElementById('filesDisplayContainer').innerHTML += data;
         fileGeneration = document.getElementById("filePreviewContainerDiv").children[1].id;
-        window.addEventListener('beforeunload', handler);
         }, "html");
 }
 
 let closeFile = () => {
-    $.post( "./actions/filesPreviewEnd-action.php", { file: fileGeneration });
     document.getElementById('filePreviewContainerDiv').remove();
-    window.removeEventListener('beforeunload', handler);
     setListener();
-}
-
-let handler = () =>{
-    closeFile(fileGeneration);
 }
 
 let setListener = () => {

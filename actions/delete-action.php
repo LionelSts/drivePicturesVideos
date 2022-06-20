@@ -5,7 +5,9 @@ $link->query('SET NAMES utf8');
 $requete = "SELECT `id` FROM `corbeille` ORDER BY `id` DESC LIMIT 1";
 $result = mysqli_query($link, $requete);
 $data = mysqli_fetch_array($result);
-$name = $_SESSION["prenom"]; $lastname = $_SESSION["nom"]; $role2 = $_SESSION["role"];
+$name = $_SESSION["prenom"];
+$lastname = $_SESSION["nom"];
+$role2 = $_SESSION["role"];
 if(!empty($data)){
     $id = $data['id'];
 }else{
@@ -25,17 +27,18 @@ foreach ($files as $file){
     $date = $results['date'];
     $duree = $results['duree'];
     $size = $results['size'];
+    $nom_stockage = $results['nom_stockage'];
     $delete_date = date('Y-m-d H:i:s');
     $delete_user = $_SESSION['mail'];
-    rename('../fichiers/'.$fileName.'.'.$extension, '../corbeille/'.$id.'.'.$extension);
-    rename('../mignatures/'.$fileName.'.png', '../corbeille/mignature-'.$id.'.png');
+    rename('../fichiers/'.$nom_stockage.'.'.$extension, '../corbeille/'.$nom_stockage.'.'.$extension);
+    rename('../miniatures/'.$nom_stockage.'.png', '../corbeille/miniature-'.$nom_stockage.'.png');
     $requete = "DELETE FROM `fichiers` WHERE `id` = $fileName";
     mysqli_query($link, $requete);
     $requete = "DELETE FROM `caracteriser` WHERE `id_fichier` = $fileName";
     mysqli_query($link, $requete);
-    $requete = "INSERT INTO `corbeille` VALUES ('$id','$nom_fichier','$extension','$auteur','$date', '$duree', '$size','$delete_date','$delete_user') ";
+    $requete = "INSERT INTO `corbeille` VALUES ('$id','$nom_fichier','$extension','$auteur','$date', '$duree', '$size', '$nom_stockage','$delete_date','$delete_user') ";
     mysqli_query($link, $requete);
     $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$lastname." ".$name." (".$role2.") a supprimé le fichier : ".$nom_fichier." ')";
     mysqli_query($link, $requete2);
 }
-header('Location:../'.$page.'.php');
+// header('Location:../'.$page.'.php');

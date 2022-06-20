@@ -115,14 +115,10 @@
                                  <span class="customCheckBox"></span>
                             </label>';
 
-            $migature= ".\mignatures\\" . $fichier[0] . ".png";
-            $imageData = base64_encode(file_get_contents($migature));
-
-            // Format the image SRC:  data:{mime};base64,{data};
-            $src = 'data: '.mime_content_type($migature).';base64,'.$imageData;
+            $miniature= ".\miniatures\\" . $fichier[7] . ".png";
 
             // Echo out a sample image
-            echo '<img alt="mignature du fichier '. $fichier[0] . '.' . $fichier[2] .'" class="migniatureFichier"  src="' . $src . '">';
+            echo '<img alt="miniature du fichier '. $fichier[0] . '.' . $fichier[2] .'" class="miniatureFichier"  src="' . $miniature . '">';
 
             echo '      <p>
                                 <span class="fileNameContainer">'.$fichier[1].'.</span>

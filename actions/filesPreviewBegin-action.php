@@ -1,23 +1,22 @@
 <?php
 $fileExtension = explode('.',$_POST['file']);
+$fileId = $fileExtension[0];
 $fileExtension = $fileExtension[count($fileExtension)-1];
-try {
-    $bytes = random_bytes(15);
-} catch (Exception $e) {
-}
-$randWord = bin2hex($bytes);
-$filePath = '../fichiers/'.$_POST['file'];
+$link = mysqli_connect("127.0.0.1", "root", "", "drivelbr");
+$link->query('SET NAMES utf8');
+$requete = "SELECT `nom_stockage`, `extension` FROM `fichiers` WHERE `id` = $fileId";
+$result = mysqli_query($link, $requete);
+$data = mysqli_fetch_array($result);
+$fileCodedName = './fichiers/'.$data[0] .".". $fileExtension;
+$filePath = '.'.$fileCodedName;
 $fileName = $_POST['fileName'].'.'.$fileExtension;
-$newFile = './temporary/'.$randWord.'.'.$fileExtension;
-copy($filePath, '.'.$newFile);
-$generateFileName = "'".$randWord.'.'.$fileExtension."'";
 $htmlCode = '<div id="filePreviewContainerDiv" class="filePreviewContainer" ><div id="previewHeader"><h1>'.$fileName.'</h1>
 <h1 onclick="closeFile()">X</h1></div>';
 if(str_contains(mime_content_type($filePath), "image/")){
-    $htmlCode .= '<img id="'.$generateFileName.'" alt="preview du fichier" src="' . $newFile . '"></div>';
+    $htmlCode .= '<img alt="preview du fichier" src="' . $fileCodedName .'"></div>';
 }else if(strstr(mime_content_type($filePath), "video/") || strstr(mime_content_type($filePath), "audio/") ){
-    $htmlCode .= '<video id="'.$generateFileName.'" controls autoplay>
-                    <source src="'.$newFile.'" type="'.mime_content_type($filePath).'">
+    $htmlCode .= '<video  controls autoplay>
+                    <source src="'. $fileCodedName .'" type="'.mime_content_type($filePath).'">
                  </video></div>';
 }else{
     $htmlCode.='</div>';
