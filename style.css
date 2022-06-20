@@ -969,3 +969,18 @@ input{
 .extensionsContainer{
     padding: 0.5em;
 }
+
+#FileDataRequest{
+    background-color: #161920;
+    font-size: 1.5em;
+    color: #EBEAD4;
+}
+
+.clickMenu p {
+    margin: 0;
+    padding: 0.5em;
+}
+
+.clickMenu p:hover {
+    background-color: #000000;
+}

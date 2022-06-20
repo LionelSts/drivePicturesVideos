@@ -12,7 +12,6 @@ function ListenersClicDroit(){
                 document.getElementById('filesDisplayContainer').innerHTML += data;
                 let div = document.getElementById('FileDataRequest');
                 div.style.position = 'absolute';
-                div.style.background = 'white';
                 let posX = e.pageX;
                 let posY = e.pageY;
                 div.style.left = posX+"px";
@@ -31,8 +30,8 @@ function RemoveClickListener(){
     RemoveContextMenu();
     ListenersClicDroit();
     document.removeEventListener('click', RemoveClickListener);
-    
-    
+
+
 }
 function FileConvertSize(aSize){                                // Fonction servant à afficher la taille (de façon lisible) d'un fichier (argumetn en octet)
     aSize = Math.abs(parseInt(aSize, 10));
