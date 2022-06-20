@@ -7,6 +7,17 @@
         }else{
             $page = 0;
         }
+        $currentPage = "./".$myPage.".php";
+        if(isset($_GET)){
+            $currentPage .= "?";
+            foreach ($_GET as $key => $parameter){
+                if($key != 'page'){
+                    $currentPage .= $key.'='.$parameter.'&';
+                }
+            }
+            $currentPage = str_replace(' ', '+',$currentPage);
+            $currentPage .= 'page=';
+        }
         $mail = $_SESSION['mail'];
         $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
         $link->query('SET NAMES utf8');
@@ -24,7 +35,7 @@
                 $result = mysqli_query($link, $requete); // Saving the result
                 $files = mysqli_fetch_all($result);
             }else{
-                $requete = "SELECT * FROM `fichiers`";
+                $requete = "SELECT * FROM `fichiers` LIMIT 20 OFFSET ".intval($page);
                 if($_SESSION['role'] == "invite"){
                     $requete = "SELECT * FROM `fichiers` WHERE `id`  IN (SELECT DISTINCT `id_fichier` FROM `caracteriser` WHERE `nom_tag` IN (SELECT `nom_tag` FROM attribuer WHERE `email`='$mail')) OR auteur='$mail' ORDER BY `date` DESC, `id`  LIMIT 20 OFFSET ".intval($page); // Preparing the request
                 }else{
@@ -42,7 +53,6 @@
                             $requete .= '"'.$tags[$i].'"';
                         }
                         $requete .= ")) ORDER BY `date` DESC, `id`  LIMIT 20 OFFSET " . intval($page); // Preparing the request to verify
-
                     }else if(!empty($search['tags'])){
                         $tags = $search['tags'];
                         $requete = "SELECT * FROM `fichiers` WHERE `id` IN (SELECT DISTINCT `id_fichier` FROM `caracteriser` WHERE `nom_tag` IN (";
@@ -80,20 +90,20 @@
             </div>
             <a href="';
         if($page <= 0){
-            echo './'.$myPage.'.php?page=0';
+            echo $currentPage.'0';
         }else{
-            echo './'.$myPage.'.php?page='.$page/20 -1;
+            echo $currentPage.$page/20 -1;
         }
         echo'">< Page précédente</a>';
         echo '<a href="';
         if(!isset($files)){
-            echo './'.$myPage.'.php?page=0';
+            echo $currentPage.'0';
             $files = [];
         }else{
             if(count($files) < 20){
-                echo './'.$myPage.'.php?page='.$page/20;
+                echo $currentPage.$page/20;
             }else{
-                echo './'.$myPage.'.php?page='.$page/20 +1;
+                echo $currentPage.$page/20 +1;
             }
         }
         echo'">Page suivante ></a>

@@ -41,4 +41,4 @@ foreach ($files as $file){
     $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$lastname." ".$name." (".$role2.") a supprimé le fichier : ".$nom_fichier." ')";
     mysqli_query($link, $requete2);
 }
-// header('Location:../'.$page.'.php');
+header('Location:../'.$page.'.php');

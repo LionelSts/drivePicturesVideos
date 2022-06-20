@@ -20,14 +20,14 @@ $result = mysqli_query($link, $requete);
 $searchArray = [];
 if(isset($_GET)){
     foreach ($_GET as $key => $parameter){
-        if(str_contains($key,"extension")){
-            $searchArray['extensions'][] = substr(urldecode($key), strpos($key, '-')+1);
-        }else{
-            $searchArray['tags'][] = substr(str_replace('_', ' ', $key), strpos($key, '-')+1);
+        if($key != 'page' && $key != 'submit'){
+            if(str_contains($key,"extension")){
+                $searchArray['extensions'][] = substr(urldecode($key), strpos($key, '-')+1);
+            }else{
+                $searchArray['tags'][] = substr(str_replace('_', ' ', $key), strpos($key, '-')+1);
+            }
         }
     }
-    if(isset($searchArray['tags'])) array_pop($searchArray['tags']);
-
 }
 ?>
 <body>
@@ -53,7 +53,7 @@ if(isset($_GET)){
         </div>
     </div>
     <script>
-        let searchSelector =  document.getElementById('searchPopUpContainer')
+        let searchSelector =  document.getElementById('searchPopUpContainer');
         let searchPopUp = () => {
             searchSelector.style.display = 'block';
         }

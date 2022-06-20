@@ -31,7 +31,7 @@ $result = mysqli_query($link, $requete);
 $extensions = mysqli_fetch_all($result);
 ?>
 <div id="searchPopUpContainer">
-    <div class="closeButton" onclick="closeSearchPopUp()">
+    <div class="closeButton" onclick="event.stopPropagation(); closeSearchPopUp()">
         <h1>X</h1>
     </div>
     <h1 id="searchTitle">Rechercher des fichiers</h1>
