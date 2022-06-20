@@ -36,6 +36,8 @@ foreach ($str_arr as $tag){
     if($isIn == -1){
         $requete = "INSERT INTO tags (`nom_tag`, `nom_categorie`) VALUES ('$tag[1]', '$tag[0]')";
         $result = mysqli_query($link, $requete);
+        $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$lastname." ".$name." (".$role2.") a ajouté un tag ".$tag[1]." dans la catégorie ".$tag[0]."')";
+        mysqli_query($link, $requete2);
     }
     $tags_file[]=str_replace("_", " ", $tag[1]);
 }

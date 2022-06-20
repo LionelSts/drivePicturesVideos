@@ -4,6 +4,7 @@ function formReload(index){
     document.getElementById('nom').value = index.get(mail)[0];
     document.getElementById('prenom').value = index.get(mail)[1];
     document.getElementById('modifRole').value = index.get(mail)[3];
+    document.getElementById('descriptif2').value = index.get(mail)[4];
 }
 
 
