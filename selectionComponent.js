@@ -1,6 +1,39 @@
 document.getElementById("checkActionButtons").hidden = true;
 let activeContent;
 
+let file =  document.getElementsByClassName('fichierContainer');
+
+function ListenersClicDroit(){
+    for(let i = 0; i < file.length; i++){
+        let id = file[i].children[0].children[0].children[0].id;
+        file[i].addEventListener('contextmenu', function (e){
+            e.preventDefault();
+            $.post( "right_click.php", { id: id }, function( data ) {
+                document.getElementById('filesDisplayContainer').innerHTML += data;
+                let div = document.getElementById('FileDataRequest');
+                div.style.position = 'absolute';
+                div.style.background = 'white';
+                let posX = e.pageX;
+                let posY = e.pageY;
+                div.style.left = posX+"px";
+                div.style.top = posY+"px";
+                document.addEventListener('click', RemoveClickListener);
+            }, "html");
+        });
+    }
+}
+
+function RemoveContextMenu(){
+    document.getElementById('FileDataRequest').remove();
+}
+
+function RemoveClickListener(){
+    RemoveContextMenu();
+    ListenersClicDroit();
+    document.removeEventListener('click', RemoveClickListener);
+    
+    
+}
 function FileConvertSize(aSize){                                // Fonction servant à afficher la taille (de façon lisible) d'un fichier (argumetn en octet)
     aSize = Math.abs(parseInt(aSize, 10));
     let def = [[1, 'octets'], [1024, 'ko'], [1024*1024, 'Mo'], [1024*1024*1024, 'Go'], [1024*1024*1024*1024, 'To']];
@@ -96,3 +129,4 @@ let deleteFiles = () => {                                           // On fait l
     document.getElementById('download').click();
 }
 
+ListenersClicDroit();

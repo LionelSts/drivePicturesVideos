@@ -10,7 +10,7 @@ session_start();
     if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
     $link = mysqli_connect("127.0.0.1", "root", "", "drivelbr");
     $link->query('SET NAMES utf8');
-    $requete= "SELECT `nom`, `prenom`, `mail`, `role` FROM `utilisateurs`";
+    $requete= "SELECT `nom`, `prenom`, `mail`, `role`, `descriptif` FROM `utilisateurs`";
     $result = mysqli_query($link,$requete);
     $data = mysqli_fetch_all($result);
     ?>
@@ -68,6 +68,10 @@ session_start();
                 <div class="formLine">
                     <label class='profile' for='mailCompte' >Adresse mail : </label>
                     <input class='profile' type='text' name="mail" id="mailCompte" required disabled>
+                </div>
+                <div class="formLine">
+                    <label class='profile' for='descriptif2' >Descriptif : </label>
+                    <input class='profile' type='text' name="descriptif2" id='descriptif2' required>
                 </div>
                 <div class="formLine">
                     <label class='profile' for='role' >Rôle : </label>

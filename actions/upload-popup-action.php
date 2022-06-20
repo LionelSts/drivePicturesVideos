@@ -3,6 +3,7 @@ session_start();// démarage de la session
 require '../vendor/autoload.php';
 include '../thumbnail.php';
 if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("../index.php");</script>';
+$name = $_SESSION["prenom"]; $lastname = $_SESSION["nom"]; $role2 = $_SESSION["role"];
 $str_arr = array();
 foreach ($_POST as $key => $value){
     if($key != "submit" && $key != "newTag"){
@@ -35,6 +36,8 @@ foreach ($str_arr as $tag){
     if($isIn == -1){
         $requete = "INSERT INTO tags (`nom_tag`, `nom_categorie`) VALUES ('$tag[1]', '$tag[0]')";
         $result = mysqli_query($link, $requete);
+        $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$lastname." ".$name." (".$role2.") a ajouté un tag ".$tag[1]." dans la catégorie ".$tag[0]."')";
+        mysqli_query($link, $requete2);
     }
     $tags_file[]=str_replace("_", " ", $tag[1]);
 }
@@ -75,10 +78,14 @@ for($i = 0 ; $i < $countfiles ; $i++){
         if($tags_file == null) $tags_file[]="Sans tag";
         $requete = "INSERT INTO fichiers (`id`, `nom_fichier`, `extension`, `auteur`, `date`, `duree`, `size`) VALUES ('$id', '$filename', '$extension', '$mail', '$date', '$duree', '$size')";
         mysqli_query($link, $requete);
+        $chaine = "";
         foreach ($tags_file as $tag){
+            $chaine .= $tag." ";
             $requete = "INSERT INTO caracteriser (`id_fichier`, `nom_tag`) VALUES ('$id', '$tag')";
             mysqli_query($link, $requete);
         }
+        $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$lastname." ".$name." (".$role2.") a téléversé le fichier ".$filename." avec le(s) tag(s) : ".$chaine."')";
+        mysqli_query($link, $requete2);
     }
 }
 

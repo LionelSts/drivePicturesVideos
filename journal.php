@@ -16,7 +16,8 @@ session_start();
             include './menu.php';
             echo getMenu();
             if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
-            $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr");
+            $link = mysqli_connect("127.0.0.1","root", "" , "drivelbr");
+            $link->query('SET NAMES utf8');
             ?>
             <div id="pageContent">
                 <h1 class="bigTitle">Journal de bord</h1>
@@ -28,7 +29,7 @@ session_start();
                         <th>Action</th>
                     </tr>
                     <?php
-                        $requete = "SELECT * FROM `tableau_de_bord`";
+                        $requete = "SELECT * FROM `tableau_de_bord` ORDER BY `id_modif` DESC";
                         $result = mysqli_query($link, $requete);
                         while($row = mysqli_fetch_assoc($result)){
                             echo "<tr><td id='colonne'>" . $row["date"] . "</td><td id='colonne'>" . $row["modification"] . "</td></tr >";
