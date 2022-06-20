@@ -11,6 +11,7 @@ if(!empty($data)){
     $id = 0;
 }
 $files = explode(",",$_POST["fichiers"]);
+$page = $_POST['page'];
 foreach ($files as $file){
     $id++;
     $fileName = substr($file,0,strpos($file, '.'));
@@ -34,5 +35,4 @@ foreach ($files as $file){
     $requete = "INSERT INTO `corbeille` VALUES ('$id','$nom_fichier','$extension','$auteur','$date', '$duree', '$size','$delete_date','$delete_user') ";
     mysqli_query($link, $requete);
 }
-
-header('Location:../my_files.php');
+header('Location:../'.$page.'.php');

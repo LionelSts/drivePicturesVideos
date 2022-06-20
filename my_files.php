@@ -21,10 +21,6 @@ $result = mysqli_query($link, $requete); // Saving the result
 <body>
 <div id="header">
     <a class="logoTop" href="home.php"><img alt="logoLBR" id="logo-header-home" src="images/graphiqueLBR/logoLONGUEURClassic.png"></a>
-    <div id="searchbar">
-        <label for="searchInput"></label><input type="text" id="searchInput" placeholder="Barre de recherche"/>
-        <img alt="Loupe" src="images/icons/search-logo.png" id="search-logo">
-    </div>
 </div>
 <div id="main">
     <?php
@@ -39,7 +35,7 @@ $result = mysqli_query($link, $requete); // Saving the result
         </div>
         <?php
             include 'filesDisplay.php';
-            loadFiles(1);
+            loadFiles('my_files');
         ?>
         <?php
             include 'upload-popup.php';

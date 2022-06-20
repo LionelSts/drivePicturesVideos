@@ -7,7 +7,6 @@ let playFile = (file, fileName) => {
         fileGeneration = document.getElementById("filePreviewContainerDiv").children[1].id;
         window.addEventListener('beforeunload', handler);
         }, "html");
-
 }
 
 let closeFile = () => {

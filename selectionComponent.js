@@ -80,9 +80,8 @@ let downloadFiles = () => {                                         // On fait l
     let newForm = "<form method=\"post\" action=\"./actions/download-action.php\" hidden>";
     document.getElementById("downloadZone").innerHTML = "";
     newForm += "<input type=\"text\" name=\"fichiers\" value=\""+activeContent+"\">";
-    newForm +=" <input type=\"submit\" id=\"download\">" +
+    newForm +=" <input type=\"submit\" id=\"download\" >" +
         "</form>"
-
     document.getElementById('downloadZone').innerHTML += newForm;
     document.getElementById('download').click();
 }
@@ -91,7 +90,7 @@ let deleteFiles = () => {                                           // On fait l
     let newForm = "<form method=\"post\" action=\"./actions/delete-action.php\" hidden>";
     document.getElementById("downloadZone").innerHTML = "";
     newForm += "<input type=\"text\" name=\"fichiers\" value=\""+activeContent+"\">";
-    newForm +=" <input type=\"submit\" id=\"download\">" +
+    newForm +=" <input type=\"submit\" name=\"page\" id=\"download\" value='"+page+"'>" +
         "</form>"
     document.getElementById('downloadZone').innerHTML += newForm;
     document.getElementById('download').click();

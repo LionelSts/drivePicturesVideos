@@ -1,6 +1,6 @@
 <?php
     if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
-    function loadFiles($myFiles,$search = ""): void
+    function loadFiles($myPage, $search = []): void
     {
         if(isset($_GET["page"])){
             $page = $_GET["page"]*20;
@@ -10,21 +10,60 @@
         $mail = $_SESSION['mail'];
         $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
         $link->query('SET NAMES utf8');
-        if($myFiles){
+        if($myPage == 'my_files'){
             $requete = "SELECT * FROM `fichiers` WHERE `auteur` = '$mail' ORDER BY `date` DESC, `id`  LIMIT 20 OFFSET ".intval($page); // Preparing the request to verify
             $result = mysqli_query($link, $requete); // Saving the result
             $files = mysqli_fetch_all($result);
-        }else if($search === ""){
-            if($_SESSION['role'] == "invite"){
-                $requete = "SELECT * FROM `fichiers` WHERE `id`  IN (SELECT DISTINCT `id_fichier` FROM `caracteriser` WHERE `nom_tag` IN (SELECT `nom_tag` FROM attribuer WHERE `email`='$mail')) OR auteur='$mail' ORDER BY `date` DESC, `id`  LIMIT 20 OFFSET ".intval($page); // Preparing the request
+        }else if($myPage == 'home'){
+            if(empty($search)){
+                if($_SESSION['role'] == "invite"){
+                    $requete = "SELECT * FROM `fichiers` WHERE `id`  IN (SELECT DISTINCT `id_fichier` FROM `caracteriser` WHERE `nom_tag` IN (SELECT `nom_tag` FROM attribuer WHERE `email`='$mail')) OR auteur='$mail' ORDER BY `date` DESC, `id`  LIMIT 20 OFFSET ".intval($page); // Preparing the request
+                }else{
+                    $requete = "SELECT * FROM `fichiers` ORDER BY `date` DESC, `id`  LIMIT 20 OFFSET ".intval($page); // Preparing the request to verify
+                }
+                $result = mysqli_query($link, $requete); // Saving the result
+                $files = mysqli_fetch_all($result);
             }else{
-                $requete = "SELECT * FROM `fichiers` ORDER BY `date` DESC, `id`  LIMIT 20 OFFSET ".intval($page); // Preparing the request to verify
+                $requete = "SELECT * FROM `fichiers`";
+                if($_SESSION['role'] == "invite"){
+                    $requete = "SELECT * FROM `fichiers` WHERE `id`  IN (SELECT DISTINCT `id_fichier` FROM `caracteriser` WHERE `nom_tag` IN (SELECT `nom_tag` FROM attribuer WHERE `email`='$mail')) OR auteur='$mail' ORDER BY `date` DESC, `id`  LIMIT 20 OFFSET ".intval($page); // Preparing the request
+                }else{
+                    if(!empty($search['tags']) && !empty($search['extensions'])){
+                        $tags = $search['tags'];
+                        $extensions = $search['extensions'];
+                        $requete = "SELECT * FROM `fichiers` WHERE `extension` IN (";
+                        for ($i = 0; $i < count($extensions); $i++) {
+                            if ($i !== 0) $requete .= ' , ';
+                            $requete .= '"' . $extensions[$i] . '"';
+                        }
+                        $requete .= ") AND `id` IN (SELECT DISTINCT `id_fichier` FROM `caracteriser` WHERE `nom_tag` IN (";
+                        for($i = 0; $i < count($tags); $i++) {
+                            if ($i !== 0) $requete .= ' , ';
+                            $requete .= '"'.$tags[$i].'"';
+                        }
+                        $requete .= ")) ORDER BY `date` DESC, `id`  LIMIT 20 OFFSET " . intval($page); // Preparing the request to verify
+
+                    }else if(!empty($search['tags'])){
+                        $tags = $search['tags'];
+                        $requete = "SELECT * FROM `fichiers` WHERE `id` IN (SELECT DISTINCT `id_fichier` FROM `caracteriser` WHERE `nom_tag` IN (";
+                        for($i = 0; $i < count($tags); $i++) {
+                            if ($i !== 0) $requete .= ' , ';
+                            $requete .= '"'.$tags[$i].'"';
+                        }
+                        $requete .=")) ORDER BY `date` DESC, `id`  LIMIT 20 OFFSET ".intval($page); // Preparing the request to verify
+                    }else if(!empty($search['extensions'])) {
+                        $requete = "SELECT * FROM `fichiers` WHERE `extension` IN (";
+                        $extensions = $search['extensions'];
+                        for ($i = 0; $i < count($extensions); $i++) {
+                            if ($i !== 0) $requete .= ' , ';
+                            $requete .= '"' . $extensions[$i] . '"';
+                        }
+                        $requete .= ") ORDER BY `date` DESC, `id`  LIMIT 20 OFFSET " . intval($page); // Preparing the request to verify
+                    }
+                }
+                $result = mysqli_query($link, $requete); // Saving the result
+                $files = mysqli_fetch_all($result);
             }
-            $result = mysqli_query($link, $requete); // Saving the result
-            $files = mysqli_fetch_all($result);
-        }else{
-            // TODO
-            $files = "";
         }
         echo'
     <div class="filesNavigation">
@@ -39,18 +78,23 @@
                     <img alt="supprimer" src="./images/icons/trash.png" onclick="deleteFiles()">
                 </div>
             </div>
-            <a href=';
+            <a href="';
         if($page <= 0){
-            echo './my_files.php?page=0';
+            echo './'.$myPage.'.php?page=0';
         }else{
-            echo './my_files.php?page='.$page/20 -1;
+            echo './'.$myPage.'.php?page='.$page/20 -1;
         }
         echo'">< Page précédente</a>';
         echo '<a href="';
-        if(count($files) < 20){
-            echo './my_files.php?page='.$page/20;
+        if(!isset($files)){
+            echo './'.$myPage.'.php?page=0';
+            $files = [];
         }else{
-            echo './my_files.php?page='.$page/20 +1;
+            if(count($files) < 20){
+                echo './'.$myPage.'.php?page='.$page/20;
+            }else{
+                echo './'.$myPage.'.php?page='.$page/20 +1;
+            }
         }
         echo'">Page suivante ></a>
         </div>
@@ -91,8 +135,7 @@
                    </div>';
         }
         echo'
-    </div>
-    <script src="selectionComponent.js"></script>';
+    </div>';
         $requete = "SELECT `nom_tag` FROM `tags`";
         $result = mysqli_query($link, $requete); // Saving the result
         $tags = mysqli_fetch_all($result);
@@ -104,10 +147,11 @@
         $tagsString.=']';
         echo'
     <script>
-        let listTag = '.$tagsString;
+        let listTag = '.$tagsString.';'.
+        'let page = "'.$myPage.'";';
         echo'
     </script>
-    
+    <script src="selectionComponent.js"></script>
     <script src="filesPreview.js"></script>';
     }
 
