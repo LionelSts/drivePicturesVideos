@@ -6,6 +6,7 @@ session_start();
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" href="style.css">
+        <title>Journal de bord - DriveLBR</title>
     </head>
     <body>
     <div id="header">
@@ -21,20 +22,22 @@ session_start();
             ?>
             <div id="pageContent">
                 <h1 class="bigTitle">Journal de bord</h1>
-            </div>
-            <div id="pageContent">
-                <table id="journal" border='1' align='center' cellpadding='5'>
-                    <tr>
-                        <th>Date</th>
-                        <th>Action</th>
-                    </tr>
-                    <?php
-                        $requete = "SELECT * FROM `tableau_de_bord` ORDER BY `id_modif` DESC";
-                        $result = mysqli_query($link, $requete);
-                        while($row = mysqli_fetch_assoc($result)){
-                            echo "<tr><td id='colonne'>" . $row["date"] . "</td><td id='colonne'>" . $row["modification"] . "</td></tr >";
-                        }
-                    ?>
+                <table class="journalDeBord">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            $requete = "SELECT * FROM `tableau_de_bord` ORDER BY `id_modif` DESC";
+                            $result = mysqli_query($link, $requete);
+                            while($row = mysqli_fetch_assoc($result)){
+                                echo "<tr><td id='colonne'>" . $row["date"] . "</td><td id='colonne'>" . $row["modification"] . "</td></tr >";
+                            }
+                        ?>
+                    </tbody>
                 </table>
             </div>
         </div>
