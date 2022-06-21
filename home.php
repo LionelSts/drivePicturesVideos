@@ -6,6 +6,7 @@ session_start();// démarage de la session
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
     <title>Home - DriveLBR</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <?php
@@ -16,14 +17,27 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;  // connexion à 
 $link->query('SET NAMES utf8');
 $requete = "SELECT `role` FROM `utilisateurs` WHERE `mail` = '$mail'";  // recherche dans la bdd, du rôle associé à l'email de l'utilisateur
 $result = mysqli_query($link, $requete);
-
+$searchArray = [];
+if(isset($_GET)){
+    foreach ($_GET as $key => $parameter){
+        if($key != 'page' && $key != 'submit'){
+            if(str_contains($key,"extension")){
+                $searchArray['extensions'][] = substr(urldecode($key), strpos($key, '-')+1);
+            }else{
+                $searchArray['tags'][] = substr(str_replace('_', ' ', $key), strpos($key, '-')+1);
+            }
+        }
+    }
+}
 ?>
 <body>
     <div id="header">
         <a class="logoTop" href="home.php"><img alt="logoLBR" id="logo-header-home" src="images/graphiqueLBR/logoLONGUEURClassic.png"></a>
-        <div id="searchbar">
+        <div id="searchbar" onclick="searchPopUp()">
             <label for="searchInput"></label><input type="text" id="searchInput" placeholder="Barre de recherche"/>
-            <img alt="loupe" src="images/icons/search-logo.png" id="search-logo">
+            <?php
+                include 'searchPopUp.php';
+            ?>
         </div>
     </div>
     <div id="main">
@@ -34,10 +48,19 @@ $result = mysqli_query($link, $requete);
         <div id="pageContent">
         <?php
         include 'filesDisplay.php';
-        loadFiles(0);
+        loadFiles('home', $searchArray);
         ?>
         </div>
     </div>
+    <script>
+        let searchSelector =  document.getElementById('searchPopUpContainer');
+        let searchPopUp = () => {
+            searchSelector.style.display = 'block';
+        }
+        let closeSearchPopUp = () => {
+            searchSelector.style.display = 'none';
+        }
+    </script>
 </body>
 
 

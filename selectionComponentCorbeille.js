@@ -8,7 +8,7 @@ function ListenersClicDroit(){
         let id = file[i].children[0].children[0].children[0].id;
         file[i].addEventListener('contextmenu', function (e){
             e.preventDefault();
-            $.post( "actions/right_click-action.php", { id: id }, function( data ) {
+            $.post( "actions/right_click_corbeille-action.php", { id: id }, function( data ) {
                 document.getElementById('filesDisplayContainer').innerHTML += data;
                 let div = document.getElementById('FileDataRequest');
                 div.style.position = 'absolute';
@@ -59,67 +59,28 @@ let buttonsAction = () => {                                                     
 
 let confirmDelete = () => {                                                 // Popup qui demande la confirmation de la suppression
     const confirmPopUp = "<div id='confirmPopUp'>" +
-                            " <p>Voulez vous vraiment supprimer ces "+activeContent.length+ " éléments ?</p>" +
-                            "<div class='confirmButtons'><div onclick='deleteFiles()' class='confirmButton'>Oui</div><div onclick='annulDelete()' class='confirmButton'>Non</div></div>"+
-                        "</div>";
-
+        " <p>Voulez vous vraiment supprimer ces "+activeContent.length+ " éléments ?</p>" +
+        "<div class='confirmButtons'><div onclick='deleteFiles()' class='confirmButton'>Oui</div><div onclick='annulDelete()' class='confirmButton'>Non</div></div>"+
+        "</div>";
     document.getElementById("pageContent").innerHTML += confirmPopUp;
-}
-
-let tagSelection = () => {                                                  // Popup affichant les différents tags pour modifier les tags des fichiers selectionnés
-    let window = " <form class=\"tagsFichiers\" method=\"post\" action=\"actions/contentTags-action.php\"> <div id='confirmPopUp'>" +
-    " <p>Vous modifiez les tags de "+activeContent.length+ " élément(s)</p>" +
-        "<div class=\"autreTagsContainer\">";
-    let counter = 0;
-    let allFiles="";
-    activeContent.forEach(file => allFiles+= file +",");
-    for (let i =0; i < listTag.length; i++) {
-        if(counter%2){
-            window += "<div class='tag-choices'>" +
-                "          <label class='redCheckboxContainer'>" + listTag[i] +
-                "               <input type='checkbox' id='"+ listTag[i] +"' name='listeTag[]' value ='"+ listTag[i] +"' \>" +
-                "               <span class='tagChoiceCheckbox tagCheckbox redCheckbox'></span>\n" +
-                "           </label>\n" +
-                "     </div>";
-        }else{
-            window += "<div class='tag-choices-1'>" +
-                "          <label class='redCheckboxContainer'>" + listTag[i] +
-                "               <input type='checkbox' id='"+ listTag[i] +"' name='listeTag[]' value ='"+ listTag[i] +"' \>" +
-                "               <span class='tagChoiceCheckbox tagCheckbox redCheckbox'></span>\n" +
-                "           </label>\n" +
-                "     </div>";
-        }
-        counter++;
-    }
-    window += "</div>" +
-            "<div class='confirmButtons'>" +
-                "<input type=\"submit\" name=\""+allFiles+"\" value=\"Oui\">" +
-                "<div onclick='annulTags()' class='confirmButton'>Non</div>" +
-             "</div>"+
-        "</div></form>";
-    document.getElementById("pageContent").innerHTML += window;
-}
-
-let annulTags = () => {                                             // On ferme la popup des tags
-    document.getElementById("confirmPopUp").remove();
 }
 
 let annulDelete = () => {                                           // On ferme la popup de suppression
     document.getElementById("confirmPopUp").remove();
 }
 
-let downloadFiles = () => {                                         // On fait la requête post pour télécharger les fichiers
-    let newForm = "<form method=\"post\" action=\"./actions/download-action.php\" hidden>";
+let restoreFile = () => {                                         // On fait la requête post pour restaurer les fichiers
+    let newForm = "<form method=\"post\" action=\"./actions/restore-action.php\" hidden>";
     document.getElementById("downloadZone").innerHTML = "";
     newForm += "<input type=\"text\" name=\"fichiers\" value=\""+activeContent+"\">";
-    newForm +=" <input type=\"submit\" id=\"download\" >" +
+    newForm +=" <input type=\"submit\" name=\"page\" id=\"download\" value='"+page+"'>" +
         "</form>"
     document.getElementById('downloadZone').innerHTML += newForm;
     document.getElementById('download').click();
 }
 
 let deleteFiles = () => {                                           // On fait la requête post pour supprimer les fichiers
-    let newForm = "<form method=\"post\" action=\"./actions/delete-action.php\" hidden>";
+    let newForm = "<form method=\"post\" action=\"./actions/delete-permanently-action.php\" hidden>";
     document.getElementById("downloadZone").innerHTML = "";
     newForm += "<input type=\"text\" name=\"fichiers\" value=\""+activeContent+"\">";
     newForm +=" <input type=\"submit\" name=\"page\" id=\"download\" value='"+page+"'>" +

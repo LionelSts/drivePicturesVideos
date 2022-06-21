@@ -1,50 +1,45 @@
 <?php
 ob_start();
 $files = explode(",",$_POST["fichiers"]);
-try {
-    $bytes = random_bytes(5);
-} catch (Exception $e) {
+$link = mysqli_connect("127.0.0.1", "root", "", "drivelbr");
+$link->query('SET NAMES utf8');
+$requete = "SELECT `nom_stockage`, `extension` FROM `fichiers` WHERE `id` IN (";
+foreach ($files as $file){
+    $file = substr($file,0,strpos($file, '.'));
+    $requete .= $file.",";
 }
-$randWord = bin2hex($bytes);
+$requete = substr($requete, 0, -1).")";
+$result = mysqli_query($link, $requete);
+$data = mysqli_fetch_all($result);
+$zipname = '../temporary/driveLBR.zip';
 $zip = new ZipArchive;
-$fileName = $randWord.'.zip';
-$path = '../temporary/'.$fileName;
-if ($zip->open($_SERVER['DOCUMENT_ROOT']."/driveBriquesRouges/temporary/".$fileName, ZipArchive::CREATE) === TRUE)
-{
-    foreach ($files as $file){
-        $filePath = "../fichiers/".$file;
-        $zip->addFile($filePath, $file);
-    }
-    // All files are added, so close the zip file.
-    $zip->close();
-}else{
-    exit("Impossible d'ouvrir le fichier <$randWord>\n");
+$zip->open($zipname, ZipArchive::CREATE);
+foreach ($data as $file) {
+    $zip->addFile("../fichiers/".$file[0].".".$file[1], $file[0].".".$file[1]);
 }
-
-$fileToSend = '../temporary/'.$fileName;
+$zip->close();
 
 if (headers_sent()) {
     echo 'HTTP header already sent';
 } else {
-    if (!is_file($fileToSend)) {
+    if (!is_file($zipname)) {
         header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
         echo 'File not found';
-    } else if (!is_readable($fileToSend)) {
+    } else if (!is_readable($zipname)) {
         header($_SERVER['SERVER_PROTOCOL'] . ' 403 Forbidden');
         echo 'File not readable';
     } else {
         header($_SERVER['SERVER_PROTOCOL'] . ' 200 OK');
         header('Content-Type: application/zip');
         header("Content-Transfer-Encoding: Binary");
-        header('Content-Length: ' . filesize($fileToSend));
-        header("Content-Disposition: attachment; filename=\"" . basename($fileName) . "\"");
+        header('Content-Length: ' . filesize($zipname));
+        header("Content-Disposition: attachment; filename=\"" . basename($zipname) . "\"");
         while (ob_get_level()) {
             ob_end_clean();
         }
-        readfile($_SERVER['DOCUMENT_ROOT']."/driveBriquesRouges/temporary/".$fileName);
+        readfile($zipname);
         ignore_user_abort(true);
-        unlink($fileToSend);
+        unlink($zipname);
         exit();
     }
 }
-

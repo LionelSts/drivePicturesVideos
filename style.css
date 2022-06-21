@@ -165,12 +165,12 @@ input{
 }
 
 #searchInput{
-    background-color: #EBEAD4;
     width: 100%;
     padding: 12px 20px;
     border: 0;
     font-size:2.25em;
     text-align: center;
+    background: #EBEAD4 url(images/icons/search-logo.png) no-repeat right 0.5em center;
 }
 
 #search-logo{
@@ -252,11 +252,6 @@ input{
 
 #pageContent{
     width: 100%;
-}
-
-#pageContent-bottom{
-    margin-left: 21em;
-
 }
 
 .profile form{
@@ -772,7 +767,7 @@ input{
     padding: 0.3em;
 }
 
-.migniatureFichier{
+.miniatureFichier{
     width: 100%;
     margin: 0;
     padding: 0;
@@ -811,6 +806,7 @@ input{
 
 .actionButtonsContainer{
     display: flex;
+    flex-direction: row-reverse;
 }
 
 .actionButtonsContainer img{
@@ -960,3 +956,92 @@ input{
     height: 80%;
     vertical-align: middle;
 }
+
+#searchPopUpContainer{
+    position: absolute;
+    background-color: #161920;
+    top: 5%;
+    left: 10%;
+    right: 10%;
+    width: auto;
+    height: auto;
+    z-index: 10;
+    text-align: center;
+    display: none;
+}
+
+#searchTitle{
+    margin: 0.4em;
+    color: #EBEAD4;
+    font-size: 2em;
+}
+
+#extensionsContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.extensionsContainer{
+    padding: 0.5em;
+}
+
+#FileDataRequest{
+    background-color: #161920;
+    font-size: 1.5em;
+    color: #EBEAD4;
+}
+
+.clickMenu p {
+    margin: 0;
+    padding: 0.5em;
+}
+
+.clickMenu p:hover {
+    background-color: #000000;
+}
+
+.journalDeBord {
+    margin: 1em;
+    border-collapse: collapse;
+}
+
+.journalDeBord thead{
+    font-size: 2.25em;
+}
+
+.journalDeBord tbody{
+    border: #EA001C 2px solid;
+    border-left: none;
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height:  800px;
+}
+
+.journalDeBord thead, .journalDeBord tbody tr{
+    display: table;
+    width: 100%;
+    table-layout: fixed
+}
+
+.journalDeBord tr:nth-child(even) {
+    background-color: #EBEAD4;
+}
+
+.journalDeBord td:nth-child(odd) {
+    width: 6.25em;
+}
+
+.journalDeBord th:nth-child(odd) {
+    width: 2.25em;
+}
+
+.journalDeBord th,.journalDeBord td{
+    padding: 0.5em;
+}
+
+.journalDeBord td{
+    border-left: #EA001C 2px solid;
+}
+

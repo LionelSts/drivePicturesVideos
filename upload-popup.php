@@ -1,6 +1,5 @@
 <?php
-if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
-$link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
+    $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
     $link->query('SET NAMES utf8');
     $final_tab = [];
     $requete = "SELECT `nom_tag`, `nom_categorie` FROM `tags`";
@@ -13,7 +12,7 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
         $categorie[] = $row['nom_categorie'];
     }
 
-    foreach($categorie as $key => $value) {
+    foreach($categorie as $value) {
         foreach ($data as list($value1, $value2)) {
             if($value == $value2) {
                 $tab[] = $value1;
@@ -40,14 +39,14 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
             </div>
             <?php
             $i = 0;
-            foreach ($final_tab as $key => $value1) {
+            foreach ($final_tab as $value1) {
                 echo('
                         <div class="uploadCategories">
                             <p>' . $categorie[$i] . '</p>
                             <div class="uploadsTagList" >
                             <div id="list' . $categorie[$i] . '">'
                 );
-                foreach ($value1 as $key2 => $value2) {
+                foreach ($value1 as $value2) {
                     echo('
                                 <label class="checkboxContainer">' . $value2 . '
                                     <input type="checkbox" id="' . $value2 . '" name="'. $categorie[$i] .'-' .  $value2 . '" value="Yes">
