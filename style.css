@@ -23,13 +23,10 @@ input{
 }
 
 #logo{
-    margin-top: -10%;
-    height: 100%;
-    width: 70%;
+    height: 40%;
 }
 
 #loginPageTitle{
-    margin-top: -18%;
     font-weight: bold;
     color: #EA001C;
     font-size: 3em;
@@ -38,8 +35,8 @@ input{
 
 
 #container{
-    background: url("images/backgrounds/background.jpg") no-repeat;
-    -webkit-background-size:cover;
+    background: url("images/backgrounds/background.jpg") no-repeat center center fixed;
+    background-size: cover;
     display: block;
     position : absolute;
     top : 0;
@@ -50,57 +47,54 @@ input{
 
 
 #login-form{
-    position : absolute;
     text-align: center;
     width:100%;
     font-weight:bold;
+    margin: auto;
 }
 
 
 .textConnexion {
-    color: white;
+    color: #EBEAD4;
     font-family: "Arial", sans-serif;
 }
 
 
 #mdpOublie{
-    color: white;
+    color: #EBEAD4;
 }
 
 
 .mdpOublie{
-    color: white;
+    color: #EBEAD4;
 }
 
 
 .mdpOublie:hover{
-    color: #EA001C;
+    color: #EBEAD4;
 }
 
 
 #Connection {
     background-color: #EA001C;
-    color: white;
+    color: #EBEAD4;
     padding: 14px 20px;
     margin: 8px 0;
     cursor: pointer;
-    width: 20%;
     border: none;
     font-weight: bold;
 }
-
 
 #Google{
-    color: white;
-    padding: 14px 20px;
+    color: #EBEAD4;
+    padding: 1em 1em 1em 3em ;
     margin: 8px 0;
     cursor: pointer;
-    width: 20%;
     border: none;
     font-weight: bold;
-    background-color: #EA001C;
+    background: #EA001C url('./images/icons/Google__G__Logo.png') no-repeat left 0.5em center ;
+    background-size: 2em;
 }
-
 
 #Google_logo{
     float: left;
@@ -738,6 +732,13 @@ input{
     height: 16.438em;
     padding: 0;
     margin: 0.5em;
+}
+
+.fichierContainer p{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: flex;
 }
 
 .fichierSubContainer{

@@ -1,7 +1,9 @@
 <?php
-    $regex = "[@]lesbriquesrouges.com$";
+    $regex = "[@]lesbriquesrouges\.com$";
     //Include Google Configuration File
     include('gconfig.php');
+    $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;  // connexion à la bdd
+    $link->query('SET NAMES utf8');
     if($_SESSION['access_token'] == '') {
         header("Location: index.php");
     }
@@ -23,26 +25,36 @@
             //Get user profile data from google
             $data = $google_service->userinfo->get();
             //Below you can find Get profile data and store into $_SESSION variable
-            if(!empty($data['given_name']))
-            {
-                $_SESSION['user_first_name'] = $data['given_name'];
+            $mail =  $data['email'];
+            $prenom = $data['given_name'];
+            $nom = $data['family_name'];
+            $requete = "SELECT `role`, `etat` FROM `utilisateurs` WHERE `mail` = '$mail' "; // redirection vers le login si l'utilisateur n'est pas connecté
+            $result = mysqli_query($link, $requete);
+            $row = mysqli_fetch_array($result);
+            if(empty($row)){
+                try {
+                    $tmpPassword = bin2hex(random_bytes(24));
+                } catch (Exception $e) {
+                }   // génération automatique d'un mot de passe permetant "l'unicité" du lien
+                $hashedPassword = password_hash($tmpPassword, PASSWORD_BCRYPT); // hashing du mot de passe
+                $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES ('$prenom', '$nom', '$mail', '$hashedPassword', 'lecture','Membre LBR', 'actif') "; // Insertion du compte saisi, dans la bdd avec le statut "en attente"
+                $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$nom." ".$prenom." (Lecture) crée avec Google')";
+                mysqli_query($link,$requete);
+                mysqli_query($link,$requete2);
             }
-            if(!empty($data['family_name']))
-            {
-                $_SESSION['user_last_name'] = $data['family_name'];
-            }
-            if(!empty($data['email']))
-            {
-                $_SESSION['user_email_address'] = $data['email'];
-            }
-            if(!empty($data['gender']))
-            {
-                $_SESSION['user_gender'] = $data['gender'];
-            }
-            if(!empty($data['picture']))
-            {
-                $_SESSION['user_image'] = $data['picture'];
+            if($row['role'] != 'inactif'){
+                if(!empty($data['given_name'])) {
+                    $_SESSION['prenom'] = $prenom;
+                }
+                if(!empty($data['family_name'])) {
+                    $_SESSION['nom'] = $nom;
+                }
+                if(!empty($data['email'])) {
+                    $_SESSION['mail'] = $mail;
+                }
+                $_SESSION['role'] = $row['role'];
+                $_SESSION['type'] = 'google';
             }
         }
     }
-?>
+    header('Location:../home.php');
