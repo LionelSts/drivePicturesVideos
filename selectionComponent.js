@@ -3,78 +3,36 @@ let activeContent;
 
 let file =  document.getElementsByClassName('fichierContainer');
 
-let ListenersClicDroit = () => {
+function ListenersClicDroit(){
     for(let i = 0; i < file.length; i++){
         let id = file[i].children[0].children[0].children[0].id;
-        file[i].oncontextmenu = () => clicDroit(id);
+        file[i].addEventListener('contextmenu', function (e){
+            e.preventDefault();
+            $.post( "actions/right_click-action.php", { id: id }, function( data ) {
+                document.getElementById('filesDisplayContainer').innerHTML += data;
+                let div = document.getElementById('FileDataRequest');
+                div.style.position = 'absolute';
+                let posX = e.pageX;
+                let posY = e.pageY;
+                div.style.left = posX+"px";
+                div.style.top = posY+"px";
+                document.addEventListener('click', RemoveClickListener);
+            }, "html");
+        });
     }
 }
 
-let clicDroit = (id) => {
-    if(document.getElementById('FileDataRequest')) document.getElementById('FileDataRequest').remove();
-    let e = window.event;
-    e.preventDefault();
-    //e.stopPropagation();
-    let x = e.pageX;
-    let y = e.pageY;
-    $.post( "actions/right_click-action.php", { id: id }, function( data ) {
-        document.getElementById('filesDisplayContainer').innerHTML += data;
-        let div = document.getElementById('FileDataRequest');
-        div.style.position = 'absolute';
-        div.style.left = x+"px";
-        div.style.top = y+"px";
-        clicsManager(1);
-    }, "html");
+function RemoveContextMenu(){
+    document.getElementById('FileDataRequest').remove();
 }
 
-let ListenersClicGauche = () => {
-    for(let i = 0; i < file.length; i++){
-        let name = file[i].children[0].children[0].children[0].name;
-        file[i].onclick = () => clicGauche(name);
-    }
+function RemoveClickListener(){
+    RemoveContextMenu();
+    ListenersClicDroit();
+    document.removeEventListener('click', RemoveClickListener);
+
+
 }
-
-let clicGauche = (name) => {
-    let e = window.event;
-    let x = e.pageX+1;
-    let y = e.pageY+1;
-    //e.preventDefault();
-    //e.stopPropagation();
-    if(e.target.className !== 'customCheckBox'){
-        if(document.getElementById('FileDataRequest')) document.getElementById('FileDataRequest').remove();
-        let dataRequest = document.createElement('div');
-        dataRequest.setAttribute('id', 'FileDataRequest');
-        let downloadFile = "<div id='Telecharger'><p onclick='downloadFiles(`"+name+"`)'>Télécharger</p></div>";
-        let deleteFile = "<div id='Supprimer'><p onclick='deleteFiles(`"+name+"`)'>Supprimer</p></div>";
-        let modifTags = "<div id='modifTags'><p onclick='tagSelection()'>Modifier les tags</p></div>";
-        dataRequest.style.left = x+"px";
-        dataRequest.style.top = y+"px";
-        dataRequest.style.position = "absolute";
-        dataRequest.className = "clickMenu";
-        dataRequest.innerHTML=downloadFile+deleteFile+modifTags;
-        let div = document.getElementById('filesDisplayContainer');
-        div.append(dataRequest);
-        clicsManager(1);
-    }
-}
-
-let clicsManager = (param) => {
-
-    if(param == 0){
-        setListener();
-        ListenersClicDroit();
-        ListenersClicGauche();
-    }
-    else if(param == 1){
-        setListener();
-        ListenersClicDroit();
-        ListenersClicGauche();
-    }
-    else {
-
-    }
-}
-
 function FileConvertSize(aSize){                                // Fonction servant à afficher la taille (de façon lisible) d'un fichier (argumetn en octet)
     aSize = Math.abs(parseInt(aSize, 10));
     let def = [[1, 'octets'], [1024, 'ko'], [1024*1024, 'Mo'], [1024*1024*1024, 'Go'], [1024*1024*1024*1024, 'To']];
@@ -94,7 +52,6 @@ let buttonsAction = () => {                                                     
         }
     }
     document.getElementById("checkActionButtons").hidden = activeContent.length <= 0;
-
     if(totalFilesSize !== 0){
         document.getElementById('filesSize').innerHTML = 'Fichiers selectionnés : ' + activeContent.length + ' ( ' + FileConvertSize(totalFilesSize) + ')';
     }
@@ -151,20 +108,20 @@ let annulDelete = () => {                                           // On ferme 
     document.getElementById("confirmPopUp").remove();
 }
 
-let downloadFiles = (name = activeContent) => {                                         // On fait la requête post pour télécharger les fichiers
+let downloadFiles = () => {                                         // On fait la requête post pour télécharger les fichiers
     let newForm = "<form method=\"post\" action=\"./actions/download-action.php\" hidden>";
     document.getElementById("downloadZone").innerHTML = "";
-    newForm += "<input type=\"text\" name=\"fichiers\" value=\""+name+"\">";
+    newForm += "<input type=\"text\" name=\"fichiers\" value=\""+activeContent+"\">";
     newForm +=" <input type=\"submit\" id=\"download\" >" +
         "</form>"
     document.getElementById('downloadZone').innerHTML += newForm;
     document.getElementById('download').click();
 }
 
-let deleteFiles = (name = activeContent) => {                                           // On fait la requête post pour supprimer les fichiers
+let deleteFiles = () => {                                           // On fait la requête post pour supprimer les fichiers
     let newForm = "<form method=\"post\" action=\"./actions/delete-action.php\" hidden>";
     document.getElementById("downloadZone").innerHTML = "";
-    newForm += "<input type=\"text\" name=\"fichiers\" value=\""+name+"\">";
+    newForm += "<input type=\"text\" name=\"fichiers\" value=\""+activeContent+"\">";
     newForm +=" <input type=\"submit\" name=\"page\" id=\"download\" value='"+page+"'>" +
         "</form>"
     document.getElementById('downloadZone').innerHTML += newForm;
@@ -172,4 +129,3 @@ let deleteFiles = (name = activeContent) => {                                   
 }
 
 ListenersClicDroit();
-ListenersClicGauche();
