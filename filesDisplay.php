@@ -142,6 +142,15 @@
                 }
                 $miniature= ".\miniatures\\" . $fichier[7] . ".png";
             }
+<<<<<<< Updated upstream
+=======
+            echo '<div class="fichierContainer">
+                        <div class="fichierSubContainer">
+                        <label onclick="event.stopPropagation();" class="checkboxContainer checkboxFiles">
+                                 <input type="checkbox" id="' . $fichier[0] . '" name="'. $fichier[0] . '.' . $fichier[2] . '" value="'.$fichier[6].'" onclick="buttonsAction()">
+                                 <span class="customCheckBox"></span>
+                            </label>';
+>>>>>>> Stashed changes
 
                 echo '<div class="fichierContainer">
                             <div class="fichierSubContainer">
@@ -177,6 +186,7 @@
         echo'<script>
         let listTag = '.$tagsString.';'.
         'let page = "'.$myPage.'";';
+<<<<<<< Updated upstream
         echo'</script>';
         if($myPage == 'corbeille'){
             echo'<script src="selectionComponentCorbeille.js"></script>';
@@ -186,5 +196,11 @@
         if($myPage != "corbeille"){
             echo '<script src="filesPreview.js"></script>';
         }
+=======
+        echo'
+    </script>
+    <script src="filesPreview.js"></script>
+    <script src="selectionComponent.js"></script>';
+>>>>>>> Stashed changes
     }
 
