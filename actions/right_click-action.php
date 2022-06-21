@@ -22,7 +22,6 @@ function filesize_formatted($size) {
     return number_format($size / pow(1024, $power), 2, '.', ',') . ' ' . $units[$power];
 }
 
-Source: https://prograide.com/pregunta/26869/conversion-de-la-taille-des-fichiers-php-en-mbkb
 echo("
     <div id='FileDataRequest' class='clickMenu'> 
         <div id='Titre'><p>".$file_data[0][0]."</p></div>
@@ -33,4 +32,3 @@ echo("
         <div id='Durée'><p>".$file_data[0][2]."</p></div>
     </div>"
 );
-?>

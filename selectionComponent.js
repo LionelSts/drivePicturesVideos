@@ -8,7 +8,7 @@ function ListenersClicDroit(){
         let id = file[i].children[0].children[0].children[0].id;
         file[i].addEventListener('contextmenu', function (e){
             e.preventDefault();
-            $.post( "right_click.php", { id: id }, function( data ) {
+            $.post( "actions/right_click-action.php", { id: id }, function( data ) {
                 document.getElementById('filesDisplayContainer').innerHTML += data;
                 let div = document.getElementById('FileDataRequest');
                 div.style.position = 'absolute';
