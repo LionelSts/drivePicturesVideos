@@ -7,7 +7,7 @@
     $mail = $_POST['selectedMail']; $prenom = $_POST['prenom']; $nom = $_POST['nom']; $mdp = $_POST['password']; $role = $_POST['role']; $descriptif = $_POST['descriptif2'];   // récupération des données du formulaire de Gestion des comptes
     $password = password_hash($mdp, PASSWORD_BCRYPT);   // hashage du mot de passe avec la méthode 'PASSWORD_BCRYPT'
     $chaine = urldecode(file_get_contents('php://input'));  // récupération de la liste des tags sélectionné en enlevant les données inutiles
-    $chaine = str_replace("selectedMail=".$mail."&nom=".$nom."&prenom=".$prenom."&role=".$role, '', $chaine);
+    $chaine=str_replace("selectedMail=".$mail."&nom=".$nom."&prenom=".$prenom."&descriptif2=".$descriptif."&role=".$role, '', $chaine);
     $chaine = str_replace("&listeTag=", ' ', $chaine);
     $chaine = str_replace("&modifier=Appliquer les modifications", '', $chaine);
     if($_POST['password'] != '') $chaine = str_replace("&password=".$mdp, ' ', $chaine);    // si un mot de passe est renseigné, on le supprime de la chaine d'info précédente

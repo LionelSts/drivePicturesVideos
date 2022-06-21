@@ -78,7 +78,7 @@ input{
 }
 
 
-#Connection, #Google {
+#Connection {
     background-color: #EA001C;
     color: white;
     padding: 14px 20px;
@@ -87,6 +87,26 @@ input{
     width: 20%;
     border: none;
     font-weight: bold;
+}
+
+
+#Google{
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    cursor: pointer;
+    width: 20%;
+    border: none;
+    font-weight: bold;
+    background-color: #EA001C;
+}
+
+
+#Google_logo{
+    float: left;
+    margin-left: 10%;
+    height: 7%;
+    width: 7%;
 }
 
 .loginInputs{

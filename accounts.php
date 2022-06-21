@@ -8,6 +8,7 @@ session_start();
     <link rel="stylesheet" href="style.css">
     <?php
     if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
+    if($_SESSION["role"] != 'admin') echo '<script> alert("Vous n`êtes pas autorisé à accéder à cette page.");window.location.replace("./home.php");</script>';
     $link = mysqli_connect("127.0.0.1", "root", "", "drivelbr");
     $link->query('SET NAMES utf8');
     $requete= "SELECT `nom`, `prenom`, `mail`, `role`, `descriptif` FROM `utilisateurs`";
