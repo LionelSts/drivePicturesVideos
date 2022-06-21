@@ -74,6 +74,17 @@
                 $result = mysqli_query($link, $requete); // Saving the result
                 $files = mysqli_fetch_all($result);
             }
+        }else if($myPage == "corbeille"){
+            if($_SESSION['role'] == 'admin'){
+                $requete = "SELECT * FROM `corbeille` ORDER BY `supprime_date` DESC  LIMIT 20 OFFSET ".intval($page); // Preparing the request to verify
+                $result = mysqli_query($link, $requete); // Saving the result
+                $files = mysqli_fetch_all($result);
+            }else{
+                $requete = "SELECT * FROM `corbeille` WHERE `auteur` = '$mail' ORDER BY `supprime_date` DESC  LIMIT 20 OFFSET ".intval($page); // Preparing the request to verify
+                $result = mysqli_query($link, $requete); // Saving the result
+                $files = mysqli_fetch_all($result);
+            }
+
         }
         echo'
     <div class="filesNavigation">
@@ -82,11 +93,18 @@
             <div id="checkActionButtons">
                 <p id="filesSize"></p>
                 <div class="actionButtonsContainer">
-                    <div id="downloadZone"></div>
-                    <p id="editFilesTags" onclick="tagSelection()">Modifier les tags</p>
-                    <img alt="télécharger" src="./images/icons/download.png" onclick="downloadFiles()">
+                    <div id="downloadZone"></div>';
+                    if($myPage == "corbeille"){
+                        echo'
                     <img alt="supprimer" src="./images/icons/trash.png" onclick="deleteFiles()">
-                </div>
+                    <img alt="restaurer" src="./images/icons/recycle.png" onclick="restoreFile()">';
+                    }else{
+                        echo'<img alt="supprimer" src="./images/icons/trash.png" onclick="deleteFiles()">
+                            <img alt="télécharger" src="./images/icons/download.png" onclick="downloadFiles()">
+                            <p id="editFilesTags" onclick="tagSelection()">Modifier les tags</p>';
+                    }
+
+                echo '</div>
             </div>
             <a href="';
         if($page <= 0){
@@ -111,23 +129,28 @@
     </div>
     <div id="filesDisplayContainer">';
         foreach ($files as $fichier){
-            $requete = "SELECT `nom_tag` FROM `caracteriser` WHERE `id_fichier` = '$fichier[0]'";
-            $result = mysqli_query($link, $requete); // Saving the result
-            $fileTags = mysqli_fetch_all($result);
-            $taglist="";
-            foreach ($fileTags as $value){
-                $taglist .= $value[0] ." ";
+            if($myPage == "corbeille"){
+                $taglist ="Sans tag";
+                $miniature= ".\corbeille\\"."miniature-" . $fichier[7] . ".png";
+            }else{
+                $requete = "SELECT `nom_tag` FROM `caracteriser` WHERE `id_fichier` = '$fichier[0]'";
+                $result = mysqli_query($link, $requete); // Saving the result
+                $fileTags = mysqli_fetch_all($result);
+                $taglist="";
+                foreach ($fileTags as $value){
+                    $taglist .= $value[0] ." ";
+                }
+                $miniature= ".\miniatures\\" . $fichier[7] . ".png";
             }
-            echo '<div class="fichierContainer">
-                        <div class="fichierSubContainer">
-                        <label class="checkboxContainer checkboxFiles">
-                                 <input type="checkbox" id="' . $fichier[0] . '" name="'. $fichier[0] . '.' . $fichier[2] . '" value="'.$fichier[6].'" onclick="buttonsAction()">
-                                 <span class="customCheckBox"></span>
-                            </label>';
 
-            $miniature= ".\miniatures\\" . $fichier[7] . ".png";
+                echo '<div class="fichierContainer">
+                            <div class="fichierSubContainer">
+                            <label class="checkboxContainer checkboxFiles">
+                                     <input type="checkbox" id="' . $fichier[0] . '" name="'. $fichier[0] . '.' . $fichier[2] . '" value="'.$fichier[6].'" onclick="buttonsAction()">
+                                     <span class="customCheckBox"></span>
+                                </label>';
 
-            // Echo out a sample image
+            // We return the thumbnail
             echo '<img alt="miniature du fichier '. $fichier[0] . '.' . $fichier[2] .'" class="miniatureFichier"  src="' . $miniature . '">';
 
             echo '      <p>
@@ -151,13 +174,17 @@
         }
         $tagsString = rtrim($tagsString, ',');
         $tagsString.=']';
-        echo'
-    <script>
+        echo'<script>
         let listTag = '.$tagsString.';'.
         'let page = "'.$myPage.'";';
-        echo'
-    </script>
-    <script src="selectionComponent.js"></script>
-    <script src="filesPreview.js"></script>';
+        echo'</script>';
+        if($myPage == 'corbeille'){
+            echo'<script src="selectionComponentCorbeille.js"></script>';
+        }else{
+            echo'<script src="selectionComponent.js"></script>';
+        }
+        if($myPage != "corbeille"){
+            echo '<script src="filesPreview.js"></script>';
+        }
     }
 

@@ -786,6 +786,7 @@ input{
 
 .actionButtonsContainer{
     display: flex;
+    flex-direction: row-reverse;
 }
 
 .actionButtonsContainer img{
