@@ -99,11 +99,14 @@
                     <img alt="supprimer" src="./images/icons/trash.png" onclick="deleteFiles()">
                     <img alt="restaurer" src="./images/icons/recycle.png" onclick="restoreFile()">';
                     }else{
-                        echo'<img alt="supprimer" src="./images/icons/trash.png" onclick="deleteFiles()">
+                        if($myPage == 'home' && ($_SESSION['role'] == 'lecture' || $_SESSION['role'] == 'invite')){
+                            echo'<img alt="télécharger" src="./images/icons/download.png" onclick="downloadFiles()">';
+                        }else{
+                            echo'<img alt="supprimer" src="./images/icons/trash.png" onclick="deleteFiles()">
                             <img alt="télécharger" src="./images/icons/download.png" onclick="downloadFiles()">
                             <p id="editFilesTags" onclick="tagSelection()">Modifier les tags</p>';
+                        }
                     }
-
                 echo '</div>
             </div>
             <a href="';
