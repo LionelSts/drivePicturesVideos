@@ -107,18 +107,18 @@ session_start();
                     while($row = mysqli_fetch_array($result))
                     {
                         if($row["nom_tag"] != "Sans tag") {
-                            $test="'".$row["nom_tag"]."'";
+                            $tag="'".$row["nom_tag"]."'";
                             if ($counter % 2) {
                                 echo "<div class='tag-choices'>
                                             <label class='redCheckboxContainer'>" . $row["nom_tag"] . "
-                                                <input type='checkbox' id=".$row["nom_tag"]." name='listeTag' value =" . $test . ">
+                                                <input type='checkbox' id=".$row["nom_tag"]." name='listeTag' value =" . $tag . ">
                                                 <span class='tagCheckbox redCheckbox'></span>
                                             </label>
                                          </div>";
                             } else {
                                 echo "<div class='tag-choices-1'>
                                             <label class='redCheckboxContainer'>
-                                                <input type='checkbox' id=".$row["nom_tag"]." name='listeTag' value =" . $test . ">
+                                                <input type='checkbox' id=".$row["nom_tag"]." name='listeTag' value =" . $tag . ">
                                                 <span class='tagCheckbox redCheckbox'></span>" . $row["nom_tag"] . "
                                             </label>
                                          </div>";
@@ -172,17 +172,18 @@ session_start();
                     while($row = mysqli_fetch_array($result))
                     {
                         if($row["nom_tag"] != "Sans tag") {
+                            $tag="'".$row["nom_tag"]."'";
                             if ($counter % 2) {
                                 echo "<div class='tag-choices'>
                                                 <label class='redCheckboxContainer'>" . $row["nom_tag"] . "
-                                                    <input type='checkbox' name='listeTag' value =" . $row["nom_tag"] . ">
+                                                    <input type='checkbox' name='listeTag' value =" . $tag . ">
                                                     <span class='tagCheckbox redCheckbox'></span>
                                                 </label>
                                              </div>";
                             } else {
                                 echo "<div class='tag-choices-1'>
                                                 <label class='redCheckboxContainer'>
-                                                    <input type='checkbox' name='listeTag' value =" . $row["nom_tag"] . ">
+                                                    <input type='checkbox' name='listeTag' value =" . $tag . ">
                                                     <span class='tagCheckbox redCheckbox'></span>" . $row["nom_tag"] . "
                                                 </label>
                                              </div>";
