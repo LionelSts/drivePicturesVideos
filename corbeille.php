@@ -17,6 +17,7 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr");
 $link->query('SET NAMES utf8');
 $requete = "SELECT `role` FROM `utilisateurs` WHERE `mail` = '$mail'"; // Preparing the request to verify the password where the login entered is found on the database
 $result = mysqli_query($link, $requete); // Saving the result
+include './actions/checkCorbeille-action.php';
 ?>
 <body>
 <div id="header">
