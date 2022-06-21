@@ -9,9 +9,8 @@ $result = mysqli_query($link, $requete);
 $data = mysqli_fetch_array($result);
 $fileCodedName = './fichiers/'.$data[0] .".". $fileExtension;
 $filePath = '.'.$fileCodedName;
-$fileName = $_POST['fileName'].'.'.$fileExtension;
-$htmlCode = '<div id="filePreviewContainerDiv" class="filePreviewContainer" ><div id="previewHeader"><h1>'.$fileName.'</h1>
-<h1 onclick="closeFile()">X</h1></div>';
+$htmlCode = '<div id="filePreviewContainerDiv" class="filePreviewContainer" ><div id="previewHeader"><h1>'.$_POST['fileName'].'</h1>
+<h1 style="cursor: pointer" onclick="closeFile()">X</h1></div>';
 if(str_contains(mime_content_type($filePath), "image/")){
     $htmlCode .= '<img alt="preview du fichier" src="' . $fileCodedName .'"></div>';
 }else if(strstr(mime_content_type($filePath), "video/") || strstr(mime_content_type($filePath), "audio/") ){
