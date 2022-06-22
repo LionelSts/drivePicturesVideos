@@ -1,6 +1,6 @@
 <?php
 session_start();
-$regex = '[@]lesbriquesrouges\.com$';
+$regex = '[@]lesbriquesrouges\.fr$';
 //Include Google Configuration File
 include('../gconfig.php');
 $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ; // connexion à la bdd
@@ -41,6 +41,18 @@ if(isset($_GET["code"]))
                 $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$nom." ".$prenom." (Lecture) crée avec Google')";
                 mysqli_query($link,$requete);
                 mysqli_query($link,$requete2);
+                $data = [
+                    'mailType' => 'compteGoogle',
+                    'mailTo' => 'admin@lesbriquesrouges.fr',
+                    'nom' => $nom,
+                    'prenom' => $prenom
+                ];
+                $curl = curl_init('http://test-mail.lesbriquesrouges.fr/mails_grp12/sendMail.php');
+                curl_setopt($curl, CURLOPT_POST, true);
+                curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                curl_exec($curl);
+                curl_close($curl);
             }
         }else if($row['role'] != 'inactif'){
             if(!empty($data['given_name'])) {

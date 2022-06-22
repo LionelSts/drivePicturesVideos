@@ -39,44 +39,49 @@ else    // si le mail n'existe pas dans la bdd...
             $tag="";
         }
     }
-    $message = file_get_contents('template.html');  // contenu du mail
     if (isset($_POST['randomPassword'])) { // si la person
-        $messageBienvenuRandom = 'Bienvenue sur le drive LBR ! 
-            Choisis ton mot de passe en cliquant sur le boutton pour valider ton mdp !';
         try {
             $tmpPassword = bin2hex(random_bytes(24));
         } catch (Exception $e) {
         }   // génération automatique d'un mot de passe permetant "l'unicité" du lien
         $hashedPassword = password_hash($tmpPassword, PASSWORD_BCRYPT); // hashing du mot de passe
-        $message = str_replace('TEXTEVAR', $messageBienvenuRandom, $message);  // message du mail avec lien
-        $message = str_replace('registerLink', 'register.php?tmpPsw='.$tmpPassword, $message);  // message du mail avec lien
         $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES ('$prenom', '$nom', '$mail', '$hashedPassword', '$role','$descriptif', 'en attente') "; // Insertion du compte saisi, dans la bdd avec le statut "en attente"
         $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$nom." ".$prenom." (".$role.") crée par ".$lastname." ".$name." (".$role2.") - choix du mot de passe par l`utilisateur')";
         mysqli_query($link,$requete); mysqli_query($link,$requete2);
+        $data = [
+            'mailType ' => 'mdpRandom',
+            'mailTo' => $mail,
+            'tmpPsw' => $hashedPassword,
+            'nom' => $nom,
+            'prenom' => $prenom
+        ];
     }
     else if($_POST["password"] != ""){  // si l'utilisateur rentre un mot de passe ...
         if (preg_match($regex, $_POST['password'])) {   // si le mot de passe répond aux critères de sécurité
-            $messageBienvenu = 'Bienvenue sur le drive LBR !
-                Tu peux maintenant te connecter !
-                Ton identifiant est ton adresse mail.
-                Ton mot de passe est : ';
             $mdp = password_hash($_POST['password'], PASSWORD_BCRYPT); // hashing du mot de passe
             for ($i = 1; $i < count($tab); $i++){ // puis on insère la liste des tags dans la bdd en parcourant le tableau obtenu précédement
                 $requete0 = "INSERT INTO `attribuer` (`email`,`nom_tag`) VALUES ('$mail', '$tab[$i]')";
                 mysqli_query($link, $requete0);
             }
-            $message = str_replace('TEXTEVAR', $messageBienvenu.$_POST['password'], $message);  // message du mail avec lien
-            $message = str_replace('registerLink', 'http://localhost/driveBriquesRouges/index.php', $message);  // message du mail avec lien
             $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES ('$prenom', '$nom', '$mail', '$mdp', '$role','$descriptif', 'en attente') "; // Insertion du compte saisi, dans la bdd avec le statut "en attente"
             $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$nom." ".$prenom." (".$role.") crée par ".$lastname." ".$name." (".$role2.") - choix du mot de passe par l`admin')";
             mysqli_query($link,$requete); mysqli_query($link,$requete2);
+            $data = [
+                'mailType ' => 'mdpChoisis',
+                'mailTo' => $mail,
+                'nom' => $nom,
+                'prenom' => $prenom
+            ];
         }
         else echo '<script> alert("Veuillez saisir un mot de passe contenant au minimum 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial."); window.location.replace("../accounts.php");</script>';   //si le mot de passe ne respecte pas les régles, on affiche un message d'erreur et on réactualise la page
     }
     else echo '<script> alert("Erreur"); window.location.replace("../accounts.php");</script>';
-    $headers = "MIME-Version: 1.0" . "\r\n";
-    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-    $subject = 'Votre compte Drive Les Briques Rouges'; // sujet du mail
-    mail($mail, $subject, $message, $headers);  // envoi du mail de confirmation
+
+    $curl = curl_init('http://test-mail.lesbriquesrouges.fr/mails_grp12/sendMail.php');
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_exec($curl);
+    curl_close($curl);
     echo '<script> alert("Compte crée avec succés."); window.location.replace("../home.php");</script>'; // redirection vers la page d'accueil
 }

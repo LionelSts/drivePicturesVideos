@@ -12,20 +12,25 @@
         $nom = $row['nom'];
         $prenom = $row['prenom'];
     }
-    $headers = "MIME-Version: 1.0" . "\r\n";
-    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-    $message = file_get_contents('template.html');
-    $messageBienvenuRandom = 'Bienvenue sur le drive LBR ! 
-            Choisis ton mot de passe en cliquant sur le boutton pour vlaider ton mdp !';
 try {
     $tmpPassword = bin2hex(random_bytes(24));
 } catch (Exception $e) {
 }   // génération automatique d'un mot de passe permetant "l'unicité" du lien
     $hashedPassword = password_hash($tmpPassword, PASSWORD_BCRYPT); // hashing du mot de passe
-    $message = str_replace('TEXTEVAR', $messageBienvenuRandom, $message);  // message du mail avec lien
-    $message = str_replace('registerLink', 'register.php?tmpPsw='.$tmpPassword, $message);  // message du mail avec lien
     $requete = "UPDATE utilisateurs SET `mot_de_passe` = '$hashedPassword' WHERE `mail` = '$mail'"; // On met à jour la bdd avec ce mot de passe
     $result = mysqli_query($link,$requete);
-    $subject = 'Votre compte Drive Les Briques Rouges'; // sujet du mail
-    mail($mail, $subject, $message, $headers);  // envoi du mail
-    header('location:../accounts.php'); // on renvoie l'utilisateur vers la page "accounts.php"
+    $data = [
+        'mailType' => 'renvoyer',
+        'mailTo' => $mail,
+        'tmpPsw' => $hashedPassword,
+        'nom' => $nom,
+        'prenom' => $prenom
+    ];
+    $curl = curl_init('http://test-mail.lesbriquesrouges.fr/mails_grp12/sendMail.php');
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    $result = curl_exec($curl);
+    print_r($result);
+    curl_close($curl);
+    // header('location:../accounts.php'); // on renvoie l'utilisateur vers la page "accounts.php"
