@@ -48,7 +48,7 @@ else    // si le mail n'existe pas dans la bdd...
         $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES ('$prenom', '$nom', '$mail', '$hashedPassword', '$role','$descriptif', 'en attente') "; // Insertion du compte saisi, dans la bdd avec le statut "en attente"
         $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$nom." ".$prenom." (".$role.") crée par ".$lastname." ".$name." (".$role2.") - choix du mot de passe par l`utilisateur')";
         mysqli_query($link,$requete); mysqli_query($link,$requete2);
-        $data = [
+        $data = [                                                                                                       // On prépare les infos pour le mail
             'mailType ' => 'mdpRandom',
             'mailTo' => $mail,
             'tmpPsw' => $hashedPassword,
@@ -66,7 +66,7 @@ else    // si le mail n'existe pas dans la bdd...
             $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES ('$prenom', '$nom', '$mail', '$mdp', '$role','$descriptif', 'en attente') "; // Insertion du compte saisi, dans la bdd avec le statut "en attente"
             $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$nom." ".$prenom." (".$role.") crée par ".$lastname." ".$name." (".$role2.") - choix du mot de passe par l`admin')";
             mysqli_query($link,$requete); mysqli_query($link,$requete2);
-            $data = [
+            $data = [                                                                                                   // On prépare les infos pour le mail
                 'mailType ' => 'mdpChoisis',
                 'mailTo' => $mail,
                 'nom' => $nom,
@@ -77,7 +77,7 @@ else    // si le mail n'existe pas dans la bdd...
     }
     else echo '<script> alert("Erreur"); window.location.replace("../accounts.php");</script>';
 
-    $curl = curl_init('http://test-mail.lesbriquesrouges.fr/mails_grp12/sendMail.php');
+    $curl = curl_init('http://test-mail.lesbriquesrouges.fr/mails_grp12/sendMail.php');                             // On envoie le mail
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);

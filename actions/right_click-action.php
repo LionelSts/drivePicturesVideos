@@ -5,7 +5,7 @@ $link->query('SET NAMES utf8');
 $requete = "SELECT `nom_fichier`, `date`, `duree`, `size`, `auteur` FROM `fichiers` WHERE `id` = '$id'";
 $result = mysqli_query($link, $requete); // Saving the result
 $file_data = mysqli_fetch_all($result);
-$requete = "SELECT `nom_tag` FROM `caracteriser` WHERE `id_fichier` = '$id'";
+$requete = "SELECT `nom_tag` FROM `caracteriser` WHERE `id_fichier` = '$id'";                                           // On récupère les tags du fichier
 $result = mysqli_query($link, $requete); // Saving the result
 $fileTags = mysqli_fetch_all($result);
 $taglist="";
@@ -13,10 +13,10 @@ foreach ($fileTags as $key=>$value){
     $taglist .= $value[0] ." ";
 }
 $test = $file_data[0][4];
-$requete = "SELECT `nom`, `prenom` FROM `utilisateurs` WHERE `mail` = '$test'";
+$requete = "SELECT `nom`, `prenom` FROM `utilisateurs` WHERE `mail` = '$test'";                                         // On récupère le nom de l'auteur à partir de son mail
 $result = mysqli_query($link, $requete); // Saving the result
 $name = mysqli_fetch_all($result);
-function filesize_formatted($size) {
+function filesize_formatted($size) {                                                                                    // Fonction pour convertir des bits à une unité plus significative
     $units = array( 'B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
     $power = $size > 0 ? floor(log($size, 1024)) : 0;
     return number_format($size / pow(1024, $power), 2, '.', ',') . ' ' . $units[$power];
@@ -31,4 +31,4 @@ echo("
         <div id='Taille_clicDroit'><p>".filesize_formatted($file_data[0][3])."</p></div>
         <div id='Durée'><p>".$file_data[0][2]."</p></div>
     </div>"
-);
+);                                                                                                                      // Le menu que l'on affiche

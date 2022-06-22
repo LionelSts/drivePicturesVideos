@@ -1,3 +1,3 @@
 <?php
-  header('Location: ../');
+  header('Location: ../');                                  // Avec ce fichier on limite les chances qu'un internaute trouve nos fichiers temporaires
 ?>

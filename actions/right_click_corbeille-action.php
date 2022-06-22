@@ -7,15 +7,15 @@ $result = mysqli_query($link, $requete); // Saving the result
 $file_data = mysqli_fetch_all($result);
 $mail1 = $file_data[0][4];
 $mail2 = $file_data[0][6];
-$requete = "SELECT `nom`, `prenom` FROM `utilisateurs` WHERE `mail` = '$mail1'";
+$requete = "SELECT `nom`, `prenom` FROM `utilisateurs` WHERE `mail` = '$mail1'";                                        // On récupère le nom de l'auteur à partir de son mail
 $result = mysqli_query($link, $requete); // Saving the result
 $name = mysqli_fetch_all($result);
-$requete = "SELECT `nom`, `prenom` FROM `utilisateurs` WHERE `mail` = '$mail2'";
+$requete = "SELECT `nom`, `prenom` FROM `utilisateurs` WHERE `mail` = '$mail2'";                                        // On récupère le nom de la personne qui l'a supprimé à partir de son mail
 $result = mysqli_query($link, $requete); // Saving the result
 $name1 = mysqli_fetch_all($result);
 function filesize_formatted($size)
 {
-    $units = array('B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+    $units = array('B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');                                                // Fonction pour convertir des bits à une unité plus significative
     $power = $size > 0 ? floor(log($size, 1024)) : 0;
     return number_format($size / pow(1024, $power), 2, '.', ',') . ' ' . $units[$power];
 }
@@ -30,4 +30,4 @@ echo("
         <div id='Supprime'><p> Supprimé par " . $name1[0][0] . " " . $name1[0][1] . "</p></div>
         <div id='supprimeDate'><p> Supprimé le " . $file_data[0][5] . "</p></div>
     </div>"
-);
+);                                                                                                                      // Le menu que l'on affiche

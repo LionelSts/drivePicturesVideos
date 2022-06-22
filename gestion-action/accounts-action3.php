@@ -19,14 +19,14 @@ try {
     $hashedPassword = password_hash($tmpPassword, PASSWORD_BCRYPT); // hashing du mot de passe
     $requete = "UPDATE utilisateurs SET `mot_de_passe` = '$hashedPassword' WHERE `mail` = '$mail'"; // On met à jour la bdd avec ce mot de passe
     $result = mysqli_query($link,$requete);
-    $data = [
+    $data = [                                                                                                           // On prépare les infos pour le mail
         'mailType' => 'renvoyer',
         'mailTo' => $mail,
         'tmpPsw' => $hashedPassword,
         'nom' => $nom,
         'prenom' => $prenom
     ];
-    $curl = curl_init('http://test-mail.lesbriquesrouges.fr/mails_grp12/sendMail.php');
+    $curl = curl_init('http://test-mail.lesbriquesrouges.fr/mails_grp12/sendMail.php');                             // On envoie le mail
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
