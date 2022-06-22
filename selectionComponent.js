@@ -14,16 +14,15 @@ let clicDroit = (id) => {
     if(document.getElementById('FileDataRequest')) document.getElementById('FileDataRequest').remove();
     let e = window.event;
     e.preventDefault();
-    //e.stopPropagation();
-    let x = e.pageX;
-    let y = e.pageY;
+    let x = e.pageX+1;
+    let y = e.pageY+1;
     $.post( "actions/right_click-action.php", { id: id }, function( data ) {
         document.getElementById('filesDisplayContainer').innerHTML += data;
         let div = document.getElementById('FileDataRequest');
         div.style.position = 'absolute';
         div.style.left = x+"px";
         div.style.top = y+"px";
-        clicsManager(1);
+        clicsManager();
     }, "html");
 }
 
@@ -38,42 +37,52 @@ let clicGauche = (name) => {
     let e = window.event;
     let x = e.pageX+1;
     let y = e.pageY+1;
-    //e.preventDefault();
-    //e.stopPropagation();
     if(e.target.className !== 'customCheckBox'){
         if(document.getElementById('FileDataRequest')) document.getElementById('FileDataRequest').remove();
-        let dataRequest = document.createElement('div');
-        dataRequest.setAttribute('id', 'FileDataRequest');
-        let downloadFile = "<div id='Telecharger'><p onclick='downloadFiles(`"+name+"`)'>Télécharger</p></div>";
-        let deleteFile = "<div id='Supprimer'><p onclick='deleteFiles(`"+name+"`)'>Supprimer</p></div>";
-        let modifTags = "<div id='modifTags'><p onclick='tagSelection()'>Modifier les tags</p></div>";
-        dataRequest.style.left = x+"px";
-        dataRequest.style.top = y+"px";
-        dataRequest.style.position = "absolute";
-        dataRequest.className = "clickMenu";
-        dataRequest.innerHTML=downloadFile+deleteFile+modifTags;
-        let div = document.getElementById('filesDisplayContainer');
-        div.append(dataRequest);
-        clicsManager(1);
+        $.post( "actions/left_click-action.php", { name: name }, function( data ) {
+            document.getElementById('filesDisplayContainer').innerHTML += data;
+            let div = document.getElementById('FileDataRequest');
+            div.style.position = 'absolute';
+            div.style.left = x+"px";
+            div.style.top = y+"px";
+            clicsManager();
+        }, "html");
+        // let dataRequest = document.createElement('div');
+        // dataRequest.setAttribute('id', 'FileDataRequest');
+        // let downloadFile = "<div id='Telecharger'><p onclick='downloadFiles(`"+name+"`)'>Télécharger</p></div>";
+        // let deleteFile = "<div id='Supprimer'><p onclick='deleteFiles(`"+name+"`)'>Supprimer</p></div>";
+        // let modifTags = "<div id='modifTags'><p onclick='tagSelection(`"+name+"`)'>Modifier les tags</p></div>";
+        // dataRequest.style.left = x+"px";
+        // dataRequest.style.top = y+"px";
+        // dataRequest.style.position = "absolute";
+        // dataRequest.innerHTML=downloadFile+deleteFile+modifTags;
+        //let div = document.getElementById('filesDisplayContainer');
+        //div.append(dataRequest);
+        //clicsManager();
     }
 }
 
-let clicsManager = (param) => {
+let clicCheckBox = () => {
+    let e = window.event;
+    e.stopPropagation();
+    if(document.getElementById("FileDataRequest")) document.getElementById("FileDataRequest").remove();
+}
 
-    if(param === 0){
-        setListener();
-        ListenersClicDroit();
-        ListenersClicGauche();
-    }
-    else if(param === 1){
-        setListener();
-        ListenersClicDroit();
-        ListenersClicGauche();
-    }
-    else {
+let clicsManager = () => {
+    document.onclick = () => bodyClick();
+    document.oncontextmenu = () => bodyClick();
+    setListener();
+    ListenersClicDroit();
+    ListenersClicGauche();
+}
 
+let bodyClick = () => {
+    let e= window.event;
+    if(e.target.className !== 'customCheckBox' && e.target.className !== 'miniatureFichier'){
+        if(document.getElementById("FileDataRequest")) document.getElementById("FileDataRequest").remove();
     }
 }
+
 function FileConvertSize(aSize){                                // Fonction servant à afficher la taille (de façon lisible) d'un fichier (argumetn en octet)
     aSize = Math.abs(parseInt(aSize, 10));
     let def = [[1, 'octets'], [1024, 'ko'], [1024*1024, 'Mo'], [1024*1024*1024, 'Go'], [1024*1024*1024*1024, 'To']];
@@ -107,13 +116,15 @@ let confirmDelete = () => {                                                 // P
     document.getElementById("pageContent").innerHTML += confirmPopUp;
 }
 
-let tagSelection = () => {                                                  // Popup affichant les différents tags pour modifier les tags des fichiers selectionnés
+let tagSelection = (name = activeContent) => {    // Popup affichant les différents tags pour modifier les tags des fichiers selectionnés  
+    if(typeof name == 'string') name=name.split();
+    let nbTags = " <p>Vous modifiez les tags de "+name.length+ " éléments</p>";
+    if(name.length==1) nbTags = " <p>Vous modifiez les tags de 1 élément</p>";
     let window = " <form class=\"tagsFichiers\" method=\"post\" action=\"actions/contentTags-action.php\"> <div id='confirmPopUp'>" +
-        " <p>Vous modifiez les tags de "+activeContent.length+ " élément(s)</p>" +
-        "<div class=\"autreTagsContainer\">";
+        nbTags + "<div class=\"autreTagsContainer\">";
     let counter = 0;
     let allFiles="";
-    activeContent.forEach(file => allFiles+= file +",");
+    name.forEach(file => allFiles+= file +",");
     for (let i =0; i < listTag.length; i++) {
         if(counter%2){
             window += "<div class='tag-choices'>" +
