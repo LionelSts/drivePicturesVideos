@@ -148,7 +148,7 @@
 
                 echo '<div class="fichierContainer">
                             <div class="fichierSubContainer">
-                            <label class="checkboxContainer checkboxFiles">
+                            <label onclick="event.stopPropagation();" class="checkboxContainer checkboxFiles">
                                      <input type="checkbox" id="' . $fichier[0] . '" name="'. $fichier[0] . '.' . $fichier[2] . '" value="'.$fichier[6].'" onclick="buttonsAction()">
                                      <span class="customCheckBox"></span>
                                 </label>';
