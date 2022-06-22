@@ -7,9 +7,6 @@ if(isset($_SESSION["mail"])) echo '<script> alert("Vous êtes déjà connecté."
 if(!isset($_SESSION['access_token'])) {
     //Create a URL to obtain user authorization
     $google_login_btn = '<a href="'.$google_client->createAuthUrl().'"><button type="button" id="Google">Se connecter avec Google</button></a>';
-} else {
-
-    header("Location: home.php");
 }
 ?>
 <!DOCTYPE html>

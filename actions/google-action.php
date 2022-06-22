@@ -29,18 +29,20 @@ if(isset($_GET["code"]))
         $result = mysqli_query($link, $requete);
         $row = mysqli_fetch_array($result);
         if(empty($row)){
-            if (!preg_match($regex,$mail)) header("Location: ../index.php");
-            try {
-                $tmpPassword = bin2hex(random_bytes(24));
-            } catch (Exception $e) {
-            }   // génération automatique d'un mot de passe permetant "l'unicité" du lien
-            $hashedPassword = password_hash($tmpPassword, PASSWORD_BCRYPT); // hashing du mot de passe
-            $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES ('$prenom', '$nom', '$mail', '$hashedPassword', 'lecture','Membre LBR', 'actif') "; // Insertion du compte saisi, dans la bdd avec le statut "en attente"
-            $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$nom." ".$prenom." (Lecture) crée avec Google')";
-            mysqli_query($link,$requete);
-            mysqli_query($link,$requete2);
-        }
-        if($row['role'] != 'inactif'){
+            if (!preg_match($regex,$mail)){
+                header("Location:../logout-action.php");
+            } else {
+                try {
+                    $tmpPassword = bin2hex(random_bytes(24));
+                } catch (Exception $e) {
+                }   // génération automatique d'un mot de passe permetant "l'unicité" du lien
+                $hashedPassword = password_hash($tmpPassword, PASSWORD_BCRYPT); // hashing du mot de passe
+                $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES ('$prenom', '$nom', '$mail', '$hashedPassword', 'lecture','Membre LBR', 'actif') "; // Insertion du compte saisi, dans la bdd avec le statut "en attente"
+                $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$nom." ".$prenom." (Lecture) crée avec Google')";
+                mysqli_query($link,$requete);
+                mysqli_query($link,$requete2);
+            }
+        }else if($row['role'] != 'inactif'){
             if(!empty($data['given_name'])) {
                 $_SESSION['prenom'] = $prenom;
             }
@@ -52,6 +54,8 @@ if(isset($_GET["code"]))
             }
             $_SESSION['role'] = $row['role'];
             $_SESSION['type'] = 'google';
+        } else {
+            header('Location:../logout-action.php');
         }
     }
 }
