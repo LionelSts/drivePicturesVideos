@@ -41,12 +41,10 @@ let clicGauche = (name) => {
         if(document.getElementById('FileDataRequest')) document.getElementById('FileDataRequest').remove();
         $.post( "actions/left_click-action.php", { name: name }, function( data ) {
             document.getElementById('filesDisplayContainer').innerHTML += data;
-            console.log(document.getElementById('FileDataRequest'));
             let div = document.getElementById('FileDataRequest');
             div.style.position = 'absolute';
             div.style.left = x+"px";
             div.style.top = y+"px";
-            console.log("hop clic gauche fait");
             clicsManager();
         }, "html");
         // let dataRequest = document.createElement('div');
