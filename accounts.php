@@ -19,7 +19,7 @@ session_start();
         const mapAccounts = new Map();
         <?php foreach ($data as $item) : ?>
         mapAccounts.set( '<?php echo $item[2] ?>', <?php echo json_encode($item)?>);
-        <?php endforeach; ?>
+        <?php endforeach; // Ici on stock tous infos des comptes dans une map javascript pour pouvoir s'en servir dynamiquement ?>
     </script>
     <title>Gestion des comptes - DriveLBR</title>
 </head>
@@ -43,6 +43,7 @@ session_start();
                 <div class="lbrSelect">
                     <label for='account'></label><select class="profile, role-select" onclick='formReload(mapAccounts);check(2)' id='account' name="selectedMail">
                         <?php
+                        // On charge les comptes dans le menu déroulant
                         $counter =0;
                         foreach ($data as $item) :
                             {
@@ -86,6 +87,7 @@ session_start();
                 </div>
             </div>
             <?php
+            // On charge les tags dans un arra yjavascript pour pouvoir les réutiliser plus tard
             $tableau = []; $i = 0;
             $requete2 = "SELECT * FROM `attribuer`";
             $result2 = mysqli_query($link, $requete2);
@@ -104,9 +106,9 @@ session_start();
                     $counter = 0;
                     $requete = "SELECT `nom_tag` FROM `tags`";
                     $result = mysqli_query($link, $requete);
-                    while($row = mysqli_fetch_array($result))
+                    while($row = mysqli_fetch_array($result))               // On charge les tags dans le menu déroulant
                     {
-                        if($row["nom_tag"] != "Sans tag") {
+                        if($row["nom_tag"] != "Sans tag") {                 // Sauf le tag Sans tag
                             $tag="'".$row["nom_tag"]."'";
                             if ($counter % 2) {
                                 echo "<div class='tag-choices'>
@@ -166,6 +168,7 @@ session_start();
                 <label class='profile' for='tags' >Accès au(x) tag(s) : </label>
                 <div class="autreTagsContainer">
                     <?php
+                    // Ici on refait la même chose que précédement mais pour la création des comptes
                     $counter =0;
                     // On adéjà exactement la même requête plus haut, pas besoin de la refaire
                     $result = mysqli_query($link, $requete);
@@ -218,7 +221,8 @@ session_start();
                 <TABLE class="lbrTable" >
                     <tbody>
                     <?php
-                    $requete="SELECT `mail`, `prenom`,`nom`,`mot_de_passe` FROM `utilisateurs` WHERE `etat` = 'en attente'"; // Preparing the request to verify the password where the login entered is found on the database
+                    // On récupère tous les comptes en attentes
+                    $requete="SELECT `mail` FROM `utilisateurs` WHERE `etat` = 'en attente'"; // Preparing the request to verify the password where the login entered is found on the database
                     $result = mysqli_query($link, $requete); // Saving the result
                     while($row = mysqli_fetch_array($result)) // Searching the right line
                     {
@@ -236,6 +240,7 @@ session_start();
                 <TABLE class="lbrTable" >
                     <tbody>
                     <?php
+                    // On récupère tous les comptes supprimés
                     $requete="SELECT `mail` FROM `utilisateurs` WHERE `etat` = 'inactif'"; // Preparing the request to verify the password where the login entered is found on the database
                     $result = mysqli_query($link, $requete); // Saving the result
                     while($row = mysqli_fetch_array($result)) // Searching the right line

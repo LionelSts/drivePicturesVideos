@@ -1,20 +1,19 @@
 <?php
-    //Include Google Client Library for PHP autoload file
+    // on inclus le module google installé avec composer
     require_once 'vendor/autoload.php';
 
-    //Make object of Google API Client for call Google API
+    // On créé l'objet google client
     $google_client = new Google_Client();
 
-    //Set the OAuth 2.0 Client ID
+    //On set l'id du client
     $google_client->setClientId('174533306896-l787cqvejjpihaee0uiagv9aqd39duao.apps.googleusercontent.com');
 
-    //Set the OAuth 2.0 Client Secret key
+    //On set le secret du client
     $google_client->setClientSecret('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');
 
-    //Set the OAuth 2.0 Redirect URI
+    //On set l'url de redirection
     $google_client->setRedirectUri('https://testtest12346.000webhostapp.com/home.php');
 
-    //
-    $google_client->addScope('email');
 
+    $google_client->addScope('email');
     $google_client->addScope('profile');

@@ -1,3 +1,5 @@
+
+// Fonction de l'ajout des tags dans les pages my files et home
 function addTag(categorie){
     let newTagName = document.getElementById("newTag"+categorie).value;
     document.getElementById("newTag"+categorie).value = "";
