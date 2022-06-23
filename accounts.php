@@ -139,6 +139,7 @@ session_start();
             <input class="profile" type="submit" name="modifier" value="Appliquer les modifications">
         </form>
         <div id="limit"></div>
+        <br>
         <h1 class="bigTitle">Créer un compte</h1>
         <form class="profile" method="post" action="./gestion-action/accounts-action2.php">
             <div class="formLine">
@@ -215,6 +216,7 @@ session_start();
             <input class="profile" type="submit" value="Créer le compte">
         </form>
         <div id="limit"></div>
+        <br>
         <h1 class="bigTitle">Comptes en attente :</h1>
         <form class="profile" method="post" action="./gestion-action/accounts-action3.php">
             <div class="tableContainer">
@@ -234,6 +236,7 @@ session_start();
             </div>
         </form>
         <div id="limit"></div>
+        <br>
         <h1 class="bigTitle">Comptes supprimés:</h1>
         <form class="profile" method="post" action="./gestion-action/accounts-action4.php">
             <div class="tableContainer">
