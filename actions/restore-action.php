@@ -18,27 +18,38 @@ $page = $_POST['page'];
 foreach ($files as $file){                                                                                              // Pour hcaque fichier à restaurer
     $id++;
     $fileName = substr($file,0,strpos($file, '.'));
-    $requete = "SELECT * FROM `corbeille` WHERE `id` = $fileName";                                                      // On récupère ses infos
-    $data = mysqli_query($link, $requete);
-    $results = mysqli_fetch_array($data);
-    $nom_fichier = $results['nom_fichier'];
-    $extension = $results['extension'];
-    $auteur = $results['auteur'];
-    $date = $results['date'];
-    $duree = $results['duree'];
-    $size = $results['size'];
-    $nom_stockage = $results['nom_stockage'];
+    $requete = "SELECT * FROM `corbeille` WHERE `id` = ?";                                                      // On récupère ses infos
+    $stmt = $link->prepare($requete);
+    $stmt->bind_param("i", $fileName);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $data = mysqli_fetch_array($result);
+    $nom_fichier = $data['nom_fichier'];
+    $extension = $data['extension'];
+    $auteur = $data['auteur'];
+    $date = $data['date'];
+    $duree = $data['duree'];
+    $size = $data['size'];
+    $nom_stockage = $data['nom_stockage'];
     $delete_date = date('Y-m-d H:i:s');
     $delete_user = $_SESSION['mail'];
     rename( '../corbeille/'.$nom_stockage.'.'.$extension, '../fichiers/'.$nom_stockage.'.'.$extension);        // On déplace le fichier
     rename( '../corbeille/miniature-'.$nom_stockage.'.png', '../miniatures/'.$nom_stockage.'.png');            // On déplace la miniature
     $requete = "DELETE FROM `corbeille` WHERE `id` = $fileName";                                                        // on supprime la ligne de ce fichier dans la bdd de la corbeille
-    mysqli_query($link, $requete);
-    $requete = "INSERT INTO `fichiers` VALUES ('$id','$nom_fichier','$extension','$auteur','$date', '$duree', '$size', '$nom_stockage') ";
-    mysqli_query($link, $requete);                                                                                      // On stock a nouveau les infos dans la table fichiers
-    $requete = "INSERT INTO `caracteriser` VALUES ('$id','Sans tag')";
-    mysqli_query($link, $requete);                                                                                      // On lui attribue un tag Sans tag
-    $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$lastname." ".$name." (".$role2.") a restauré le fichier : ".$nom_fichier." ')";
-    mysqli_query($link, $requete2);
+    $stmt = $link->prepare($requete);
+    $stmt->bind_param("i", $fileName);
+    $stmt->execute();
+    $requete = "INSERT INTO `fichiers` VALUES (?,?,?,?,?,?,?,?) ";
+    $stmt = $link->prepare($requete);
+    $stmt->bind_param("isssssis", $id,$nom_fichier,$extension,$auteur,$date,$duree,$size,$nom_stockage);
+    $stmt->execute();                                                                                   // On stock a nouveau les infos dans la table fichiers
+    $requete = "INSERT INTO `caracteriser` VALUES ('?','Sans tag')";
+    $stmt = $link->prepare($requete);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();                                                                                     // On lui attribue un tag Sans tag
+    $requete = "INSERT INTO `tableau_de_bord` (`modification`) VALUES (CONCAT('Compte ',?,' ',?,' (',?,') a restauré le fichier : ',?))";
+    $stmt = $link->prepare($requete);
+    $stmt->bind_param("ssss", $lastname,$name,$role2,$nom_fichier);
+    $stmt->execute();
 }
 header('Location:../'.$page.'.php');

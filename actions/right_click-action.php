@@ -2,19 +2,28 @@
 $id = $_POST['id'];
 $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;  // connexion à la base de données
 $link->query('SET NAMES utf8');
-$requete = "SELECT `nom_fichier`, `date`, `duree`, `size`, `auteur` FROM `fichiers` WHERE `id` = '$id'";
-$result = mysqli_query($link, $requete); // Saving the result
+$requete = "SELECT `nom_fichier`, `date`, `duree`, `size`, `auteur` FROM `fichiers` WHERE `id` = ?";
+$stmt = $link->prepare($requete);
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
 $file_data = mysqli_fetch_all($result);
-$requete = "SELECT `nom_tag` FROM `caracteriser` WHERE `id_fichier` = '$id'";                                           // On récupère les tags du fichier
-$result = mysqli_query($link, $requete); // Saving the result
+$requete = "SELECT `nom_tag` FROM `caracteriser` WHERE `id_fichier` = ?";                                           // On récupère les tags du fichier
+$stmt = $link->prepare($requete);
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
 $fileTags = mysqli_fetch_all($result);
 $taglist="";
 foreach ($fileTags as $key=>$value){
     $taglist .= $value[0] ." ";
 }
-$test = $file_data[0][4];
-$requete = "SELECT `nom`, `prenom` FROM `utilisateurs` WHERE `mail` = '$test'";                                         // On récupère le nom de l'auteur à partir de son mail
-$result = mysqli_query($link, $requete); // Saving the result
+$mail = $file_data[0][4];
+$requete = "SELECT `nom`, `prenom` FROM `utilisateurs` WHERE `mail` = ?";                                         // On récupère le nom de l'auteur à partir de son mail
+$stmt = $link->prepare($requete);
+$stmt->bind_param("s", $mail);
+$stmt->execute();
+$result = $stmt->get_result();
 $name = mysqli_fetch_all($result);
 function filesize_formatted($size) {                                                                                    // Fonction pour convertir des bits à une unité plus significative
     $units = array( 'B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');

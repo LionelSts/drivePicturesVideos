@@ -3,11 +3,12 @@ ob_start();                                                                     
 $files = explode(",",$_POST["fichiers"]);
 $link = mysqli_connect("127.0.0.1", "root", "", "drivelbr");
 $link->query('SET NAMES utf8');
-$requete = "SELECT `nom_stockage`, `extension`, `nom_fichier` FROM `fichiers` WHERE `id` IN (";                                        // On génère la requête qui récupère tous les noms et extensions
+$requete = "SELECT `nom_stockage`, `extension`, `nom_fichier` FROM `fichiers` WHERE `id` IN (";                         // On génère la requête qui récupère tous les noms et extensions
 foreach ($files as $file){
     $file = substr($file,0,strpos($file, '.'));
-    $requete .= $file.",";
+    $requete .= (int)$file.",";
 }
+print_r($requete);
 $requete = substr($requete, 0, -1).")";
 $result = mysqli_query($link, $requete);
 $data = mysqli_fetch_all($result);

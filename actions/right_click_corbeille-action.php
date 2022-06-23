@@ -2,16 +2,25 @@
 $id = $_POST['id'];
 $link = mysqli_connect("127.0.0.1", "root", "", "drivelbr");  // connexion à la base de données
 $link->query('SET NAMES utf8');
-$requete = "SELECT `nom_fichier`, `date`, `duree`, `size`, `auteur`, `supprime_date`, `supprime_par` FROM `corbeille` WHERE `id` = '$id'";
-$result = mysqli_query($link, $requete); // Saving the result
+$requete = "SELECT `nom_fichier`, `date`, `duree`, `size`, `auteur`, `supprime_date`, `supprime_par` FROM `corbeille` WHERE `id` = ?";
+$stmt = $link->prepare($requete);
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
 $file_data = mysqli_fetch_all($result);
 $mail1 = $file_data[0][4];
 $mail2 = $file_data[0][6];
-$requete = "SELECT `nom`, `prenom` FROM `utilisateurs` WHERE `mail` = '$mail1'";                                        // On récupère le nom de l'auteur à partir de son mail
-$result = mysqli_query($link, $requete); // Saving the result
+$requete = "SELECT `nom`, `prenom` FROM `utilisateurs` WHERE `mail` = ?";                                        // On récupère le nom de l'auteur à partir de son mail
+$stmt = $link->prepare($requete);
+$stmt->bind_param("s", $mail1);
+$stmt->execute();
+$result = $stmt->get_result();
 $name = mysqli_fetch_all($result);
-$requete = "SELECT `nom`, `prenom` FROM `utilisateurs` WHERE `mail` = '$mail2'";                                        // On récupère le nom de la personne qui l'a supprimé à partir de son mail
-$result = mysqli_query($link, $requete); // Saving the result
+$requete = "SELECT `nom`, `prenom` FROM `utilisateurs` WHERE `mail` = ?";                                        // On récupère le nom de la personne qui l'a supprimé à partir de son mail
+$stmt = $link->prepare($requete);
+$stmt->bind_param("s", $mail2);
+$stmt->execute();
+$result = $stmt->get_result();
 $name1 = mysqli_fetch_all($result);
 function filesize_formatted($size)
 {

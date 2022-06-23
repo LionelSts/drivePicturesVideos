@@ -135,8 +135,8 @@ session_start();
                 <label class='profile' for='password' >Mot de passe : </label>
                 <input class='profile' type='password' name="password" id='password'>
             </div>
-            <input class="profile" type="submit" name="supprimer" value="Supprimer le compte">
             <input class="profile" type="submit" name="modifier" value="Appliquer les modifications">
+            <input class="profile" type="submit" name="supprimer" value="Supprimer le compte">
         </form>
         <div id="limit"></div>
         <br>

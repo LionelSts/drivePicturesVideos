@@ -14,8 +14,8 @@ let clicDroit = (id) => {                                                       
     if(document.getElementById('FileDataRequest')) document.getElementById('FileDataRequest').remove();// Si il y avait déjà clic on l'enlève
     let e = window.event;
     e.preventDefault();
-    let x = e.pageX+1;                                                                                                  // On place la div à l'endroit de la souris (+1 pour que le double clic reste possible)
-    let y = e.pageY+1;
+    let x = e.pageX+10;                                                                                                  // On place la div à l'endroit de la souris (+1 pour que le double clic reste possible)
+    let y = e.pageY+10;
     $.post( "actions/right_click-action.php", { id: id }, function( data ) {                                            // On fait l'appel au fichier action qui nous donne le contenu
         document.getElementById('filesDisplayContainer').innerHTML += data;
         let div = document.getElementById('FileDataRequest');
@@ -35,8 +35,8 @@ let ListenersClicGauche = () => {                                               
 
 let clicGauche = (name) => {                                                                                            // Fonction lorsqu'un clic gauche a lieu
     let e = window.event;
-    let x = e.pageX+1;
-    let y = e.pageY+1;                                                                                                  // On place la div à l'endroit de la souris (+1 pour que le double clic reste possible)
+    let x = e.pageX+10;
+    let y = e.pageY+10;                                                                                                  // On place la div à l'endroit de la souris (+1 pour que le double clic reste possible)
     if(e.target.className !== 'customCheckBox'){
         if(document.getElementById('FileDataRequest')) document.getElementById('FileDataRequest').remove();// Si il y avait déjà clic on l'enlève
         $.post( "actions/left_click-action.php", { name: name }, function( data ) {                                     // On fait l'appel au fichier action qui nous donne le contenu
@@ -132,6 +132,7 @@ let tagSelection = (name = activeContent) => {    // Popup affichant les différ
         counter++;
     }
     window += "</div>" +
+        "<input type='checkbox' name=\"page\" value=\"" + page + "\" checked hidden>"+
         "<div class='confirmButtons'>" +
         "<input type=\"submit\" name=\""+allFiles+"\" value=\"Oui\">" +
         "<div onclick='annulTags()' class='confirmButton'>Non</div>" +

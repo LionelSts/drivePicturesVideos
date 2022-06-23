@@ -36,10 +36,14 @@ foreach ($requestTags as $value){                                               
 foreach ($str_arr as $tag){                                                                                             // Pour chaque tag on vérifie qu'il soit dans déjà existant, si non, on le créé
     $isIn = array_search(strval($tag[1]), $tagList, -1);
     if($isIn == -1){
-        $requete = "INSERT INTO tags (`nom_tag`, `nom_categorie`) VALUES ('$tag[1]', '$tag[0]')";
-        $result = mysqli_query($link, $requete);
-        $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$lastname." ".$name." (".$role2.") a ajouté un tag ".$tag[1]." dans la catégorie ".$tag[0]."')";
-        mysqli_query($link, $requete2);
+        $requete = "INSERT INTO tags (`nom_tag`, `nom_categorie`) VALUES (?, ?)";
+        $stmt = $link->prepare($requete);
+        $stmt->bind_param("ss", $tag[1], $tag[0]);
+        $stmt->execute();
+        $requete = "INSERT INTO `tableau_de_bord` (`modification`) VALUES (CONCAT('Compte ',?,' ',?,' (',?,') a ajouté un tag ',?,' dans la catégorie ',?))";
+        $stmt = $link->prepare($requete);
+        $stmt->bind_param("sssss", $lastname, $name,$role2,$tag[1],$tag[0]);
+        $stmt->execute();
     }
     $tags_file[]=str_replace("_", " ", $tag[1]);                                                           // On remplace les _ par des espaces (encodage lors du POST)
 }
@@ -89,17 +93,23 @@ for($i = 0 ; $i < $countfiles ; $i++){                                          
         createThumbnail($path, $path, 267, 197);                                                            // On redimensionne la miniature au bon format
 
         if($tags_file == null) $tags_file[]="Sans tag";                                                                 // Si il n'y a pas de tag on le défini sans tag
-        $requete = "INSERT INTO fichiers (`id`, `nom_fichier`, `extension`, `auteur`, `date`, `duree`, `size`, `nom_stockage`) VALUES ('$id', '$filename', '$extension', '$mail', '$date', '$duree', '$size','$nomFichier')";
-        mysqli_query($link, $requete);                                                                                  // n ajoute le fichier à la bdd
+        $requete = "INSERT INTO fichiers (`id`, `nom_fichier`, `extension`, `auteur`, `date`, `duree`, `size`, `nom_stockage`) VALUES (?, ?, ?, ?, ?, ?, ?,?)";
+        $stmt = $link->prepare($requete);
+        $stmt->bind_param("isssssis", $id, $filename,$extension,$mail,$date,$duree,$size,$nomFichier);
+        $stmt->execute();                                                                                               // on ajoute le fichier à la bdd
         unset($getID3);
         $chaine = "";
         foreach ($tags_file as $tag){
             $chaine .= $tag." ";
             $requete = "INSERT INTO caracteriser (`id_fichier`, `nom_tag`) VALUES ('$id', '$tag')";
-            mysqli_query($link, $requete);
+            $stmt = $link->prepare($requete);
+            $stmt->bind_param("is", $id, $tag);
+            $stmt->execute();
         }                                                                                                               // On stock les tags par fichier
-        $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$lastname." ".$name." (".$role2.") a téléversé le fichier ".$filename." avec le(s) tag(s) : ".$chaine."')";
-        mysqli_query($link, $requete2);
+        $requete = "INSERT INTO `tableau_de_bord` (`modification`) VALUES (CONCAT('Compte ',?,' ',?,' (',?,') a téléversé le fichier ',?,' avec le(s) tag(s) : ',?))";
+        $stmt = $link->prepare($requete);
+        $stmt->bind_param("sssss", $lastname, $name,$role2,$filename,$chaine);
+        $stmt->execute();
     }
 }
 

@@ -8,8 +8,8 @@ let clicDroit = (id) => {                                                       
     if(document.getElementById('FileDataRequest')) document.getElementById('FileDataRequest').remove();// Si il y avait déjà clic on l'enlève
     let e = window.event;
     e.preventDefault();
-    let x = e.pageX+1;                                                                                                  // On place la div à l'endroit de la souris (+1 pour que le double clic reste possible)
-    let y = e.pageY+1;
+    let x = e.pageX+10;                                                                                                  // On place la div à l'endroit de la souris (+1 pour que le double clic reste possible)
+    let y = e.pageY+10;
     $.post( "actions/right_click_corbeille-action.php", { id: id }, function( data ) {                                            // On fait l'appel au fichier action qui nous donne le contenu
         document.getElementById('filesDisplayContainer').innerHTML += data;
         let div = document.getElementById('FileDataRequest');

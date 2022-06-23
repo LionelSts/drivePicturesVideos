@@ -1,8 +1,11 @@
 <?php
 $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;  // connexion à la bdd
 $email = $_POST["email"];
-$requete = "SELECT `mail` FROM `utilisateurs` WHERE `mail` = '$email' ";
-$result = mysqli_query($link, $requete);
+$requete = "SELECT `mail` FROM `utilisateurs` WHERE `mail` = ? ";
+$stmt = $link->prepare($requete);
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
 $exist = mysqli_num_rows($result); // on associe la variable '$exists' au nombre d'apparition de l'email saisi dans la bdd
 if($exist==1)   // si le mail existe dans la bdd...
 {

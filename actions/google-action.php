@@ -22,8 +22,11 @@ if(isset($_GET["code"]))
         $mail =  $data['email'];
         $prenom = $data['given_name'];
         $nom = $data['family_name'];
-        $requete = "SELECT `role`, `etat` FROM `utilisateurs` WHERE `mail` = '$mail' "; // On vérifie que l'utilisateur peux se connecter (l'etat de son compte) et on récupère son role pour initialiser sa session
-        $result = mysqli_query($link, $requete);
+        $requete = "SELECT `role`, `etat` FROM `utilisateurs` WHERE `mail` = ? "; // On vérifie que l'utilisateur peux se connecter (l'etat de son compte) et on récupère son role pour initialiser sa session
+        $stmt = $link->prepare($requete);
+        $stmt->bind_param("s", $mail);
+        $stmt->execute();
+        $result = $stmt->get_result();
         $row = mysqli_fetch_array($result);
         if(empty($row)){                                                                // Si le compte n'existe pas
             if (!preg_match($regex,$mail)){                                             // Si son adresse mail ne match pas celle des briques rouges on détruit sa session
@@ -34,10 +37,14 @@ if(isset($_GET["code"]))
                 } catch (Exception $e) {
                 }   // génération automatique d'un mot de passe permetant "l'unicité" du lien
                 $hashedPassword = password_hash($tmpPassword, PASSWORD_BCRYPT); // hashing du mot de passe
-                $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES ('$prenom', '$nom', '$mail', '$hashedPassword', 'lecture','Membre LBR', 'actif') "; // Insertion du compte saisi, dans la bdd avec le statut "en attente"
-                $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte " . $nom . " " . $prenom . " (Lecture) crée avec Google')";
-                mysqli_query($link, $requete);
-                mysqli_query($link, $requete2);
+                $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES (?, ?, ?, ?, 'lecture','Membre LBR', 'actif') "; // Insertion du compte saisi, dans la bdd avec le statut "en attente"
+                $stmt = $link->prepare($requete);
+                $stmt->bind_param("ssss", $prenom, $nom,$mail,$hashedPassword);
+                $stmt->execute();
+                $requete = "INSERT INTO `tableau_de_bord` (`modification`) VALUES (CONCAT('Compte ',?, ' ', ?, ' (Lecture) crée avec Google'))";
+                $stmt = $link->prepare($requete);
+                $stmt->bind_param("ss", $nom, $prenom);
+                $stmt->execute();
                 $data = [                                                                                               // On prépare les informations pour envoyer le mail à l'administrateur
                     'mailType' => 'compteGoogle',
                     'mailTo' => 'admin@lesbriquesrouges.fr',

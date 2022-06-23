@@ -4,8 +4,11 @@ $fileId = $fileExtension[0];                            //On récupère l'ID du 
 $fileExtension = $fileExtension[count($fileExtension)-1];//On récupère l'extension
 $link = mysqli_connect("127.0.0.1", "root", "", "drivelbr");
 $link->query('SET NAMES utf8');
-$requete = "SELECT `nom_stockage`, `extension` FROM `fichiers` WHERE `id` = $fileId";   // On récupère le nom de stockage
-$result = mysqli_query($link, $requete);
+$requete = "SELECT `nom_stockage`, `extension` FROM `fichiers` WHERE `id` = ?";   // On récupère le nom de stockage
+$stmt = $link->prepare($requete);
+$stmt->bind_param("i", $fileId);
+$stmt->execute();
+$result = $stmt->get_result();
 $data = mysqli_fetch_array($result);
 $fileCodedName = './fichiers/'.$data[0] .".". $fileExtension;                           // chemin d'accés du fichier
 $filePath = '.'.$fileCodedName;
