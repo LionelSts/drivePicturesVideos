@@ -5,8 +5,11 @@ $link = mysqli_connect("127.0.0.1", "root", "", "drivelbr");    // connexion à 
 $link->query('SET NAMES utf8');
 $nom = $_POST['nom']; $prenom = $_POST['prenom']; $mail = $_POST['mail']; $role = $_POST['role']; $descriptif = $_POST['descriptif']; $mdp = $_POST['password']; // récupération des données du formulaire de Création de compte
 $name = $_SESSION["prenom"]; $lastname = $_SESSION["nom"]; $role2 = $_SESSION["role"];
-$requete = "SELECT `mail` FROM `utilisateurs` Where `mail`= '$mail'"; // on vérifie dans la bdd que le mail saisi est bien disponible
-$result = mysqli_query($link,$requete);
+$requete = "SELECT `mail` FROM `utilisateurs` Where `mail`= ?"; // on vérifie dans la bdd que le mail saisi est bien disponible
+$stmt = $link->prepare($requete);
+$stmt->bind_param("s", $mail);
+$stmt->execute();
+$result = $stmt->get_result();
 $exist = mysqli_num_rows($result); // on associe la variable '$exists' au nombre d'apparition de l'email saisi dans la bdd
 $regex = "/^(?=.*\w)(?=.*\W)[\w\W]{8,}$/";  // on vérifie le respect des régles du mot de passe (1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial et 8 caractères au minimum)
 $chaine = urldecode(file_get_contents('php://input'));  // récupération de la liste des tags sélectionné en enlevant les données inutiles
@@ -34,8 +37,10 @@ else    // si le mail n'existe pas dans la bdd...
             $tag=trim($tag);
         }
         if(in_array($tag,$liste_tag)){
-            $requete2 = "INSERT INTO `attribuer` (`email`,`nom_tag`) VALUES ('$mail', '$tag')";
-            $result2 = mysqli_query($link, $requete2);
+            $requete = "INSERT INTO `attribuer` (`email`,`nom_tag`) VALUES (?, ?)";
+            $stmt = $link->prepare($requete);
+            $stmt->bind_param("ss", $mail,$tag);
+            $stmt->execute();
             $tag="";
         }
     }
@@ -45,9 +50,14 @@ else    // si le mail n'existe pas dans la bdd...
         } catch (Exception $e) {
         }   // génération automatique d'un mot de passe permetant "l'unicité" du lien
         $hashedPassword = password_hash($tmpPassword, PASSWORD_BCRYPT); // hashing du mot de passe
-        $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES ('$prenom', '$nom', '$mail', '$hashedPassword', '$role','$descriptif', 'en attente') "; // Insertion du compte saisi, dans la bdd avec le statut "en attente"
-        $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$nom." ".$prenom." (".$role.") crée par ".$lastname." ".$name." (".$role2.") - choix du mot de passe par l`utilisateur')";
-        mysqli_query($link,$requete); mysqli_query($link,$requete2);
+        $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES (?,?,?,?,?,?, 'en attente') "; // Insertion du compte saisi, dans la bdd avec le statut "en attente"
+        $stmt = $link->prepare($requete);
+        $stmt->bind_param("ssssss", $prenom,$nom,$mail,$hashedPassword,$role,$descriptif);
+        $stmt->execute();
+        $requete = "INSERT INTO `tableau_de_bord` (`modification`) VALUES (CONCAT('Compte ',?,' ',?,' (',?,') crée par ',?,' ',?,' (',?,') - choix du mot de passe par l\'utilisateur'))";
+        $stmt = $link->prepare($requete);
+        $stmt->bind_param("ssssss", $nom,$prenom,$role,$lastname,$name,$role2);
+        $stmt->execute();
         $data = [                                                                                                       // On prépare les infos pour le mail
             'mailType ' => 'mdpRandom',
             'mailTo' => $mail,
@@ -60,12 +70,19 @@ else    // si le mail n'existe pas dans la bdd...
         if (preg_match($regex, $_POST['password'])) {   // si le mot de passe répond aux critères de sécurité
             $mdp = password_hash($_POST['password'], PASSWORD_BCRYPT); // hashing du mot de passe
             for ($i = 1; $i < count($tab); $i++){ // puis on insère la liste des tags dans la bdd en parcourant le tableau obtenu précédement
-                $requete0 = "INSERT INTO `attribuer` (`email`,`nom_tag`) VALUES ('$mail', '$tab[$i]')";
-                mysqli_query($link, $requete0);
+                $requete = "INSERT INTO `attribuer` (`email`,`nom_tag`) VALUES (?,?)";
+                $stmt = $link->prepare($requete);
+                $stmt->bind_param("ss", $mail,$tab[$i]);
+                $stmt->execute();
             }
-            $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES ('$prenom', '$nom', '$mail', '$mdp', '$role','$descriptif', 'en attente') "; // Insertion du compte saisi, dans la bdd avec le statut "en attente"
-            $requete2 = "INSERT INTO `tableau_de_bord` (`modification`) VALUES ('Compte ".$nom." ".$prenom." (".$role.") crée par ".$lastname." ".$name." (".$role2.") - choix du mot de passe par l`admin')";
-            mysqli_query($link,$requete); mysqli_query($link,$requete2);
+            $requete = "INSERT INTO utilisateurs(`prenom`, `nom`, `mail`, `mot_de_passe`,`role`,`descriptif`, `etat`) VALUES (?,?,?,?,?,?, 'en attente') "; // Insertion du compte saisi, dans la bdd avec le statut "en attente"
+            $stmt = $link->prepare($requete);
+            $stmt->bind_param("ssssss", $prenom,$nom,$mail,$mdp,$role,$descriptif);
+            $stmt->execute();
+            $requete = "INSERT INTO `tableau_de_bord` (`modification`) VALUES (CONCAT('Compte ',?,' ',?,' (',?,') crée par ',?,' ',?,' (',?,') - choix du mot de passe par l`admin'))";
+            $stmt = $link->prepare($requete);
+            $stmt->bind_param("ssssss", $nom,$prenom,$role,$lastname,$name,$role2);
+            $stmt->execute();
             $data = [                                                                                                   // On prépare les infos pour le mail
                 'mailType ' => 'mdpChoisis',
                 'mailTo' => $mail,

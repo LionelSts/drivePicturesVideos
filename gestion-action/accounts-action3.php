@@ -5,8 +5,11 @@
     $link->query('SET NAMES utf8');
     $chaine = urldecode(file_get_contents('php://input'));  // récupération d'une chaine contenant le mail sélectionné
     $mail = str_replace("=Renvoyer le mail",'', $chaine);   // suppression des éléments inutiles de cette chaine
-    $requete = "SELECT  `prenom`, `nom` FROM utilisateurs WHERE `mail`='$mail'";    // recherche dans la bdd du nom et prénom associé à cet email
-    $result = mysqli_query($link,$requete);
+    $requete = "SELECT  `prenom`, `nom` FROM utilisateurs WHERE `mail`=?";    // recherche dans la bdd du nom et prénom associé à cet email
+    $stmt = $link->prepare($requete);
+    $stmt->bind_param("s", $mail);
+    $stmt->execute();
+    $result = $stmt->get_result();
     while($row = mysqli_fetch_array($result)) // enregistrement du nom et du prénom associé à cet email
     {
         $nom = $row['nom'];
@@ -17,8 +20,10 @@ try {
 } catch (Exception $e) {
 }   // génération automatique d'un mot de passe permetant "l'unicité" du lien
     $hashedPassword = password_hash($tmpPassword, PASSWORD_BCRYPT); // hashing du mot de passe
-    $requete = "UPDATE utilisateurs SET `mot_de_passe` = '$hashedPassword' WHERE `mail` = '$mail'"; // On met à jour la bdd avec ce mot de passe
-    $result = mysqli_query($link,$requete);
+    $requete = "UPDATE utilisateurs SET `mot_de_passe` = ? WHERE `mail` = ?"; // On met à jour la bdd avec ce mot de passe
+    $stmt = $link->prepare($requete);
+    $stmt->bind_param("ss", $hashedPassword,$mail);
+    $stmt->execute();
     $data = [                                                                                                           // On prépare les infos pour le mail
         'mailType' => 'renvoyer',
         'mailTo' => $mail,
