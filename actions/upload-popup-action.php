@@ -90,7 +90,7 @@ for($i = 0 ; $i < $countfiles ; $i++){                                          
             imagepng(imagecreatefromstring(file_get_contents($filePath)), '../miniatures/'.$nomFichier.'.png');     // Si c'est une image on créé une miniature et met la duree à 0
         }
         $path = '../miniatures/'.$nomFichier.'.png';
-        createThumbnail($path, $path, 267, 197);                                                            // On redimensionne la miniature au bon format
+        createThumbnail($path, $path, 267, 197);                                                           // On redimensionne la miniature au bon format
 
         if($tags_file == null) $tags_file[]="Sans tag";                                                                 // Si il n'y a pas de tag on le défini sans tag
         $requete = "INSERT INTO fichiers (`id`, `nom_fichier`, `extension`, `auteur`, `date`, `duree`, `size`, `nom_stockage`) VALUES (?, ?, ?, ?, ?, ?, ?,?)";
@@ -101,7 +101,7 @@ for($i = 0 ; $i < $countfiles ; $i++){                                          
         $chaine = "";
         foreach ($tags_file as $tag){
             $chaine .= $tag." ";
-            $requete = "INSERT INTO caracteriser (`id_fichier`, `nom_tag`) VALUES ('$id', '$tag')";
+            $requete = "INSERT INTO caracteriser (`id_fichier`, `nom_tag`) VALUES (?,?)";
             $stmt = $link->prepare($requete);
             $stmt->bind_param("is", $id, $tag);
             $stmt->execute();

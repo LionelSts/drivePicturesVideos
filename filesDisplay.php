@@ -23,69 +23,109 @@
         $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
         $link->query('SET NAMES utf8');
         if($myPage == 'my_files'){                                                                                      // Sur la page my files, c'est pareil pour tout le monde on récupère les fichiers qui appartiennent à cet utilisateur
-            $requete = "SELECT * FROM `fichiers` WHERE `auteur` = '$mail' ORDER BY `date` DESC, `id`  LIMIT 20 OFFSET ".intval($page); // On défini ici une limite de 20 fichiers et l'offset correspond à la page à la quelle nous sommes fois 20
-            $result = mysqli_query($link, $requete); // Saving the result
+            $requete = "SELECT * FROM `fichiers` WHERE `auteur` = ? ORDER BY `date` DESC, `id`  LIMIT 20 OFFSET ".intval($page); // On défini ici une limite de 20 fichiers et l'offset correspond à la page à la quelle nous sommes fois 20
+            $stmt = $link->prepare($requete);
+            $stmt->bind_param("s", $mail);
+            $stmt->execute();
+            $result = $stmt->get_result();
             $files = mysqli_fetch_all($result);
         }else if($myPage == 'home'){                                                                                    // La page home, si l'utilisateur est invité il ne voit que ses fichiers plus ceux avec les tags qui lui sont attribués
             if(empty($search)){                                                                                         // Cas ù il n'y a pas de recherche
                 if($_SESSION['role'] == "invite"){
-                    $requete = "SELECT * FROM `fichiers` WHERE `id`  IN (SELECT DISTINCT `id_fichier` FROM `caracteriser` WHERE `nom_tag` IN (SELECT `nom_tag` FROM attribuer WHERE `email`='$mail')) OR auteur='$mail' ORDER BY `date` DESC, `id`  LIMIT 20 OFFSET ".intval($page);
+                    $requete = "SELECT * FROM `fichiers` WHERE `id`  IN (SELECT DISTINCT `id_fichier` FROM `caracteriser` WHERE `nom_tag` IN (SELECT `nom_tag` FROM attribuer WHERE `email`=?)) OR auteur=? ORDER BY `date` DESC, `id`  LIMIT 20 OFFSET ".intval($page);
+                    $stmt = $link->prepare($requete);
+                    $stmt->bind_param("ss", $mail,$mail);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
                 }else{
                     $requete = "SELECT * FROM `fichiers` ORDER BY `date` DESC, `id`  LIMIT 20 OFFSET ".intval($page);
+                    $result = mysqli_query($link, $requete); // Saving the result
                 }
-                $result = mysqli_query($link, $requete); // Saving the result
                 $files = mysqli_fetch_all($result);
-            }else{                                                                                                      // Si il y a une recherche
-                $requete = "SELECT * FROM `fichiers` LIMIT 20 OFFSET ".intval($page);
-                if($_SESSION['role'] == "invite"){
-                    $requete = "SELECT * FROM `fichiers` WHERE `id`  IN (SELECT DISTINCT `id_fichier` FROM `caracteriser` WHERE `nom_tag` IN (SELECT `nom_tag` FROM attribuer WHERE `email`='$mail')) OR auteur='$mail' ORDER BY `date` DESC, `id`  LIMIT 20 OFFSET ".intval($page);
+            }else{
+                $requete = "SELECT `nom_tag` FROM `tags`";
+                $result = mysqli_query($link, $requete);
+                $data = mysqli_fetch_all($result);                                                                      // On séléctionne tous les tags
+                $requete = "SELECT DISTINCT `extension` FROM `fichiers`";                                               // On récupère toutes les extensions
+                $result = mysqli_query($link, $requete);
+                $data1 = mysqli_fetch_all($result);
+                $noms_tag = [];
+                $exts = [];
+                foreach ($data as $tag){                                                                                // On récupère tous les tags pour vérifier l'intégrité de ceux reçus
+                    $noms_tag[] =$tag[0];
+                }
+                foreach ($data1 as $extension){                                                                         // On récupère toutes les extensions pour vérifier l'intégrité de celles reçus
+                    $exts[] = $extension[0];
+                }
+                if($_SESSION['role'] == "invite"){                                                                      // Si il y a une recherche
+                    $requete = "SELECT * FROM `fichiers` WHERE `id`  IN (SELECT DISTINCT `id_fichier` FROM `caracteriser` WHERE `nom_tag` IN (SELECT `nom_tag` FROM attribuer WHERE `email`=?)) OR auteur=? ORDER BY `date` DESC, `id`  LIMIT 20 OFFSET ".intval($page);
+                    $stmt = $link->prepare($requete);
+                    $stmt->bind_param("ss", $mail,$mail);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
                 }else{                                                                                                  // Ici on prend en comtpe tous les cas de recherche possible
                     if(!empty($search['tags']) && !empty($search['extensions'])){                                       // Si tags et extensions ne sont pas vide, alors on génère les requète sql
                         $tags = $search['tags'];
                         $extensions = $search['extensions'];
                         $requete = "SELECT * FROM `fichiers` WHERE `extension` IN (";                                   // On ajoute toutes les extensions selectionnés à la requete
                         for ($i = 0; $i < count($extensions); $i++) {
-                            if ($i !== 0) $requete .= ' , ';
-                            $requete .= '"' . $extensions[$i] . '"';
+                            if(in_array($extensions[$i],$exts)){
+                                if ($i !== 0) $requete .= ' , ';
+                                $requete .= '"' . $extensions[$i] . '"';
+                            }
                         }
                         $requete .= ") AND `id` IN (SELECT DISTINCT `id_fichier` FROM `caracteriser` WHERE `nom_tag` IN (";
                         for($i = 0; $i < count($tags); $i++) {                                                          // On ajoute toutes les tags selectionnés à la requete
-                            if ($i !== 0) $requete .= ' , ';
-                            $requete .= '"'.$tags[$i].'"';
+                            if(in_array($tags[$i],$noms_tag)) {
+                                if ($i !== 0) $requete .= ' , ';
+                                $requete .= '"' . $tags[$i] . '"';
+                            }
                         }
                         $requete .= ")) ORDER BY `date` DESC, `id`  LIMIT 20 OFFSET " . intval($page);
                     }else if(!empty($search['tags'])){                                                                  // Si la recherche n'est que par rapport aux tags
                         $tags = $search['tags'];
                         $requete = "SELECT * FROM `fichiers` WHERE `id` IN (SELECT DISTINCT `id_fichier` FROM `caracteriser` WHERE `nom_tag` IN (";
                         for($i = 0; $i < count($tags); $i++) {
-                            if ($i !== 0) $requete .= ' , ';
-                            $requete .= '"'.$tags[$i].'"';
+                            if(in_array($tags[$i],$noms_tag)) {
+                                if ($i !== 0) $requete .= ' , ';
+                                $requete .= '"' . $tags[$i] . '"';
+                            }
                         }
                         $requete .=")) ORDER BY `date` DESC, `id`  LIMIT 20 OFFSET ".intval($page);
                     }else if(!empty($search['extensions'])) {                                                           // Si la recherche n'est que par rapport aux extensions
                         $requete = "SELECT * FROM `fichiers` WHERE `extension` IN (";
                         $extensions = $search['extensions'];
                         for ($i = 0; $i < count($extensions); $i++) {
-                            if ($i !== 0) $requete .= ' , ';
-                            $requete .= '"' . $extensions[$i] . '"';
+                            if(in_array($extensions[$i],$exts)){
+                                if ($i !== 0) $requete .= ' , ';
+                                $requete .= '"' . $extensions[$i] . '"';
+                            }
                         }
                         $requete .= ") ORDER BY `date` DESC, `id`  LIMIT 20 OFFSET " . intval($page);
                     }
+                    $result = mysqli_query($link, $requete);
+                    $files = mysqli_fetch_all($result);
                 }
-                $result = mysqli_query($link, $requete); // Saving the result
-                $files = mysqli_fetch_all($result);
+                 // Saving the result
+                if(!isset($requete)){
+                    $requete = "SELECT * FROM `fichiers` LIMIT 20 OFFSET ".intval($page);
+                    $result = mysqli_query($link, $requete);
+                    $files = mysqli_fetch_all($result);
+                }
+
             }
         }else if($myPage == "corbeille"){                                                                               // Si nous sommes dans la corbeille,
             if($_SESSION['role'] == 'admin'){                                                                           // l'admin voit tout
                 $requete = "SELECT * FROM `corbeille` ORDER BY `supprime_date` DESC  LIMIT 20 OFFSET ".intval($page);
-                $result = mysqli_query($link, $requete); // Saving the result
-                $files = mysqli_fetch_all($result);
+                $result = mysqli_query($link, $requete);
             }else{                                                                                                      // Les autres voient leurs fichiers
-                $requete = "SELECT * FROM `corbeille` WHERE `auteur` = '$mail' ORDER BY `supprime_date` DESC  LIMIT 20 OFFSET ".intval($page);
-                $result = mysqli_query($link, $requete); // Saving the result
-                $files = mysqli_fetch_all($result);
+                $requete = "SELECT * FROM `corbeille` WHERE `auteur` = ? ORDER BY `supprime_date` DESC  LIMIT 20 OFFSET ".intval($page);
+                $stmt = $link->prepare($requete);
+                $stmt->bind_param("s", $mail);
+                $stmt->execute();
+                $result = $stmt->get_result();
             }
-
+            $files = mysqli_fetch_all($result);
         }
         echo'
     <div class="filesNavigation">
@@ -137,8 +177,11 @@
                 $taglist ="Sans tag";
                 $miniature= ".\corbeille\\"."miniature-" . $fichier[7] . ".png";
             }else{                                                                                                      // Si non, on va les chercher dans le stockage
-                $requete = "SELECT `nom_tag` FROM `caracteriser` WHERE `id_fichier` = '$fichier[0]'";
-                $result = mysqli_query($link, $requete); // Saving the result
+                $requete = "SELECT `nom_tag` FROM `caracteriser` WHERE `id_fichier` = ?";
+                $stmt = $link->prepare($requete);
+                $stmt->bind_param("i", $fichier[0]);
+                $stmt->execute();
+                $result = $stmt->get_result();
                 $fileTags = mysqli_fetch_all($result);
                 $taglist="";
                 foreach ($fileTags as $value){

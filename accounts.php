@@ -171,7 +171,7 @@ session_start();
                     <?php
                     // Ici on refait la même chose que précédement mais pour la création des comptes
                     $counter =0;
-                    // On adéjà exactement la même requête plus haut, pas besoin de la refaire
+                    // On adéjà exactement la même requête plus haut, pas besoin de la re-déclarer
                     $result = mysqli_query($link, $requete);
                     while($row = mysqli_fetch_array($result))
                     {

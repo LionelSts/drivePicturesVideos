@@ -13,10 +13,6 @@ session_start();// démarage de la session
 if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';
 if($_SESSION["role"] == 'lecture') echo '<script> alert("Vous n`êtes pas autorisé à accéder à cette page.");window.location.replace("./home.php");</script>';
 $mail = $_SESSION['mail'];
-$link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr");
-$link->query('SET NAMES utf8');
-$requete = "SELECT `role` FROM `utilisateurs` WHERE `mail` = '$mail'"; // Preparing the request to verify the password where the login entered is found on the database
-$result = mysqli_query($link, $requete); // Saving the result
 ?>
 <body>
 <div id="header">

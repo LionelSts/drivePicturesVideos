@@ -14,8 +14,6 @@ if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté."
 $mail = $_SESSION['mail'];  // récupération de l'email de l'utilisateur connecté
 $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;  // connexion à la base de données
 $link->query('SET NAMES utf8');
-$requete = "SELECT `role` FROM `utilisateurs` WHERE `mail` = '$mail'";  // recherche dans la bdd, du rôle associé à l'email de l'utilisateur
-$result = mysqli_query($link, $requete);
 $searchArray = [];
 if(isset($_GET)){
     foreach ($_GET as $key => $parameter){

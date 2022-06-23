@@ -27,5 +27,5 @@ if(password_verify($mdp, $hashedpsw) && $row['etat']!= "inactif")   // si le mot
 }
 else    // dans le cas contraire...
 {
-    echo '<script> alert("Identifiant ou mot de passe incorrecte");window.location.replace("../index.php");</script>'; // l'utilisateur n'a pas saisie les bonnes infos, il est redirigé
+    echo '<script> alert("Identifiant ou mot de passe incorrect");window.location.replace("../index.php");</script>'; // l'utilisateur n'a pas saisie les bonnes infos, il est redirigé
 }
