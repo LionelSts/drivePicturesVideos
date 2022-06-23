@@ -4,21 +4,20 @@ $link->query('SET NAMES utf8');
 $final_tab = [];
 $requete = "SELECT `nom_tag`, `nom_categorie` FROM `tags`";
 $result = mysqli_query($link, $requete);
-$data = mysqli_fetch_all($result);
+$data = mysqli_fetch_all($result);                                                                                      // On séléctionne tous les tags
 $requete = "SELECT `nom_categorie` FROM `categorie`";
-$result = mysqli_query($link, $requete);
+$result = mysqli_query($link, $requete);                                                                                // On séléctionne toutes les catégories
 $categorie = [];
-while($row = mysqli_fetch_array($result)){
+while($row = mysqli_fetch_array($result)){                                                                              // on stock les catégories dans un tableau
     $categorie[] = $row['nom_categorie'];
 }
-
-foreach($categorie as $value) {
+foreach($categorie as $value) {                                                                                         // Dans un tableau à double entré en réunis tags et catégories
     foreach ($data as list($value1, $value2)) {
         if($value == $value2) {
             $tab[] = $value1;
         }
     }
-    if(!empty($tab)){
+    if(!empty($tab)){                                                                                                   // On évite les erreurs si une catégorie est vide
         $final_tab[] = $tab;
     }else{
         $final_tab[] = [];
@@ -26,7 +25,7 @@ foreach($categorie as $value) {
     unset($tab);
 }
 
-$requete = "SELECT DISTINCT `extension` FROM `fichiers`";
+$requete = "SELECT DISTINCT `extension` FROM `fichiers`";                                                               // On récupère toutes les extensions
 $result = mysqli_query($link, $requete);
 $extensions = mysqli_fetch_all($result);
 ?>
@@ -40,7 +39,7 @@ $extensions = mysqli_fetch_all($result);
             <div>
                 <p class="bold">Tags :</p>
             </div>
-            <?php
+            <?php                                                                                                       // On affiche tous les tags et catégories
             $i = 0;
             foreach ($final_tab as $value1) {
                 if($value1){
@@ -74,7 +73,7 @@ $extensions = mysqli_fetch_all($result);
             </div>
             <div id="extensionsContainer">
             <?php
-            foreach ($extensions as $value1) {
+            foreach ($extensions as $value1) {                                                                          // On affiche toutes les extensions
                 echo('<div class="extensionsContainer" >
                             <label class="checkboxContainer">' . $value1[0] . '
                                 <input type="checkbox" id="' . $value1[0] . '" name="extension-' .  $value1[0] . '" value="Yes">

@@ -1,7 +1,7 @@
-document.getElementById("checkActionButtons").hidden = true;
+document.getElementById("checkActionButtons").hidden = true;                                                   // On cache les bouttons actions au chargement
 let activeContent;
 
-let file =  document.getElementsByClassName('fichierContainer');
+let file =  document.getElementsByClassName('fichierContainer');                                              // On récupère tous le container de fichier (tous l'affichage
 
 let ListenersClicDroit = () => {
     for(let i = 0; i < file.length; i++){
@@ -10,65 +10,53 @@ let ListenersClicDroit = () => {
     }
 }
 
-let clicDroit = (id) => {
-    if(document.getElementById('FileDataRequest')) document.getElementById('FileDataRequest').remove();
+let clicDroit = (id) => {                                                                                               // Fonction lors d'un clic droit
+    if(document.getElementById('FileDataRequest')) document.getElementById('FileDataRequest').remove();// Si il y avait déjà clic on l'enlève
     let e = window.event;
     e.preventDefault();
-    let x = e.pageX+1;
+    let x = e.pageX+1;                                                                                                  // On place la div à l'endroit de la souris (+1 pour que le double clic reste possible)
     let y = e.pageY+1;
-    $.post( "actions/right_click-action.php", { id: id }, function( data ) {
+    $.post( "actions/right_click-action.php", { id: id }, function( data ) {                                            // On fait l'appel au fichier action qui nous donne le contenu
         document.getElementById('filesDisplayContainer').innerHTML += data;
         let div = document.getElementById('FileDataRequest');
         div.style.position = 'absolute';
         div.style.left = x+"px";
         div.style.top = y+"px";
-        clicsManager();
+        clicsManager();                                                                                                 // On replace tous les listener qui sont enlevé par le innerhtml+=
     }, "html");
 }
 
-let ListenersClicGauche = () => {
+let ListenersClicGauche = () => {                                                                                       // Fonction qui set les onclick du clic gauche
     for(let i = 0; i < file.length; i++){
         let name = file[i].children[0].children[0].children[0].name;
         file[i].onclick = () => clicGauche(name);
     }
 }
 
-let clicGauche = (name) => {
+let clicGauche = (name) => {                                                                                            // Fonction lorsqu'un clic gauche a lieu
     let e = window.event;
     let x = e.pageX+1;
-    let y = e.pageY+1;
+    let y = e.pageY+1;                                                                                                  // On place la div à l'endroit de la souris (+1 pour que le double clic reste possible)
     if(e.target.className !== 'customCheckBox'){
-        if(document.getElementById('FileDataRequest')) document.getElementById('FileDataRequest').remove();
-        $.post( "actions/left_click-action.php", { name: name }, function( data ) {
+        if(document.getElementById('FileDataRequest')) document.getElementById('FileDataRequest').remove();// Si il y avait déjà clic on l'enlève
+        $.post( "actions/left_click-action.php", { name: name }, function( data ) {                                     // On fait l'appel au fichier action qui nous donne le contenu
             document.getElementById('filesDisplayContainer').innerHTML += data;
             let div = document.getElementById('FileDataRequest');
             div.style.position = 'absolute';
             div.style.left = x+"px";
             div.style.top = y+"px";
-            clicsManager();
+            clicsManager();                                                                                             // On replace tous les listener qui sont enlevé par le innerhtml+=
         }, "html");
-        // let dataRequest = document.createElement('div');
-        // dataRequest.setAttribute('id', 'FileDataRequest');
-        // let downloadFile = "<div id='Telecharger'><p onclick='downloadFiles(`"+name+"`)'>Télécharger</p></div>";
-        // let deleteFile = "<div id='Supprimer'><p onclick='deleteFiles(`"+name+"`)'>Supprimer</p></div>";
-        // let modifTags = "<div id='modifTags'><p onclick='tagSelection(`"+name+"`)'>Modifier les tags</p></div>";
-        // dataRequest.style.left = x+"px";
-        // dataRequest.style.top = y+"px";
-        // dataRequest.style.position = "absolute";
-        // dataRequest.innerHTML=downloadFile+deleteFile+modifTags;
-        //let div = document.getElementById('filesDisplayContainer');
-        //div.append(dataRequest);
-        //clicsManager();
     }
 }
 
-let clicCheckBox = () => {
+let clicCheckBox = () => {                                                                                              // On empèche la propagation de nos events sur la checkbox
     let e = window.event;
     e.stopPropagation();
-    if(document.getElementById("FileDataRequest")) document.getElementById("FileDataRequest").remove();
+    if(document.getElementById("FileDataRequest")) document.getElementById("FileDataRequest").remove();// Si on clic sur la checkbox, on enlève les autres menus
 }
 
-let clicsManager = () => {
+let clicsManager = () => {                                                                                              // Fonction qui set tous les actions clic
     document.onclick = () => bodyClick();
     document.oncontextmenu = () => bodyClick();
     setListener();
@@ -76,10 +64,10 @@ let clicsManager = () => {
     ListenersClicGauche();
 }
 
-let bodyClick = () => {
+let bodyClick = () => {                                                                                                 // Fonction quand on clic autre part
     let e= window.event;
-    if(e.target.className !== 'customCheckBox' && e.target.className !== 'miniatureFichier'){
-        if(document.getElementById("FileDataRequest")) document.getElementById("FileDataRequest").remove();
+    if(e.target.className !== 'customCheckBox' && e.target.className !== 'miniatureFichier'){                           // Si c'est différent de la miniature et de la checkbox
+        if(document.getElementById("FileDataRequest")) document.getElementById("FileDataRequest").remove();// si il y a déjà eu un clic on enlève l'affichage
     }
 }
 
@@ -95,7 +83,7 @@ let buttonsAction = () => {                                                     
     activeContent = [];
     const e =  document.getElementsByTagName('input');
     let totalFilesSize = 0;
-    for(let i = 0; i < e.length; i++) {
+    for(let i = 0; i < e.length; i++) {                                                                                 // Lorsque l'on coche (ou décoche) on met à jour la variable des éléments cochés
         if(e[i].checked === true){
             activeContent.push(e[i].getAttribute("name"));
             totalFilesSize += parseInt(e[i].getAttribute("value"));
@@ -116,10 +104,10 @@ let confirmDelete = () => {                                                 // P
     document.getElementById("pageContent").innerHTML += confirmPopUp;
 }
 
-let tagSelection = (name = activeContent) => {    // Popup affichant les différents tags pour modifier les tags des fichiers selectionnés  
+let tagSelection = (name = activeContent) => {    // Popup affichant les différents tags pour modifier les tags des fichiers selectionnés
     if(typeof name == 'string') name=name.split();
     let nbTags = " <p>Vous modifiez les tags de "+name.length+ " éléments</p>";
-    if(name.length==1) nbTags = " <p>Vous modifiez les tags de 1 élément</p>";
+    if(name.length===1) nbTags = " <p>Vous modifiez les tags de 1 élément</p>";
     let window = " <form class=\"tagsFichiers\" method=\"post\" action=\"actions/contentTags-action.php\"> <div id='confirmPopUp'>" +
         nbTags + "<div class=\"autreTagsContainer\">";
     let counter = 0;
@@ -180,5 +168,5 @@ let deleteFiles = (name = activeContent) => {                                   
     document.getElementById('download').click();
 }
 
-ListenersClicDroit();
+ListenersClicDroit();                                                                                                   // On set tous les listener
 ListenersClicGauche();

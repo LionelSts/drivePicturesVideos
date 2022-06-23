@@ -131,7 +131,7 @@
         echo'">Page suivante ></a>
         </div>
     </div>
-    <div id="filesDisplayContainer">';                                                                                  // On affiche tous les fichiers
+    <div id="filesDisplayContainer">';                                                                                  // On affiche tous les fichiers chargés
         foreach ($files as $fichier){
             if($myPage == "corbeille"){                                                                                 // Si nous sommes dans la corbeille, on va les chercher dans la corbeille
                 $taglist ="Sans tag";

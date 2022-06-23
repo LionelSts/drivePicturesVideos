@@ -132,7 +132,6 @@ input{
 /*  Page d'Accueil   */
 /*********************/
 
-
 #header{
     display: flex;
     justify-content: flex-start;
@@ -294,7 +293,6 @@ input{
     background-color: #EBEAD4;
 }
 
-
 .profile input[type="submit"]{
     background-color: #EA001C;
     color: #FFFEE6;
@@ -302,7 +300,6 @@ input{
     float: right;
     cursor: pointer;
 }
-
 
 .formLine{
     display: table;
@@ -325,7 +322,7 @@ input{
 
 
 /*********************/
-/* Pages des fichiers*/
+/*  PopUp d'upload   */
 /*********************/
 
 #uploadPopUp{
@@ -429,156 +426,6 @@ input{
     overflow:auto;
 }
 
-/* The container */
-.checkboxContainer, .redCheckboxContainer {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-.redCheckboxContainer{
-    margin-bottom:0;
-}
-
-/* Hide the browser's default checkbox */
-.checkboxContainer input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-/* Create a custom checkbox */
-.customCheckBox {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 1.2em;
-    width: 1.2em;
-    border: 1px solid #EBEAD4;
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.customCheckBox:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.customCheckBox:before {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-/* Show the checkmark when checked */
-.checkboxContainer input:checked ~ .customCheckBox:after {
-    display: block;
-}
-
-/* Show the checkmark when checked */
-.checkboxContainer input:checked ~ .customCheckBox:before {
-    display: block;
-}
-
-/* Style the checkmark/indicator */
-.customCheckBox:after {
-    top: -5.5px;
-    left: 12.5px;
-    width: 0;
-    height: 1.7em;
-    border: solid #EBEAD4;
-    border-width: 0 1px 0 0;
-    transform: rotate(45deg);
-}
-
-/* Style the checkmark/indicator */
-.customCheckBox:before {
-    top: -5.5px;
-    left: 12.5px;
-    width: 0;
-    height: 1.7em;
-    border: solid #EBEAD4;
-    border-width: 0 1px 0 0;
-    transform: rotate(-45deg);
-}
-
-/* Red checkBox */
-
-/* Hide the browser's default checkbox */
-.redCheckboxContainer input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-/* Create a custom checkbox */
-.redCheckbox {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 1.2em;
-    width: 1.2em;
-    border: 1px solid #EA001C;
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.redCheckbox:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-/* Create the checkmark/indicator (hidden when not checked) */
-.redCheckbox:before {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-/* Show the checkmark when checked */
-.redCheckboxContainer input:checked ~ .redCheckbox:after {
-    display: block;
-}
-
-/* Show the checkmark when checked */
-.redCheckboxContainer input:checked ~ .redCheckbox:before {
-    display: block;
-}
-
-/* Style the checkmark/indicator */
-.redCheckboxContainer .redCheckbox:after {
-    top: -8.5px;
-    left: 21px;
-    width: 0;
-    height: 1.7em;
-    border: solid #EA001C;
-    border-width: 0 1px 0 0;
-    transform: rotate(45deg);
-}
-
-/* Style the checkmark/indicator */
-.redCheckbox:before {
-    top: -8.5px;
-    left: 21px;
-    width: 0;
-    height: 1.7em;
-    border: solid #EA001C;
-    border-width: 0 1px 0 0;
-    transform: rotate(-45deg);
-}
-
 .newTag{
     font-size: 1.5em;
     width:fit-content;
@@ -596,11 +443,142 @@ input{
     cursor: pointer;
 }
 
+
+/*********************************/
+/* Element checkbox personnalisé */
+/*********************************/
+
+.checkboxContainer, .redCheckboxContainer {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.redCheckboxContainer{
+    margin-bottom:0;
+}
+
+/* On cache le visuel de la checkbox par défaut */
+.checkboxContainer input ,.redCheckboxContainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* On fait notre propre visuel */
+.customCheckBox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1.2em;
+    width: 1.2em;
+    border: 1px solid #EBEAD4;
+}
+
+/* On fait la croix qui ne se montre que coché */
+.customCheckBox:after, .redCheckbox:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* On fait la croix qui ne se montre que coché */
+.customCheckBox:before, .redCheckbox:before {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* On affiche les elements précédents lorsque c'est coché */
+.checkboxContainer input:checked ~ .customCheckBox:after {
+    display: block;
+}
+
+/* On affiche les elements précédents lorsque c'est coché */
+.checkboxContainer input:checked ~ .customCheckBox:before {
+    display: block;
+}
+
+/* Style de la croix */
+.customCheckBox:after {
+    top: -5.5px;
+    left: 12.5px;
+    width: 0;
+    height: 1.7em;
+    border: solid #EBEAD4;
+    border-width: 0 1px 0 0;
+    transform: rotate(45deg);
+}
+
+/* Style de la croix */
+.customCheckBox:before {
+    top: -5.5px;
+    left: 12.5px;
+    width: 0;
+    height: 1.7em;
+    border: solid #EBEAD4;
+    border-width: 0 1px 0 0;
+    transform: rotate(-45deg);
+}
+
+/* Red checkBox */
+
+/* On fait notre propre visuel */
+.redCheckbox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1.2em;
+    width: 1.2em;
+    border: 1px solid #EA001C;
+}
+
+/* On affiche les elements précédents lorsque c'est coché */
+.redCheckboxContainer input:checked ~ .redCheckbox:after {
+    display: block;
+}
+
+/* On affiche les elements précédents lorsque c'est coché */
+.redCheckboxContainer input:checked ~ .redCheckbox:before {
+    display: block;
+}
+
+/* Style de la croix */
+.redCheckboxContainer .redCheckbox:after {
+    top: -8.5px;
+    left: 21px;
+    width: 0;
+    height: 1.7em;
+    border: solid #EA001C;
+    border-width: 0 1px 0 0;
+    transform: rotate(45deg);
+}
+
+/* Style de la croix */
+.redCheckbox:before {
+    top: -8.5px;
+    left: 21px;
+    width: 0;
+    height: 1.7em;
+    border: solid #EA001C;
+    border-width: 0 1px 0 0;
+    transform: rotate(-45deg);
+}
+
 /*********************/
 /*      Scrollbar    */
 /*********************/
 
-/* width */
+/* largeur */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -627,6 +605,10 @@ input{
 ::-webkit-scrollbar-thumb:hover {
     background: #D00019;
 }
+
+/*********************/
+/*Gestion des comptes*/
+/*********************/
 
 #limit{
     width: 100%;
@@ -671,6 +653,10 @@ input{
     overflow: auto;
 }
 
+/*********************/
+/* Gestion des tags  */
+/*********************/
+
 .tagsContainer{
     position: relative;
     left : 10%;
@@ -691,6 +677,10 @@ input{
     align-items: center;
     width: 20%;
 }
+
+/*********************/
+/* Page mes fichiers */
+/*********************/
 
 #uploadButtonOpen{
     padding: 0.5em;
@@ -718,6 +708,10 @@ input{
     font-weight: normal;
     margin: 0;
 }
+
+/*********************/
+/*   Files Display   */
+/*********************/
 
 #filesDisplayContainer{
     padding: 0.5em;
@@ -774,23 +768,6 @@ input{
     padding: 0;
 }
 
-.checkboxFiles{
-    margin : 0;
-}
-
-.checkboxFiles span{
-    margin: 0.5em;
-    border-color: #EA001C;
-}
-
-.checkboxFiles span:before{
-    border-color: #EA001C;
-}
-
-.checkboxFiles span:after{
-    border-color: #EA001C;
-}
-
 .filesNavigation{
     display: flex;
     justify-content: space-between;
@@ -821,6 +798,31 @@ input{
 .actionButtonsContainer{
     cursor: pointer;
 }
+
+/*************************************/
+/* Checkbox style pour les fichiers  */
+/*************************************/
+
+.checkboxFiles{
+    margin : 0;
+}
+
+.checkboxFiles span{
+    margin: 0.5em;
+    border-color: #EA001C;
+}
+
+.checkboxFiles span:before{
+    border-color: #EA001C;
+}
+
+.checkboxFiles span:after{
+    border-color: #EA001C;
+}
+
+/*********************************/
+/* PopUp pour modifier les tags  */
+/*********************************/
 
 #editFilesTags{
     margin: auto;
@@ -871,6 +873,10 @@ input{
     width: 0;
     height: 1.1em;
 }
+
+/************************************/
+/* PopUp pour confirmer une action  */
+/************************************/
 
 #confirmPopUp{
     position: fixed;
@@ -923,6 +929,10 @@ input{
     height: 1.2em;
 }
 
+/************************/
+/* Preview des fichiers */
+/************************/
+
 .filePreviewContainer{
     position: fixed;
     top: 10%;
@@ -958,6 +968,10 @@ input{
     vertical-align: middle;
 }
 
+/**********************/
+/* PopUp de recherche */
+/**********************/
+
 #searchPopUpContainer{
     position: absolute;
     background-color: #161920;
@@ -987,6 +1001,10 @@ input{
     padding: 0.5em;
 }
 
+/***************************/
+/* Clics droits et gauches */
+/***************************/
+
 #FileDataRequest{
     background-color: #161920;
     font-size: 1.5em;
@@ -1001,6 +1019,10 @@ input{
 .clickMenu p:hover {
     background-color: #000000;
 }
+
+/************************/
+/* Page journal de bord */
+/************************/
 
 .journalDeBord {
     margin: 1em;

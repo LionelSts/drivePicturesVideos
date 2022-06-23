@@ -30,13 +30,13 @@ session_start();
     <div id="pageContent">
         <h1 class="bigTitle">Journal de bord</h1>
         <?php
-        $espace = 0;
+        $espace = 0;                                                                                                    // On récupère la taille des fichiers
         $requete0 = "SELECT `size` FROM `fichiers`";
         $result0 = mysqli_query($link, $requete0);
         while($row = mysqli_fetch_assoc($result0)){
             $espace += $row["size"];
         }
-        echo "<h2 class='Espace'>Stockage total utilisé : ".filesize_formatted($espace)."</h2>";
+        echo "<h2 class='Espace'>Stockage total utilisé : ".filesize_formatted($espace)."</h2>";                        // On l'affiche
 
         if(isset($_GET["page"])){
             $page = $_GET["page"]*20;
@@ -44,22 +44,22 @@ session_start();
             $page = 0;
         }
         $currentPage = "./journal.php?page=";
-        $requete = "SELECT * FROM `tableau_de_bord` ORDER BY `id_modif` DESC LIMIT 20 OFFSET ".intval($page);;
+        $requete = "SELECT * FROM `tableau_de_bord` ORDER BY `id_modif` DESC LIMIT 20 OFFSET ".intval($page);           // On prend les 20 lignes de log (avec un offset de 20 fois la page)
         $result = mysqli_query($link, $requete);
         $data = mysqli_fetch_all($result);
-        echo'<a href="';
-        if($page <= 0){
+        echo'<a href="';                                                                                                // Liens pour accéder aux pages précédentes et suivantes
+        if($page <= 0){                                                                                                 // Si la page est 0 ou moins, on va à la page 0
             echo $currentPage.'0';
         }else{
             echo $currentPage.($page/20 -1);
         }
-        echo'"> Page précédente</a>';
-        echo '<a href="';
+        echo'">Page précédente</a>';
+        echo ' <a href="';
         if(!isset($data)){
             echo $currentPage.'0';
             $files = [];
         }else{
-            if(count($data) < 20){
+            if(count($data) < 20){                                                                                      // Si il y a moins de 20 logs sur la page on ne va pas à la page suivante
                 echo $currentPage.($page/20);
             }else{
                 echo $currentPage.($page/20 +1);
@@ -76,7 +76,7 @@ session_start();
             </thead>
             <tbody>
             <?php
-                foreach($data as $infos){
+                foreach($data as $infos){                                                                               // On affiches toutes les lignes de logs chargées
                     echo "<tr><td id='colonne'>" . $infos[1] . "</td><td id='colonne'>" . $infos[2] . "</td></tr >";
                 }
 

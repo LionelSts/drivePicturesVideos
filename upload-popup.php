@@ -8,17 +8,16 @@
     $requete = "SELECT `nom_categorie` FROM `categorie`";
     $result = mysqli_query($link, $requete);
     $categorie = [];
-    while($row = mysqli_fetch_array($result)){
+    while($row = mysqli_fetch_array($result)){                                                                              // on stock les catégories dans un tableau
         $categorie[] = $row['nom_categorie'];
     }
-
-    foreach($categorie as $value) {
+    foreach($categorie as $value) {                                                                                         // Dans un tableau à double entré en réunis tags et catégories
         foreach ($data as list($value1, $value2)) {
             if($value == $value2) {
                 $tab[] = $value1;
             }
         }
-        if(!empty($tab)){
+        if(!empty($tab)){                                                                                                   // On évite les erreurs si une catégorie est vide
             $final_tab[] = $tab;
         }else{
             $final_tab[] = [];
@@ -37,7 +36,7 @@
             <div>
                 <p class="bold">Tags :</p>
             </div>
-            <?php
+            <?php                                                                                                       // On affiche toutes les catégories
             $i = 0;
             foreach ($final_tab as $value1) {
                 echo('
@@ -46,7 +45,7 @@
                             <div class="uploadsTagList" >
                             <div id="list' . $categorie[$i] . '">'
                 );
-                foreach ($value1 as $value2) {
+                foreach ($value1 as $value2) {                                                                          // Et leurs tags
                     echo('
                                 <label class="checkboxContainer">' . $value2 . '
                                     <input type="checkbox" id="' . $value2 . '" name="'. $categorie[$i] .'-' .  $value2 . '" value="Yes">
@@ -54,7 +53,7 @@
                                 </label>'
                     );
                 }
-                $i++;
+                $i++;                                                                                                   // Et un élément pour pouvoir ajouter un tag à une catégorie
                 echo '          </div>  
                                 <div class="newTag">
                                     <input id="newTag'.$categorie[$i-1].'" type="text" name="newTag" > <label onclick="addTag(`'.$categorie[$i-1].'`)" >+</label>
@@ -75,14 +74,13 @@
 
 <script src="addTag.js"></script>
 <script>
-    function loadingFiles()
+    function loadingFiles()                                                                                             // On affiche le gif de chargement
     {
         document.getElementById("loading").style.display = "block";
     }
-
-    function closePopup(){
+    function closePopup(){                                                                                              // On fait disparaitre la popUp d'upload
         document.getElementById("uploadPopUp").style.display = "none";
     }
-    document.getElementById("uploadPopUp").style.display = "none";
+    document.getElementById("uploadPopUp").style.display = "none";                                                      // On cache ces deux éléments au chargement
     document.getElementById("loading").style.display = "none";
 </script>

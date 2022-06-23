@@ -1,38 +1,66 @@
+// Clic pour la corbeille, mêm fonctionnement que dans le module précédent mais avec une actino différe te
 document.getElementById("checkActionButtons").hidden = true;
 let activeContent;
 
 let file =  document.getElementsByClassName('fichierContainer');
 
-function ListenersClicDroit(){
-    for(let i = 0; i < file.length; i++){
-        let id = file[i].children[0].children[0].children[0].id;
-        file[i].addEventListener('contextmenu', function (e){
-            e.preventDefault();
-            $.post( "actions/right_click_corbeille-action.php", { id: id }, function( data ) {
-                document.getElementById('filesDisplayContainer').innerHTML += data;
-                let div = document.getElementById('FileDataRequest');
-                div.style.position = 'absolute';
-                let posX = e.pageX;
-                let posY = e.pageY;
-                div.style.left = posX+"px";
-                div.style.top = posY+"px";
-                document.addEventListener('click', RemoveClickListener);
-            }, "html");
-        });
+let clicDroit = (id) => {                                                                                               // Fonction lors d'un clic droit
+    if(document.getElementById('FileDataRequest')) document.getElementById('FileDataRequest').remove();// Si il y avait déjà clic on l'enlève
+    let e = window.event;
+    e.preventDefault();
+    let x = e.pageX+1;                                                                                                  // On place la div à l'endroit de la souris (+1 pour que le double clic reste possible)
+    let y = e.pageY+1;
+    $.post( "actions/right_click_corbeille-action.php", { id: id }, function( data ) {                                            // On fait l'appel au fichier action qui nous donne le contenu
+        document.getElementById('filesDisplayContainer').innerHTML += data;
+        let div = document.getElementById('FileDataRequest');
+        div.style.position = 'absolute';
+        div.style.left = x+"px";
+        div.style.top = y+"px";
+        clicsManager();                                                                                                 // On replace tous les listener qui sont enlevé par le innerhtml+=
+    }, "html");
+}
+
+let clicsManager = () => {                                                                                              // Fonction qui set tous les actions clic
+    document.onclick = () => bodyClick();
+    document.oncontextmenu = () => bodyClick();
+    ListenersClicDroit();
+    ListenersClicGauche();
+}
+
+let clicCheckBox = () => {                                                                                              // On empèche la propagation de nos events sur la checkbox
+    let e = window.event;
+    e.stopPropagation();
+    if(document.getElementById("FileDataRequest")) document.getElementById("FileDataRequest").remove();// Si on clic sur la checkbox, on enlève les autres menus
+}
+
+let bodyClick = () => {                                                                                                 // Fonction quand on clic autre part
+    let e= window.event;
+    if(e.target.className !== 'customCheckBox' && e.target.className !== 'miniatureFichier'){                           // Si c'est différent de la miniature et de la checkbox
+        if(document.getElementById("FileDataRequest")) document.getElementById("FileDataRequest").remove();// si il y a déjà eu un clic on enlève l'affichage
     }
 }
 
-function RemoveContextMenu(){
-    document.getElementById('FileDataRequest').remove();
+let ListenersClicDroit = () => {
+    for(let i = 0; i < file.length; i++){
+        let id = file[i].children[0].children[0].children[0].id;
+        file[i].oncontextmenu = () => clicDroit(id);
+    }
 }
 
-function RemoveClickListener(){
-    RemoveContextMenu();
-    ListenersClicDroit();
-    document.removeEventListener('click', RemoveClickListener);
-
-
+let ListenersClicGauche = () => {                                                                                       // Fonction qui set les onclick du clic gauche
+    for(let i = 0; i < file.length; i++){
+        let name = file[i].children[0].children[0].children[0].name;
+        file[i].onclick = () => clicGauche(name);
+    }
 }
+
+let clicGauche = (name) => {                                                                                            // Fonction lorsqu'un clic gauche a lieu
+    let e = window.event;
+    if(e.target.className !== 'customCheckBox'){
+        if(document.getElementById('FileDataRequest')) document.getElementById('FileDataRequest').remove();// Si il y avait déjà clic on l'enlève
+    }
+}
+
 function FileConvertSize(aSize){                                // Fonction servant à afficher la taille (de façon lisible) d'un fichier (argumetn en octet)
     aSize = Math.abs(parseInt(aSize, 10));
     let def = [[1, 'octets'], [1024, 'ko'], [1024*1024, 'Mo'], [1024*1024*1024, 'Go'], [1024*1024*1024*1024, 'To']];

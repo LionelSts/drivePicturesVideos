@@ -21,7 +21,7 @@ $result = mysqli_query($link, $requete);
 $categorie = [];
 while($row = mysqli_fetch_array($result)){
     $categorie[] = $row['nom_categorie'];
-}
+}                                                                                                                       // on récupère tous les noms de catégories
 ?>
 <body>
     <div id="header">
@@ -38,7 +38,7 @@ while($row = mysqli_fetch_array($result)){
                 <div class="tagsContainer">
 
                     <?php
-                    foreach ($categorie as $value1) {
+                    foreach ($categorie as $value1) {                                                                   // On affiche les catégories sauf Autre
                         if($value1 != "Autre"){
                         echo('<form class="profile" method="post" action="actions/tags-action.php">
                                 <div class="tagsLine">
@@ -60,9 +60,9 @@ while($row = mysqli_fetch_array($result)){
                         <div class="autreTagsContainer">
                             <?php
                             $counter =0;
-                            $requete = "SELECT `nom_tag` FROM `tags` WHERE `nom_categorie` = 'Autre'";
+                            $requete = "SELECT `nom_tag` FROM `tags` WHERE `nom_categorie` = 'Autre'";                  // On récupère tous les tags de la catégorie Autre
                             $result = mysqli_query($link, $requete);
-                            while($row = mysqli_fetch_array($result))
+                            while($row = mysqli_fetch_array($result))                                                   // Et on les affiche
                             {
                                 if($row["nom_tag"] != "Sans tag") {
                                     if ($counter % 2) {
@@ -90,9 +90,8 @@ while($row = mysqli_fetch_array($result)){
                 </form>
             <h1 class="bigTitle">Tags</h1>
             <div>
-
                 <?php
-                $requete = "SELECT `nom_categorie`,`nom_tag` FROM `tags`";
+                $requete = "SELECT `nom_categorie`,`nom_tag` FROM `tags`";                                              // On récupère tous les tags associés à leur catégorie
                 $result = mysqli_query($link, $requete);
                 $data = mysqli_fetch_all($result);
                 $map = new Map;
@@ -102,15 +101,15 @@ while($row = mysqli_fetch_array($result)){
                     $map->put($tag[0],$tempArray);
                 }
                 foreach ($map as $key => $value){
-                    echo '<h2 class="mediumTitle"> '.$key.' </h2><div class="tagsContainer">';
-                    foreach ($value as $tag) {
+                    echo '<h2 class="mediumTitle"> '.$key.' </h2><div class="tagsContainer">';                          // Nom de la catégorie
+                    foreach ($value as $tag) {                                                                          // Pour chaque tags de cette catégorie (sauf sans tag)
                         if ($tag != "Sans tag") {
                             echo '<form  class="profile" method="post" action="actions/tags-action2.php">
                                 <div class="tagsLine">
                                     <label for="nom" id="nom">' . $tag . '</label>
                                     <input type="text" id="nomCategorie" name="nomTag" value="' . $tag . '">
                                     <select class="tag-select role-select" id="account" name="categorie">';
-                            $counter = 0;
+                            $counter = 0;                                                                               // On charge les catégories pour pouvoir les déplacer
                             foreach ($categorie as $categ) {
                                 if ($categ == $key && $counter % 2) echo '<option class="role-choices" selected>' .$categ. '</option>';
                                 else if ($categ == $key) echo '<option class="role-choices-1" selected>' .$categ. '</option>';
@@ -136,7 +135,7 @@ while($row = mysqli_fetch_array($result)){
                         <input type="text" id="nomCategorie" name="nomTag">
                         <label for='account'></label><select class="tag-select role-select" id='account' name='categorie'>
                                 <?php
-                                $counter =0;
+                                $counter =0;                                                                            // On affiche toutes les catégories pour choisir dans la quelle on met notre tag créé
                                 foreach ($categorie as $categ){
                                     if($counter%2) echo '<option class="role-choices" value ="'.$categ.'">'.$categ.'</option>';
                                     else echo '<option class="role-choices-1" value="'.$categ.'">'.$categ.'</option>';

@@ -1,5 +1,5 @@
 <?php
-
+// Fonction de cadrage de la miniature
 function createThumbnail($path, $dest, $Width, $Height): bool
 {
     $resize_Width=$Width;
@@ -13,7 +13,7 @@ function createThumbnail($path, $dest, $Width, $Height): bool
     $dest_x=0;
     $dest_y=0;
 
-    //resize image
+    // Redimensionnement de l'image
     if($imgWidth<=$imgHeight){
         $resize_Width=floor($Height*$ratio);
         $dest_x = intval(($Width - $resize_Width) / 2);
@@ -22,10 +22,10 @@ function createThumbnail($path, $dest, $Width, $Height): bool
         $resize_Height=floor($Width/$ratio);
         $dest_y = intval(($Height - $resize_Height) / 2);
     }
-    $thumbnail = imagecreatetruecolor($Width, $Height);
+    $thumbnail = imagecreatetruecolor($Width, $Height);                                                                 // On créé une nouvelle image
     imagealphablending( $thumbnail, false );
     imagesavealpha( $thumbnail, true );
-    imagecopyresampled(
+    imagecopyresampled(                                                                                                 // On colle l'ancienne image dessus et au centre
         $thumbnail,
         $image,
         $dest_x, $dest_y, 0, 0,
