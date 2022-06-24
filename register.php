@@ -22,6 +22,8 @@
         <label class="textConnexion" for="password">Créez votre mot de passe :</label><br>
         <input class="loginInputs" type="password" name="password" id="password" required/>
         <br>
+        <label id="tipsPassword" >Votre mot de passe doit contenir 8 caractères dont (1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial)</label>
+        <br>
         <br>
         <input type="submit" name="Connection" id="Connection" value="Confirmer"/>
         <br>

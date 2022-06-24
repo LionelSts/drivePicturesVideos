@@ -62,7 +62,7 @@ else if(isset($_POST["modifier"])){ // si l'utilisateur clique sur le bouton "mo
             $stmt->execute();
             echo '<script> alert("Compte crée avec succés."); window.location.replace("../accounts.php");</script>'; // redirection vers la page de gestions des comptes
         }
-        else echo '<script> alert("Veuillez saisir un mot de passe contenant au minimum 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial."); window.location.replace("../accounts.php");</script>';   //si le mot de passe ne respecte pas les régles, on affiche un message d'erreur et on réactualise la page
+        else echo '<script> alert("Veuillez saisir un mot de passe contenant au minimum 8 caractères (dont 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial)."); window.location.replace("../accounts.php");</script>';   //si le mot de passe ne respecte pas les régles, on affiche un message d'erreur et on réactualise la page
     }else{
         $requete = "UPDATE `utilisateurs` SET `prenom` = ?, `nom` = ?, `role` = ?, `descriptif` = ? WHERE `mail` = ?";   // on met à jour les informations (sauf le mot de passe) du compte dans la bdd
         $stmt = $link->prepare($requete);

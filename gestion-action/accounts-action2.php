@@ -90,7 +90,7 @@ else    // si le mail n'existe pas dans la bdd...
                 'prenom' => $prenom
             ];
         }
-        else echo '<script> alert("Veuillez saisir un mot de passe contenant au minimum 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial."); window.location.replace("../accounts.php");</script>';   //si le mot de passe ne respecte pas les régles, on affiche un message d'erreur et on réactualise la page
+        else echo '<script> alert("Veuillez saisir un mot de passe contenant au minimum 8 caractères (dont 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial)."); window.location.replace("../accounts.php");</script>';   //si le mot de passe ne respecte pas les régles, on affiche un message d'erreur et on réactualise la page
     }
     else echo '<script> alert("Erreur"); window.location.replace("../accounts.php");</script>';
 

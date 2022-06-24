@@ -53,7 +53,7 @@ if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté."
                         </select>
                     </div>
                 </div>
-                    <input class="profile" type="submit" value="Appliquer les modifications">
+                <input class="profile" type="submit" value="Appliquer les modifications">
             </form>
         </div>
     </div>

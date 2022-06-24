@@ -1068,3 +1068,11 @@ input{
     border-left: #EA001C 2px solid;
 }
 
+/*******************************/
+/* Page register et mdp oublié */
+/*******************************/
+
+#tipsPassword{
+    color: #EBEAD4;
+    max-width: 40%;
+}
