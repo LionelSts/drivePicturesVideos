@@ -1,5 +1,5 @@
 <?php
-session_start();    // démarage de la session
+session_start();    // démarrage de la session
 require_once './vendor/autoload.php';
 //Include Google Configuration File
 include('./gconfig.php');

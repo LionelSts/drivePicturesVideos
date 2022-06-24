@@ -484,14 +484,14 @@ input{
     border: 1px solid #EBEAD4;
 }
 
-/* On fait la croix qui ne se montre que coché */
+/* On fait la croix qui ne se montre que cochée */
 .customCheckBox:after, .redCheckbox:after {
     content: "";
     position: absolute;
     display: none;
 }
 
-/* On fait la croix qui ne se montre que coché */
+/* On fait la croix qui ne se montre que cochée */
 .customCheckBox:before, .redCheckbox:before {
     content: "";
     position: absolute;

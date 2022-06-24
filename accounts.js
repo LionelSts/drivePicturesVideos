@@ -9,7 +9,7 @@ function formReload(index){
     document.getElementById('descriptif2').value = index.get(mail)[4];
 }
 
-// affichage du choux des tags ou non
+// affichage du choix des tags ou non
 let code = document.getElementById("tags1").innerHTML;
 function check(index) {
     if (index === 1) {                                              // tags à la création

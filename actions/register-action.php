@@ -1,6 +1,6 @@
 <?php
     session_start();    // lancement de la session
-    $regex = "/^(?=.*\w)(?=.*\W)[\w\W]{8,}$/";  // expression régulière des régles du mot de passe
+    $regex = "/^(?=.*\w)(?=.*\W)[\w\W]{8,}$/";  // expression régulière des règles du mot de passe
     $tmpPsw = $_GET['tmpPsw'];  // récupération du mot de passe par la méthode GET
     $psw = $_POST['password'];
     $mail = $_POST["email"];    // récupération du mail saisi
@@ -23,7 +23,7 @@
             $stmt->bind_param("ss", $psw,$mail);
             $stmt->execute();
             echo '<script> alert("Nouveau mot de passe enregistré."); window.location.replace("../index.php");</script>';  // redirection vers le login avec un message de confirmation
-        } else {    // mot de passe ne respectant pas les régles => redirection + message d'erreur
+        } else {    // mot de passe ne respectant pas les règles => redirection + message d'erreur
             echo '<script> alert("Veuillez saisir un mot de passe contenant au minimum 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial.")</script>;';
             echo '<script> window.location.replace("../register.php?tmpPsw='. $tmpPsw .'");</script>';
         }

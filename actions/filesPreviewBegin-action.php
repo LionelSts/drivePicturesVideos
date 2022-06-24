@@ -10,7 +10,7 @@ $stmt->bind_param("i", $fileId);
 $stmt->execute();
 $result = $stmt->get_result();
 $data = mysqli_fetch_array($result);
-$fileCodedName = './fichiers/'.$data[0] .".". $fileExtension;                           // chemin d'accés du fichier
+$fileCodedName = './fichiers/'.$data[0] .".". $fileExtension;                           // chemin d'accès du fichier
 $filePath = '.'.$fileCodedName;
 $fileName = $_POST['fileName'].'.'.$fileExtension;
 $htmlCode = '<div id="filePreviewContainerDiv" class="filePreviewContainer" ><div id="previewHeader"><h1>'.htmlspecialchars($_POST['fileName'], ENT_QUOTES, 'UTF-8').'</h1>

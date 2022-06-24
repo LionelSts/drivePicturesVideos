@@ -7,7 +7,7 @@ $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ; // connexion à l
 $link->query('SET NAMES utf8');
 if(isset($_GET["code"]))
 {
-    // On récup_re le token de connexion
+    // On récupère le token de connexion
     $token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);
     // on vérifie qu'il n'y a aucune erreur
     if(!isset($token['error']))
@@ -22,7 +22,7 @@ if(isset($_GET["code"]))
         $mail =  $data['email'];
         $prenom = $data['given_name'];
         $nom = $data['family_name'];
-        $requete = "SELECT `role`, `etat` FROM `utilisateurs` WHERE `mail` = ? "; // On vérifie que l'utilisateur peux se connecter (l'etat de son compte) et on récupère son role pour initialiser sa session
+        $requete = "SELECT `role`, `etat` FROM `utilisateurs` WHERE `mail` = ? "; // On vérifie que l'utilisateur peut se connecter (l'etat de son compte) et on récupère son role pour initialiser sa session
         $stmt = $link->prepare($requete);
         $stmt->bind_param("s", $mail);
         $stmt->execute();

@@ -1,7 +1,7 @@
-document.getElementById("checkActionButtons").hidden = true;                                                   // On cache les bouttons actions au chargement
+document.getElementById("checkActionButtons").hidden = true;                                                   // On cache les boutons actions au chargement
 let activeContent;
 
-let file =  document.getElementsByClassName('fichierContainer');                                              // On récupère tous le container de fichier (tous l'affichage
+let file =  document.getElementsByClassName('fichierContainer');                                              // On récupère tous les containers de fichiers (tout l'affichage)
 
 let ListenersClicDroit = () => {
     for(let i = 0; i < file.length; i++){
@@ -22,7 +22,7 @@ let clicDroit = (id) => {                                                       
         div.style.position = 'absolute';
         div.style.left = x+"px";
         div.style.top = y+"px";
-        clicsManager();                                                                                                 // On replace tous les listener qui sont enlevé par le innerhtml+=
+        clicsManager();                                                                                                 // On replace tous les listeners qui sont enlevés par le innerhtml+=
     }, "html");
 }
 
@@ -45,7 +45,7 @@ let clicGauche = (name) => {                                                    
             div.style.position = 'absolute';
             div.style.left = x+"px";
             div.style.top = y+"px";
-            clicsManager();                                                                                             // On replace tous les listener qui sont enlevé par le innerhtml+=
+            clicsManager();                                                                                             // On replace tous les listeners qui sont enlevés par le innerhtml+=
         }, "html");
     }
 }
@@ -64,14 +64,14 @@ let clicsManager = () => {                                                      
     ListenersClicGauche();
 }
 
-let bodyClick = () => {                                                                                                 // Fonction quand on clic autre part
+let bodyClick = () => {                                                                                                 // Fonction quand on clique autre part
     let e= window.event;
     if(e.target.className !== 'customCheckBox' && e.target.className !== 'miniatureFichier'){                           // Si c'est différent de la miniature et de la checkbox
         if(document.getElementById("FileDataRequest")) document.getElementById("FileDataRequest").remove();// si il y a déjà eu un clic on enlève l'affichage
     }
 }
 
-function FileConvertSize(aSize){                                // Fonction servant à afficher la taille (de façon lisible) d'un fichier (argumetn en octet)
+function FileConvertSize(aSize){                                // Fonction servant à afficher la taille (de façon lisible) d'un fichier (argument en octets)
     aSize = Math.abs(parseInt(aSize, 10));
     let def = [[1, 'octets'], [1024, 'ko'], [1024*1024, 'Mo'], [1024*1024*1024, 'Go'], [1024*1024*1024*1024, 'To']];
     for(let i=0; i<def.length; i++){
@@ -79,7 +79,7 @@ function FileConvertSize(aSize){                                // Fonction serv
     }
 }
 
-let buttonsAction = () => {                                                     // Lorsque l'on coche quelque chose on affiche les options et mets à jour la taille total des fichiers selectionnés
+let buttonsAction = () => {                                                     // Lorsque l'on coche quelque chose on affiche les options et met à jour la taille totael des fichiers selectionnés
     activeContent = [];
     const e =  document.getElementsByTagName('input');
     let totalFilesSize = 0;
@@ -169,5 +169,5 @@ let deleteFiles = (name = activeContent) => {                                   
     document.getElementById('download').click();
 }
 
-ListenersClicDroit();                                                                                                   // On set tous les listener
+ListenersClicDroit();                                                                                                   // On set tous les listeners
 ListenersClicGauche();

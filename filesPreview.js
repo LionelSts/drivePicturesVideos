@@ -11,7 +11,7 @@ let playFile = (file, fileName) => {
     }, "html");
 }
 
-// Fonction qui set tous les evenets on click pour le double click
+// Fonction qui set tous les events onclick pour le doubleclick
 let setListener = () => {
     if(document.getElementById('filePreviewContainerDiv')) document.getElementById('filePreviewContainerDiv').remove();
     for(let i = 0; i < files.length; i++){

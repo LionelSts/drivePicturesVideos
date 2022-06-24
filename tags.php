@@ -1,5 +1,5 @@
 <?php
-session_start();// démarage de la session
+session_start();// démarrage de la session
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -139,7 +139,7 @@ while($row = mysqli_fetch_array($result)){
                         <label for='account'></label>
                         <select class="tag-select role-select" id='account' name='categorie'>
                                 <?php
-                                $counter =0;                                                                            // On affiche toutes les catégories pour choisir dans la quelle on met notre tag créé
+                                $counter =0;                                                                            // On affiche toutes les catégories pour choisir dans laquelle on met notre tag créé
                                 foreach ($categorie as $categ){
                                     $categ = htmlspecialchars($categ, ENT_QUOTES, 'UTF-8');
                                     if($counter%2) echo '<option class="role-choices" value ="'.$categ.'">'.$categ.'</option>';

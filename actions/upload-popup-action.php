@@ -1,6 +1,6 @@
 <?php
-session_start();// démarage de la session
-require '../vendor/autoload.php';                                                                                       // on include les modules composer
+session_start();// démarrage de la session
+require '../vendor/autoload.php';                                                                                       // on include les modules composer (gestionnaire de librairies en PHP)
 include '../thumbnail.php';
 if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("../index.php");</script>';
 $name = $_SESSION["prenom"];
@@ -30,10 +30,10 @@ $tags_file = array();
 $requete = "SELECT `nom_tag` FROM `tags`";                                                                              // On récupère tous les noms de tags
 $requestTags = mysqli_query($link, $requete)->fetch_all(MYSQLI_ASSOC);
 $tagList = array();
-foreach ($requestTags as $value){                                                                                       // On stock tous les noms dans un tableau
+foreach ($requestTags as $value){                                                                                       // On stocke tous les noms dans un tableau
     $tagList[] = strval($value["nom_tag"]);
 }
-foreach ($str_arr as $tag){                                                                                             // Pour chaque tag on vérifie qu'il soit dans déjà existant, si non, on le créé
+foreach ($str_arr as $tag){                                                                                             // Pour chaque tag on vérifie qu'il soit déjà existant, sinon, on le créé
     $isIn = array_search(strval($tag[1]), $tagList, -1);
     if($isIn == -1){
         $requete = "INSERT INTO tags (`nom_tag`, `nom_categorie`) VALUES (?, ?)";
@@ -47,7 +47,7 @@ foreach ($str_arr as $tag){                                                     
     }
     $tags_file[]=str_replace("_", " ", $tag[1]);                                                           // On remplace les _ par des espaces (encodage lors du POST)
 }
-for($i = 0 ; $i < $countfiles ; $i++){                                                                                  // Pour chaque fichiers uploadés
+for($i = 0 ; $i < $countfiles ; $i++){                                                                                  // Pour chaque fichier uploadé
     $requete = "SELECT `nom_stockage` FROM `fichiers`";                                                                 // On récupère tous les noms de stockage dans fichier
     $result = mysqli_query($link, $requete);
     $filesName = [];
@@ -55,7 +55,7 @@ for($i = 0 ; $i < $countfiles ; $i++){                                          
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $nomFichier = '';
     for ($y = 0; $y < 65; $y++) {
-        $nomFichier .= $characters[rand(0, strlen($characters)-1)];                                                     // On génère un nom aléatoirement de characters
+        $nomFichier .= $characters[rand(0, strlen($characters)-1)];                                                     // On génère un nom aléatoirement de caractères
     }
     while(array_search($nomFichier, $filesName)){                                                                       // Si il existe déjà, on recommence avec un autre jusqu'à ce qu'il soit nouveau
         $nomFichier = '';
@@ -77,7 +77,7 @@ for($i = 0 ; $i < $countfiles ; $i++){                                          
         move_uploaded_file($_FILES['file']['tmp_name'][$i],'../fichiers/'.$nomFichier.'.'.$extension);                  // On met le fichier téléversé dans le dossier de stockage serveur
         $filePath = '../fichiers/'.$nomFichier.'.'.$extension;
         $size = $_FILES['file']['size'][$i];
-        if(str_contains($_FILES['file']['type'][$i], "video")){                                                   // Si c'est une vidéo un prend la miniature type et récupère la durée
+        if(str_contains($_FILES['file']['type'][$i], "video")){                                                   // Si c'est une vidéo on prend la miniature type et récupère la durée
             // We create thumbnail
             copy('../images/thumbnail.png', '../miniatures/'.$nomFichier.'.png');
             // We get duration
@@ -87,7 +87,7 @@ for($i = 0 ; $i < $countfiles ; $i++){                                          
         }
         else{
             $duree = '00:00:00';
-            imagepng(imagecreatefromstring(file_get_contents($filePath)), '../miniatures/'.$nomFichier.'.png');     // Si c'est une image on créé une miniature et met la duree à 0
+            imagepng(imagecreatefromstring(file_get_contents($filePath)), '../miniatures/'.$nomFichier.'.png');     // Si c'est une image on créé une miniature et met la durée à 0
         }
         $path = '../miniatures/'.$nomFichier.'.png';
         createThumbnail($path, $path, 267, 197);                                                           // On redimensionne la miniature au bon format
@@ -105,7 +105,7 @@ for($i = 0 ; $i < $countfiles ; $i++){                                          
             $stmt = $link->prepare($requete);
             $stmt->bind_param("is", $id, $tag);
             $stmt->execute();
-        }                                                                                                               // On stock les tags par fichier
+        }                                                                                                               // On stocke les tags par fichier
         $requete = "INSERT INTO `tableau_de_bord` (`modification`) VALUES (CONCAT('Compte ',?,' ',?,' (',?,') a téléversé le fichier ',?,' avec le(s) tag(s) : ',?))";
         $stmt = $link->prepare($requete);
         $stmt->bind_param("sssss", $lastname, $name,$role2,$filename,$chaine);

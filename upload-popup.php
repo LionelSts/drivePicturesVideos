@@ -11,7 +11,7 @@
     while($row = mysqli_fetch_array($result)){                                                                              // on stock les catégories dans un tableau
         $categorie[] = $row['nom_categorie'];
     }
-    foreach($categorie as $value) {                                                                                         // Dans un tableau à double entré en réunis tags et catégories
+    foreach($categorie as $value) {                                                                                         // Dans un tableau à double entrées on réunit tags et catégories
         foreach ($data as list($value1, $value2)) {
             if($value == $value2) {
                 $tab[] = $value1;

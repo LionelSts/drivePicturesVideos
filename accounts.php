@@ -19,7 +19,7 @@ session_start();
         const mapAccounts = new Map();
         <?php foreach ($data as $item) : ?>
         mapAccounts.set( '<?php echo $item[2] ?>', <?php echo json_encode($item)?>);
-        <?php endforeach; // Ici on stock tous infos des comptes dans une map javascript pour pouvoir s'en servir dynamiquement ?>
+        <?php endforeach; // Ici on stocke toutes les infos des comptes dans une map javascript pour pouvoir s'en servir dynamiquement ?>
     </script>
     <title>Gestion des comptes - DriveLBR</title>
 </head>
@@ -87,7 +87,7 @@ session_start();
                 </div>
             </div>
             <?php
-            // On charge les tags dans un arra yjavascript pour pouvoir les réutiliser plus tard
+            // On charge les tags dans un array javascript pour pouvoir les réutiliser plus tard
             $tableau = []; $i = 0;
             $requete2 = "SELECT * FROM `attribuer`";
             $result2 = mysqli_query($link, $requete2);
@@ -171,7 +171,7 @@ session_start();
                     <?php
                     // Ici on refait la même chose que précédement mais pour la création des comptes
                     $counter =0;
-                    // On adéjà exactement la même requête plus haut, pas besoin de la re-déclarer
+                    // On a déjà exactement la même requête plus haut, pas besoin de la re-déclarer
                     $result = mysqli_query($link, $requete);
                     while($row = mysqli_fetch_array($result))
                     {
@@ -224,9 +224,9 @@ session_start();
                     <tbody>
                     <?php
                     // On récupère tous les comptes en attentes
-                    $requete="SELECT `mail` FROM `utilisateurs` WHERE `etat` = 'en attente'"; // Preparing the request to verify the password where the login entered is found on the database
-                    $result = mysqli_query($link, $requete); // Saving the result
-                    while($row = mysqli_fetch_array($result)) // Searching the right line
+                    $requete="SELECT `mail` FROM `utilisateurs` WHERE `etat` = 'en attente'"; // On prépare la requête pour vérifier dans la base de données
+                    $result = mysqli_query($link, $requete); // On récupère le résultat
+                    while($row = mysqli_fetch_array($result)) // Pour chaque ligne
                     {
                         echo "<tr><td> ".$row["mail"]." </td><td><input class='profile' type='submit' name='".$row["mail"]."' value='Renvoyer le mail'></td></tr>";
                     }
@@ -244,9 +244,9 @@ session_start();
                     <tbody>
                     <?php
                     // On récupère tous les comptes supprimés
-                    $requete="SELECT `mail` FROM `utilisateurs` WHERE `etat` = 'inactif'"; // Preparing the request to verify the password where the login entered is found on the database
-                    $result = mysqli_query($link, $requete); // Saving the result
-                    while($row = mysqli_fetch_array($result)) // Searching the right line
+                    $requete="SELECT `mail` FROM `utilisateurs` WHERE `etat` = 'inactif'"; // Reqête SQL
+                    $result = mysqli_query($link, $requete); // Résultat de la requête
+                    while($row = mysqli_fetch_array($result)) // Pour chaque ligne on fait :
                     {
                         echo "<tr><td> ".$row["mail"]." </td><td><input class='profile' type='submit' name='".$row["mail"]."' value='Réactiver le compte'></td></tr>";
                     }

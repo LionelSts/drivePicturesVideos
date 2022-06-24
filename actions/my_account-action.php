@@ -1,5 +1,5 @@
 <?php
-    session_start();    // démarage de la session
+    session_start();    // démarrage de la session
     if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>'; // redirection vers le login si l'utilisateur n'est pas connecté
     $mail = $_SESSION['mail'];
     if($_SESSION['role'] == "admin"){   // si l'utilisateur est un admin...
@@ -20,7 +20,7 @@
     else{
         if($_POST['password'] != "" && preg_match($regex, $_POST['password']) && password_hash($_POST['password'], PASSWORD_BCRYPT) != $data['mot_de_passe']) $mdp = password_hash($_POST['password'], PASSWORD_BCRYPT); // si le mot de passe renseigné n'est pas nul alors on le hash
         else $mdp = $data['mot_de_passe'];  // dans le cas contraire où le mot de passe est celui de la bdd, on récupère le mot de passe dans le tableau précédent
-        $requete = "SELECT COUNT(*) FROM `utilisateurs` WHERE `role` = 'admin'";    // on compte le nombre d'admin dans la bdd
+        $requete = "SELECT COUNT(*) FROM `utilisateurs` WHERE `role` = 'admin'";    // on compte le nombre d'admins dans la bdd
         $result = mysqli_query($link,$requete);
         $countAdmin = mysqli_fetch_array($result);
         if ($_SESSION['role'] == "admin"){  // si l'utilisateur connecté est un admin...

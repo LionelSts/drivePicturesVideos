@@ -1,5 +1,5 @@
 <?php
-session_start();    // démarage de la session
+session_start();    // démarrage de la session
 include('../gconfig.php');
 if(isset($_SESSION['type'])){
     //Reset OAuth access token

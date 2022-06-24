@@ -1,12 +1,12 @@
 <?php
-session_start();    // démarage de la session
+session_start();    // démarrage de la session
 if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté.");window.location.replace("./index.php");</script>';  // redirection vers le login si l'utilisateur n'est pas connecté
 $link = mysqli_connect("127.0.0.1", "root", "", "drivelbr");    // connexion à la base de données
 $link->query('SET NAMES utf8');
 $name = $_SESSION["prenom"]; $lastname = $_SESSION["nom"]; $role2 = $_SESSION["role"];
 $mail = $_POST['selectedMail']; $prenom = $_POST['prenom']; $nom = $_POST['nom']; $mdp = $_POST['password']; $role = $_POST['role']; $descriptif = $_POST['descriptif2'];   // récupération des données du formulaire de Gestion des comptes
 $password = password_hash($mdp, PASSWORD_BCRYPT);   // hashage du mot de passe avec la méthode 'PASSWORD_BCRYPT'
-$chaine = urldecode(file_get_contents('php://input'));  // récupération de la liste des tags sélectionné en enlevant les données inutiles
+$chaine = urldecode(file_get_contents('php://input'));  // récupération de la liste des tags sélectionnés en enlevant les données inutiles
 $chaine=str_replace("selectedMail=".$mail."&nom=".$nom."&prenom=".$prenom."&descriptif2=".$descriptif."&role=".$role, '', $chaine);
 $chaine = str_replace("&listeTag=", ' ', $chaine);
 $chaine = str_replace("&modifier=Appliquer les modifications", '', $chaine);
@@ -28,7 +28,7 @@ else if(isset($_POST["modifier"])){ // si l'utilisateur clique sur le bouton "mo
     $stmt = $link->prepare($requete1);
     $stmt->bind_param("s", $mail);
     $stmt->execute();
-    $tab = explode(" ",$chaine);    // on récupère la chaine d'informations contenant les tags et on la convertit en tableau
+    $tab = explode(" ",$chaine);    // on récupère la chaine d'informations contenant les tags et on la converti en tableau
     $requete = "SELECT `nom_tag` FROM `tags`";
     $result = mysqli_query($link,$requete);
     $data = mysqli_fetch_all($result);
@@ -60,7 +60,7 @@ else if(isset($_POST["modifier"])){ // si l'utilisateur clique sur le bouton "mo
             $stmt = $link->prepare($requete);
             $stmt->bind_param("ssssss", $lastname,$name,$password,$role2,$mail,$role);
             $stmt->execute();
-            echo '<script> alert("Compte crée avec succés."); window.location.replace("../accounts.php");</script>'; // redirection vers la page de gestions des comptes
+            echo '<script> alert("Compte modifié avec succès."); window.location.replace("../accounts.php");</script>'; // redirection vers la page de gestions des comptes
         }
         else echo '<script> alert("Veuillez saisir un mot de passe contenant au minimum 8 caractères (dont 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial)."); window.location.replace("../accounts.php");</script>';   //si le mot de passe ne respecte pas les régles, on affiche un message d'erreur et on réactualise la page
     }else{

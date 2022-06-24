@@ -6,7 +6,7 @@ $stmt = $link->prepare($requete);
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
-$exist = mysqli_num_rows($result); // on associe la variable '$exists' au nombre d'apparition de l'email saisi dans la bdd
+$exist = mysqli_num_rows($result); // on associe la variable '$exists' au nombre d'apparitions de l'email saisi dans la bdd
 if($exist==1)   // si le mail existe dans la bdd...
 {
     $headers = "MIME-Version: 1.0" . "\r\n";
@@ -15,7 +15,7 @@ if($exist==1)   // si le mail existe dans la bdd...
     try {
         $tmpPassword = bin2hex(random_bytes(24));
     } catch (Exception $e) {
-    }   // génération automatique d'un mot de passe permetant "l'unicité" du lien
+    }   // génération automatique d'un mot de passe permettant "l'unicité" du lien
     $hashedPassword = password_hash($tmpPassword, PASSWORD_BCRYPT); // hashing du mot de passe
     $message = str_replace('registerLink', 'register.php?tmpPsw='.$tmpPassword, $message);  // message du mail avec lien
     $subject = 'Cliquez sur le lien pour rénitialiser votre mot de passe'; // sujet du mail

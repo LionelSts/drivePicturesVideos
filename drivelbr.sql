@@ -111,15 +111,6 @@ CREATE TABLE `tableau_de_bord` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `tableau_de_bord`
---
-
-INSERT INTO `tableau_de_bord` (`id_modif`, `date`, `modification`) VALUES
-(129, '2022-06-23 09:23:17', 'Compte Ranc Mathieu (admin) crée par Senechal pierre (admin) - choix du mot de passe par l`admin');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tags`
 --
 

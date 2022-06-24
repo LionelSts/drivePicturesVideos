@@ -1,5 +1,5 @@
 <?php
-session_start();    // démarage de la session
+session_start();    // démarrage de la session
 $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;  // connexion à la base de données
 $link->query('SET NAMES utf8');
 $requete = "SELECT `id` FROM `fichiers` ORDER BY `id` DESC LIMIT 1";
@@ -15,7 +15,7 @@ if(!empty($data)){
 }
 $files = explode(",",$_POST["fichiers"]);
 $page = $_POST['page'];
-foreach ($files as $file){                                                                                              // Pour hcaque fichier à restaurer
+foreach ($files as $file){                                                                                              // Pour chaque fichier à restaurer
     $id++;
     $fileName = substr($file,0,strpos($file, '.'));
     $requete = "SELECT * FROM `corbeille` WHERE `id` = ?";                                                      // On récupère ses infos
@@ -42,7 +42,7 @@ foreach ($files as $file){                                                      
     $requete = "INSERT INTO `fichiers` VALUES (?,?,?,?,?,?,?,?) ";
     $stmt = $link->prepare($requete);
     $stmt->bind_param("isssssis", $id,$nom_fichier,$extension,$auteur,$date,$duree,$size,$nom_stockage);
-    $stmt->execute();                                                                                   // On stock a nouveau les infos dans la table fichiers
+    $stmt->execute();                                                                                   // On stocke a nouveau les infos dans la table fichiers
     $requete = "INSERT INTO `caracteriser` VALUES ('?','Sans tag')";
     $stmt = $link->prepare($requete);
     $stmt->bind_param("i", $id);

@@ -1,4 +1,4 @@
-// Clic pour la corbeille, mêm fonctionnement que dans le module précédent mais avec une actino différe te
+// Clic pour la corbeille, même fonctionnement que dans le module précédent mais avec une action différente
 document.getElementById("checkActionButtons").hidden = true;
 let activeContent;
 
@@ -16,7 +16,7 @@ let clicDroit = (id) => {                                                       
         div.style.position = 'absolute';
         div.style.left = x+"px";
         div.style.top = y+"px";
-        clicsManager();                                                                                                 // On replace tous les listener qui sont enlevé par le innerhtml+=
+        clicsManager();                                                                                                 // On replace tous les listeners qui sont enlevés par le innerhtml+=
     }, "html");
 }
 
@@ -61,7 +61,7 @@ let clicGauche = (name) => {                                                    
     }
 }
 
-function FileConvertSize(aSize){                                // Fonction servant à afficher la taille (de façon lisible) d'un fichier (argumetn en octet)
+function FileConvertSize(aSize){                                // Fonction servant à afficher la taille (de façon lisible) d'un fichier (argument en octets)
     aSize = Math.abs(parseInt(aSize, 10));
     let def = [[1, 'octets'], [1024, 'ko'], [1024*1024, 'Mo'], [1024*1024*1024, 'Go'], [1024*1024*1024*1024, 'To']];
     for(let i=0; i<def.length; i++){
@@ -69,7 +69,7 @@ function FileConvertSize(aSize){                                // Fonction serv
     }
 }
 
-let buttonsAction = () => {                                                     // Lorsque l'on coche quelque chose on affiche les options et mets à jour la taille total des fichiers selectionnés
+let buttonsAction = () => {                                                     // Lorsque l'on coche quelque chose on affiche les options et met à jour la taille totale des fichiers selectionnés
     activeContent = [];
     const e =  document.getElementsByTagName('input');
     let totalFilesSize = 0;

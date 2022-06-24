@@ -34,7 +34,7 @@ foreach ($files as $file){       // On supprime tous les fichiers
     $delete_date = date('Y-m-d H:i:s');
     $delete_user = $_SESSION['mail'];
     rename('../fichiers/'.$nom_stockage.'.'.$extension, '../corbeille/'.$nom_stockage.'.'.$extension);          // On déplace le fichier dans la corbeille (serveur)
-    rename('../miniatures/'.$nom_stockage.'.png', '../corbeille/miniature-'.$nom_stockage.'.png');              // On déplace la mignature dans la corbeille (serveur)
+    rename('../miniatures/'.$nom_stockage.'.png', '../corbeille/miniature-'.$nom_stockage.'.png');              // On déplace la miniature dans la corbeille (serveur)
     $requete = "DELETE FROM `fichiers` WHERE `id` = ?";
     $stmt = $link->prepare($requete);
     $stmt->bind_param("i", $fileName);
@@ -47,7 +47,7 @@ foreach ($files as $file){       // On supprime tous les fichiers
     $stmt = $link->prepare($requete);
     $stmt->bind_param("isssssisss", $id,$nom_fichier,$extension,$auteur,$date,$duree,$size,$nom_stockage,$delete_date,$delete_user);
     $stmt->execute();
-    $requete = "INSERT INTO `tableau_de_bord` (`modification`) VALUES (CONCAT('Compte ',?,' ',?,' (',?,') ','a supprimé le fichier : ',?))";           // On logs les infos
+    $requete = "INSERT INTO `tableau_de_bord` (`modification`) VALUES (CONCAT('Compte ',?,' ',?,' (',?,') ','a supprimé le fichier : ',?))";           // On log les infos pour le journal de bord
     $stmt = $link->prepare($requete);
     $stmt->bind_param("ssss", $lastname,$name,$role2,$nom_fichier);
     $stmt->execute();

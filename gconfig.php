@@ -1,5 +1,5 @@
 <?php
-    // on inclus le module google installé avec composer
+    // on inclut le module google installé avec composer
     require_once 'vendor/autoload.php';
 
     // On créé l'objet google client

@@ -15,7 +15,7 @@ $data = mysqli_fetch_all($result);
 $zipname = '../temporary/driveLBR.zip';
 $zip = new ZipArchive;
 $zip->open($zipname, ZipArchive::CREATE);
-foreach ($data as $file) {                                                                                              // On met tous les fichiers dasn un zip avec leur nom de fichier (pas le nom de stockage)
+foreach ($data as $file) {                                                                                              // On met tous les fichiers dans un zip avec leur nom de fichier (pas le nom de stockage)
     $zip->addFile("../fichiers/".$file[0].".".$file[1], $file[2].".".$file[1]);
 }
 $zip->close();
@@ -27,18 +27,18 @@ if (headers_sent()) {
         header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');                                                   // Si le fichier n'existe pas, error 404
         echo 'File not found';
     } else if (!is_readable($zipname)) {
-        header($_SERVER['SERVER_PROTOCOL'] . ' 403 Forbidden');                                                   // Si le fichier n'est pas accesible pas, error 403
+        header($_SERVER['SERVER_PROTOCOL'] . ' 403 Forbidden');                                                   // Si le fichier n'est pas accessible, error 403
         echo 'File not readable';
     } else {
-        header($_SERVER['SERVER_PROTOCOL'] . ' 200 OK');                                                          // Si tout va bien on initialize le header pour les données que nous allons envoyer (un zip)
+        header($_SERVER['SERVER_PROTOCOL'] . ' 200 OK');                                                          // Si tout va bien on initialise le header pour les données que nous allons envoyer (un zip)
         header('Content-Type: application/zip');
         header("Content-Transfer-Encoding: Binary");
         header('Content-Length: ' . filesize($zipname));
         header("Content-Disposition: attachment; filename=\"" . basename($zipname) . "\"");
-        while (ob_get_level()) {                                                                                        // On vérifie que les données que nous avons ne sont pas corompus
+        while (ob_get_level()) {                                                                                        // On vérifie que les données que nous avons ne sont pas corrompues
             ob_end_clean();
         }
-        readfile($zipname);                                                                                             // On envoi le fichier
+        readfile($zipname);                                                                                             // On envoie le fichier
         ignore_user_abort(true);                                                                                 // On continue le script même si l'utilisateur abandonne
         unlink($zipname);                                                                                               // On supprime le zip
         exit();

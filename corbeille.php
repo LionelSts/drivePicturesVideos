@@ -1,5 +1,5 @@
 <?php
-session_start();// démarage de la session
+session_start();// démarrage de la session
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -14,7 +14,7 @@ if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté."
 
 if($_SESSION["role"] == 'lecture') echo '<script> alert("Vous n`êtes pas autorisé à accéder à cette page.");window.location.replace("./home.php");</script>';
 
-// fichier qui vérifie que les fichiers ne soit pas trop vieux (30jours)
+// fichier qui vérifie que les fichiers ne sont pas trop vieux (30jours)
 include './actions/checkCorbeille-action.php';
 ?>
 <body>
