@@ -61,7 +61,7 @@ else    // si le mail n'existe pas dans la bdd...
         $data = [                                                                                                       // On prépare les infos pour le mail
             'mailType ' => 'mdpRandom',
             'mailTo' => $mail,
-            'tmpPsw' => $hashedPassword,
+            'tmpPsw' => $tmpPassword,
             'nom' => $nom,
             'prenom' => $prenom
         ];

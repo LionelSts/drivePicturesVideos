@@ -35,7 +35,7 @@ foreach ($files as $file){                                                      
     $delete_user = $_SESSION['mail'];
     rename( '../corbeille/'.$nom_stockage.'.'.$extension, '../fichiers/'.$nom_stockage.'.'.$extension);        // On déplace le fichier
     rename( '../corbeille/miniature-'.$nom_stockage.'.png', '../miniatures/'.$nom_stockage.'.png');            // On déplace la miniature
-    $requete = "DELETE FROM `corbeille` WHERE `id` = $fileName";                                                        // on supprime la ligne de ce fichier dans la bdd de la corbeille
+    $requete = "DELETE FROM `corbeille` WHERE `id` = ?";                                                        // on supprime la ligne de ce fichier dans la bdd de la corbeille
     $stmt = $link->prepare($requete);
     $stmt->bind_param("i", $fileName);
     $stmt->execute();
@@ -43,7 +43,7 @@ foreach ($files as $file){                                                      
     $stmt = $link->prepare($requete);
     $stmt->bind_param("isssssis", $id,$nom_fichier,$extension,$auteur,$date,$duree,$size,$nom_stockage);
     $stmt->execute();                                                                                   // On stocke a nouveau les infos dans la table fichiers
-    $requete = "INSERT INTO `caracteriser` VALUES ('?','Sans tag')";
+    $requete = "INSERT INTO `caracteriser` VALUES (?,'Sans tag')";
     $stmt = $link->prepare($requete);
     $stmt->bind_param("i", $id);
     $stmt->execute();                                                                                     // On lui attribue un tag Sans tag

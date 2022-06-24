@@ -18,7 +18,7 @@
     if(password_verify($tmpPsw, $oldPsw)){  // vérification de la similitude du mot de passe récupéré et celui enregistré dans la bdd
         if(preg_match($regex, $psw)){   // si le mot de passe respecte les règles...
             $psw = password_hash($psw, PASSWORD_BCRYPT);    // hashage du mot de passe saisi
-            $requete = "UPDATE `utilisateurs` SET `mot_de_passe` = ?, `etat` = 'actif' WHERE `mail` = ? AND `etat` = 'en attente'";   // insertion du nouveau mot de passe dans la bdd
+            $requete = "UPDATE `utilisateurs` SET `mot_de_passe` = ?, `etat` = 'actif' WHERE `mail` = ?";   // insertion du nouveau mot de passe dans la bdd
             $stmt = $link->prepare($requete);
             $stmt->bind_param("ss", $psw,$mail);
             $stmt->execute();

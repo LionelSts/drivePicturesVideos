@@ -27,7 +27,7 @@ try {
     $data = [                                                                                                           // On prépare les infos pour le mail
         'mailType' => 'renvoyer',
         'mailTo' => $mail,
-        'tmpPsw' => $hashedPassword,
+        'tmpPsw' => $tmpPassword,
         'nom' => $nom,
         'prenom' => $prenom
     ];

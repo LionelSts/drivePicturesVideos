@@ -17,5 +17,8 @@ $stmt->execute();
 $result = $stmt->get_result();
 $data = mysqli_fetch_array($result);
 $adresse = $data["role"];
-$requete2 = "INSERT INTO tableau_de_bord (modification) VALUES ('Compte ".$lastname." ".$name." (".$role2.") a réactivé le compte ".$mail." (".$adresse.")')";
+$requete2 = "INSERT INTO tableau_de_bord (modification) VALUES (CONCAT('Compte ',?,' ',?,' (',?,') a réactivé le compte ',?,' (',?,')'))";
+$stmt = $link->prepare($requete);
+$stmt->bind_param("sssss", $lastname,$name,$role2,$mail,$adresse);
+$stmt->execute();
 header('location:../accounts.php'); // redirection vers la page "accounts.php"

@@ -52,9 +52,9 @@
             $stmt->execute();
         }
         else {
-            $requete = "UPDATE `tags` SET `nom_tag`=? WHERE `nom_categorie`=?";
+            $requete = "UPDATE `tags` SET `nom_tag`=? WHERE `nom_categorie`=? AND `nom_tag`=?";
             $stmt = $link->prepare($requete);
-            $stmt->bind_param("ss", $nomTag, $categorie);
+            $stmt->bind_param("sss", $nomTag, $categorie, $ancienTag);
             $stmt->execute();
             $requete = "INSERT INTO `tableau_de_bord` (`modification`) VALUES (CONCAT('Compte ',?,'  ',?,' (',?,') a renommé le tag ',?,' en ',?))";
             $stmt = $link->prepare($requete);

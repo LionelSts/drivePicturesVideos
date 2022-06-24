@@ -114,22 +114,24 @@ let tagSelection = (name = activeContent) => {    // Popup affichant les différ
     let allFiles="";
     name.forEach(file => allFiles+= file +",");
     for (let i =0; i < listTag.length; i++) {
-        if(counter%2){
-            window += "<div class='tag-choices'>" +
-                "          <label class='redCheckboxContainer'>" + listTag[i] +
-                "               <input type='checkbox' id='"+ listTag[i] +"' name='listeTag[]' value ='"+ listTag[i] +"' \>" +
-                "               <span class='tagChoiceCheckbox tagCheckbox redCheckbox'></span>\n" +
-                "           </label>\n" +
-                "     </div>";
-        }else{
-            window += "<div class='tag-choices-1'>" +
-                "          <label class='redCheckboxContainer'>" + listTag[i] +
-                "               <input type='checkbox' id='"+ listTag[i] +"' name='listeTag[]' value ='"+ listTag[i] +"' \>" +
-                "               <span class='tagChoiceCheckbox tagCheckbox redCheckbox'></span>\n" +
-                "           </label>\n" +
-                "     </div>";
+        if(listTag[i] !== 'Sans tag'){
+            if(counter%2){
+                window += "<div class='tag-choices'>" +
+                    "          <label class='redCheckboxContainer'>" + listTag[i] +
+                    "               <input type='checkbox' id='"+ listTag[i] +"' name='listeTag[]' value ='"+ listTag[i] +"' \>" +
+                    "               <span class='tagChoiceCheckbox tagCheckbox redCheckbox'></span>\n" +
+                    "           </label>\n" +
+                    "     </div>";
+            }else{
+                window += "<div class='tag-choices-1'>" +
+                    "          <label class='redCheckboxContainer'>" + listTag[i] +
+                    "               <input type='checkbox' id='"+ listTag[i] +"' name='listeTag[]' value ='"+ listTag[i] +"' \>" +
+                    "               <span class='tagChoiceCheckbox tagCheckbox redCheckbox'></span>\n" +
+                    "           </label>\n" +
+                    "     </div>";
+            }
+            counter++;
         }
-        counter++;
     }
     window += "</div>" +
         "<input type='checkbox' name=\"page\" value=\"" + page + "\" checked hidden>"+

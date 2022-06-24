@@ -13,15 +13,19 @@ $chaine = str_replace("&modifier=Appliquer les modifications", '', $chaine);
 if($_POST['password'] != '') $chaine = str_replace("&password=".$mdp, ' ', $chaine);    // si un mot de passe est renseigné, on le supprime de la chaine d'info précédente
 else $chaine = str_replace("&password=", ' ', $chaine); // sinon, on retire le caractère ' ' de la chaine
 if (isset($_POST["supprimer"])){    // si l'utilisateur clique sur le bouton "supprimer"
-    $requete = "UPDATE `utilisateurs` SET `etat` = 'inactif' WHERE `mail` = '$mail'";   // on place en "inactif" l'utilisateur dans la bdd
-    $stmt = $link->prepare($requete);
-    $stmt->bind_param("s", $mail);
-    $stmt->execute();
-    $requete = "INSERT INTO `tableau_de_bord` (`modification`) VALUES (CONCAT('Compte ',?,' ',?,' (',?,') a désactivé le compte ',?,' (',?,')'))";
-    $stmt = $link->prepare($requete);
-    $stmt->bind_param("sssss", $lastname,$name,$role2,$mail,$role);
-    $stmt->execute();
-    echo '<script> alert("Compte supprimé avec succès.");window.location.replace("../home.php");</script>'; // redirection vers la page d'accueil
+    if($_SESSION['mail'] == $mail){
+        echo '<script> alert("Vous ne pouvez pas supprimer votre propre compte.");window.location.replace("../accounts.php");</script>'; // redirection vers la page de gestions des comptes
+    }else{
+        $requete = "UPDATE `utilisateurs` SET `etat` = 'inactif' WHERE `mail` = ?";   // on place en "inactif" l'utilisateur dans la bdd
+        $stmt = $link->prepare($requete);
+        $stmt->bind_param("s", $mail);
+        $stmt->execute();
+        $requete = "INSERT INTO `tableau_de_bord` (`modification`) VALUES (CONCAT('Compte ',?,' ',?,' (',?,') a désactivé le compte ',?,' (',?,')'))";
+        $stmt = $link->prepare($requete);
+        $stmt->bind_param("sssss", $lastname,$name,$role2,$mail,$role);
+        $stmt->execute();
+        echo '<script> alert("Compte supprimé avec succès.");window.location.replace("../accounts.php");</script>'; // redirection vers la page de gestions des comptes
+    }
 }
 else if(isset($_POST["modifier"])){ // si l'utilisateur clique sur le bouton "modifier"
     $requete1 = "DELETE FROM `attribuer` WHERE `email` =?";   // on supprime les tags associés à cet email dans la bdd

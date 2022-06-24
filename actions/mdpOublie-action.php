@@ -1,25 +1,38 @@
 <?php
 $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;  // connexion à la bdd
 $email = $_POST["email"];
-$requete = "SELECT `mail` FROM `utilisateurs` WHERE `mail` = ? ";
+$requete = "SELECT `mail`, `nom`, `prenom` FROM `utilisateurs` WHERE `mail` = ? ";
 $stmt = $link->prepare($requete);
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
-$exist = mysqli_num_rows($result); // on associe la variable '$exists' au nombre d'apparitions de l'email saisi dans la bdd
-if($exist==1)   // si le mail existe dans la bdd...
+$account = mysqli_fetch_array($result);
+if(!empty($account))   // si le mail existe dans la bdd...
 {
-    $headers = "MIME-Version: 1.0" . "\r\n";
-    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
     $message = file_get_contents('template.html');
     try {
         $tmpPassword = bin2hex(random_bytes(24));
     } catch (Exception $e) {
     }   // génération automatique d'un mot de passe permettant "l'unicité" du lien
     $hashedPassword = password_hash($tmpPassword, PASSWORD_BCRYPT); // hashing du mot de passe
-    $message = str_replace('registerLink', 'register.php?tmpPsw='.$tmpPassword, $message);  // message du mail avec lien
-    $subject = 'Cliquez sur le lien pour rénitialiser votre mot de passe'; // sujet du mail
-    mail($email, $subject, $message, $headers);  // envoi du mail de confirmation
+    $requete = "UPDATE utilisateurs SET `mot_de_passe` = ? WHERE `mail` = ?"; // On met à jour la bdd avec ce mot de passe
+    $stmt = $link->prepare($requete);
+    $stmt->bind_param("ss", $hashedPassword,$email);
+    $stmt->execute();
+    $data = [                                                                                                           // On prépare les infos pour le mail
+        'mailType' => 'mdpOublie',
+        'mailTo' => $email,
+        'tmpPsw' => $tmpPassword,
+        'nom' => $account['nom'],
+        'prenom' => $account['prenom']
+    ];
+    $curl = curl_init('http://test-mail.lesbriquesrouges.fr/mails_grp12/sendMail.php');                             // On envoie le mail
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    $result = curl_exec($curl);
+    print_r($result);
+    curl_close($curl);
     echo '<script> alert("Un mail vous a été envoyé."); window.location.replace("../index.php"); </script>'; // on informe l'utilisateur et on le redirige vers la page d'accueil
 }
 else    // si le mail n'existe pas dans la bdd...
