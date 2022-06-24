@@ -13,7 +13,7 @@ $data = mysqli_fetch_array($result);
 $fileCodedName = './fichiers/'.$data[0] .".". $fileExtension;                           // chemin d'accés du fichier
 $filePath = '.'.$fileCodedName;
 $fileName = $_POST['fileName'].'.'.$fileExtension;
-$htmlCode = '<div id="filePreviewContainerDiv" class="filePreviewContainer" ><div id="previewHeader"><h1>'.$_POST['fileName'].'</h1>
+$htmlCode = '<div id="filePreviewContainerDiv" class="filePreviewContainer" ><div id="previewHeader"><h1>'.htmlspecialchars($_POST['fileName'], ENT_QUOTES, 'UTF-8').'</h1>
 <h1 style="cursor: pointer" onclick="clicsManager()">X</h1></div>';                                                     // On commence pas déclarer le container html
 if(str_contains(mime_content_type($filePath), "image/")){
     $htmlCode .= '<img alt="preview du fichier" src="' . $fileCodedName .'"></div>';                                    // Si c'est une image on le met dans une balise img

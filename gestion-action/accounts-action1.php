@@ -56,7 +56,11 @@ else if(isset($_POST["modifier"])){ // si l'utilisateur clique sur le bouton "mo
             $stmt = $link->prepare($requete);
             $stmt->bind_param("ssssss", $prenom,$nom,$password,$role,$descriptif,$mail);
             $stmt->execute();
-            echo '<script> alert("Compte modifié avec succès.");window.location.replace("../home.php");</script>';  // redirection vers la page d'accueil
+            $requete = "INSERT INTO `tableau_de_bord` (`modification`) VALUES (CONCAT('Compte ',?,' ',?,' (',?,') a modifié les informations du compte ',?,' (',?,')'))";
+            $stmt = $link->prepare($requete);
+            $stmt->bind_param("ssssss", $lastname,$name,$password,$role2,$mail,$role);
+            $stmt->execute();
+            echo '<script> alert("Compte crée avec succés."); window.location.replace("../accounts.php");</script>'; // redirection vers la page de gestions des comptes
         }
         else echo '<script> alert("Veuillez saisir un mot de passe contenant au minimum 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial."); window.location.replace("../accounts.php");</script>';   //si le mot de passe ne respecte pas les régles, on affiche un message d'erreur et on réactualise la page
     }else{
@@ -64,10 +68,10 @@ else if(isset($_POST["modifier"])){ // si l'utilisateur clique sur le bouton "mo
         $stmt = $link->prepare($requete);
         $stmt->bind_param("ssssss", $prenom,$nom,$role,$role,$descriptif,$mail);
         $stmt->execute();
-        echo '<script> alert("Compte modifié avec succès.");window.location.replace("../home.php");</script>';  // redirection vers la page d'accueil
+        $requete = "INSERT INTO `tableau_de_bord` (`modification`) VALUES (CONCAT('Compte ',?,' ',?,' (',?,') a modifié les informations du compte ',?,' (',?,')'))";
+        $stmt = $link->prepare($requete);
+        $stmt->bind_param("ssssss", $lastname,$name,$password,$role2,$mail,$role);
+        $stmt->execute();
+        echo '<script> alert("Compte crée avec succés."); window.location.replace("../accounts.php");</script>'; // redirection vers la page de gestions des comptes
     }
-    $requete = "INSERT INTO `tableau_de_bord` (`modification`) VALUES (CONCAT('Compte ',?,' ',?,' (',?,') a modifié les informations du compte ',?,' (',?,')'))";
-    $stmt = $link->prepare($requete);
-    $stmt->bind_param("ssssss", $lastname,$name,$password,$role2,$mail,$role);
-    $stmt->execute();
 }

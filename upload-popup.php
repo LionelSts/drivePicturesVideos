@@ -41,13 +41,13 @@
             foreach ($final_tab as $value1) {
                 echo('
                         <div class="uploadCategories">
-                            <p>' . $categorie[$i] . '</p>
+                            <p>' .htmlspecialchars($categorie[$i], ENT_QUOTES, 'UTF-8') . '</p>
                             <div class="uploadsTagList" >
                             <div id="list' . $categorie[$i] . '">'
                 );
                 foreach ($value1 as $value2) {                                                                          // Et leurs tags
                     echo('
-                                <label class="checkboxContainer">' . $value2 . '
+                                <label class="checkboxContainer">' . htmlspecialchars($value2, ENT_QUOTES, 'UTF-8') . '
                                     <input type="checkbox" id="' . $value2 . '" name="'. $categorie[$i] .'-' .  $value2 . '" value="Yes">
                                     <span class="customCheckBox"></span>
                                 </label>'
@@ -64,10 +64,10 @@
             ?>
         </div>
         <div id="lowPartUploads">
-                <div id="uploadsFiles">
-                    <input type="file" accept="image/*,video/*" name="file[]" id="file" multiple required>
-                </div>
-                <input id="uploadButton" type='submit' onclick='loadingFiles()' name='submit' value='Envoyer'>
+            <div id="uploadsFiles">
+                <input type="file" accept="image/*,video/*" name="file[]" id="file" multiple required>
+            </div>
+            <input id="uploadButton" type='submit' onclick='loadingFiles()' name='submit' value='Envoyer'>
         </div>
     </form>
 </div>

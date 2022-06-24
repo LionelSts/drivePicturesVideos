@@ -36,17 +36,17 @@ while($row = mysqli_fetch_array($result)){
             <h1 class="bigTitle">Gestion des tags</h1>
                 <h2 class="mediumTitle">Catégories : </h2>
                 <div class="tagsContainer">
-
                     <?php
                     foreach ($categorie as $value1) {                                                                   // On affiche les catégories sauf Autre
                         if($value1 != "Autre"){
+                            $categorie = htmlspecialchars($value1, ENT_QUOTES, 'UTF-8');
                         echo('<form class="profile" method="post" action="actions/tags-action.php">
                                 <div class="tagsLine">
-                                    <label for="nom" >' .$value1.'</label>
-                                    <input type="text" id="nomCategorie" name="nomCategorie" value="'.$value1.'">
-                                    <input type="submit" id="'.$value1.'" name="Modifier" value="Modifier">
-                                    <input type="submit" id="'.$value1.'" name="Supprimer" value="Supprimer">
-                                    <input hidden type="text" name="categorie" value="'.$value1.'">
+                                    <label for="nom" >' .$categorie.'</label>
+                                    <input type="text" id="nomCategorie" name="nomCategorie" value="'.$categorie.'">
+                                    <input type="submit" id="'.$categorie.'" name="Modifier" value="Modifier">
+                                    <input type="submit" id="'.$categorie.'" name="Supprimer" value="Supprimer">
+                                    <input hidden type="text" name="categorie" value="'.$categorie.'">
                                 </div>
                             </form>');
                         }
@@ -65,18 +65,19 @@ while($row = mysqli_fetch_array($result)){
                             while($row = mysqli_fetch_array($result))                                                   // Et on les affiche
                             {
                                 if($row["nom_tag"] != "Sans tag") {
+                                    $tag = htmlspecialchars($row["nom_tag"], ENT_QUOTES, 'UTF-8');
                                     if ($counter % 2) {
                                         echo "<div class='tag-choices'>
-                                                <label class='redCheckboxContainer'>" . $row["nom_tag"] . "
-                                                    <input type='checkbox' name='listeTag' value =" . $row["nom_tag"] . ">
+                                                <label class='redCheckboxContainer'>" . $tag . "
+                                                    <input type='checkbox' name='listeTag' value ='" . $tag . "'>
                                                     <span class='tagCheckbox redCheckbox'></span>
                                                 </label>
                                              </div>";
                                     } else {
                                         echo "<div class='tag-choices-1'>
-                                                <label class='redCheckboxContainer'>
-                                                    <input type='checkbox' name='listeTag' value =" . $row["nom_tag"] . ">
-                                                    <span class='tagCheckbox redCheckbox'></span>" . $row["nom_tag"] . "
+                                                <label class='redCheckboxContainer'>" . $tag . "
+                                                    <input type='checkbox' name='listeTag' value ='" . $tag . "'>
+                                                    <span class='tagCheckbox redCheckbox'></span>
                                                 </label>
                                              </div>";
                                     }
@@ -103,6 +104,7 @@ while($row = mysqli_fetch_array($result)){
                 foreach ($map as $key => $value){
                     echo '<h2 class="mediumTitle"> '.$key.' </h2><div class="tagsContainer">';                          // Nom de la catégorie
                     foreach ($value as $tag) {                                                                          // Pour chaque tags de cette catégorie (sauf sans tag)
+                        $tag = htmlspecialchars($tag, ENT_QUOTES, 'UTF-8');
                         if ($tag != "Sans tag") {
                             echo '<form  class="profile" method="post" action="actions/tags-action2.php">
                                 <div class="tagsLine">
@@ -111,6 +113,7 @@ while($row = mysqli_fetch_array($result)){
                                     <select class="tag-select role-select" id="account" name="categorie">';
                             $counter = 0;                                                                               // On charge les catégories pour pouvoir les déplacer
                             foreach ($categorie as $categ) {
+                                $categ = htmlspecialchars($categ, ENT_QUOTES, 'UTF-8');
                                 if ($categ == $key && $counter % 2) echo '<option class="role-choices" selected>' .$categ. '</option>';
                                 else if ($categ == $key) echo '<option class="role-choices-1" selected>' .$categ. '</option>';
                                 else if ($counter % 2) echo '<option class="role-choices">' .$categ. '</option>';
@@ -137,6 +140,7 @@ while($row = mysqli_fetch_array($result)){
                                 <?php
                                 $counter =0;                                                                            // On affiche toutes les catégories pour choisir dans la quelle on met notre tag créé
                                 foreach ($categorie as $categ){
+                                    $categ = htmlspecialchars($categ, ENT_QUOTES, 'UTF-8');
                                     if($counter%2) echo '<option class="role-choices" value ="'.$categ.'">'.$categ.'</option>';
                                     else echo '<option class="role-choices-1" value="'.$categ.'">'.$categ.'</option>';
                                     $counter++;

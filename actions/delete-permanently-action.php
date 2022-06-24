@@ -20,7 +20,7 @@ foreach ($files as $file){                                                      
     $nom_fichier = $data['nom_fichier'];
     unlink('../corbeille/'.$nom_stockage.'.'.$extension);
     unlink('../corbeille/miniature-'.$nom_stockage.'.png');                                                     // On supprime définitivement les fichiers (serveur)
-    $requete = "DELETE FROM `corbeille` WHERE `id` = $fileName";                                                        // On supprime définitivement les fichiers (bdd)
+    $requete = "DELETE FROM `corbeille` WHERE `id` = ?";                                                        // On supprime définitivement les fichiers (bdd)
     $stmt = $link->prepare($requete);
     $stmt->bind_param("i", $fileName);
     $stmt->execute();

@@ -201,12 +201,12 @@
             echo '<img alt="miniature du fichier '. $fichier[0] . '.' . $fichier[2] .'" class="miniatureFichier"  src="' . $miniature . '">';
 
             echo '      <p>
-                                <span class="fileNameContainer">'.$fichier[1].'.</span>
-                                <span class="fileExtensionContainer">'.$fichier[2].'</span>
+                            <span class="fileNameContainer">'.htmlspecialchars($fichier[1], ENT_QUOTES, 'UTF-8').'.</span>
+                            <span class="fileExtensionContainer">'.htmlspecialchars($fichier[2], ENT_QUOTES, 'UTF-8').'</span>
                         </p>
                         </div>
                         <p>
-                            Tags : '.$taglist.'
+                            Tags : '.htmlspecialchars($taglist, ENT_QUOTES, 'UTF-8').'
                         </p>
                    </div>';
         }
@@ -217,7 +217,7 @@
         $tags = mysqli_fetch_all($result);
         $tagsString = "[";
         foreach ($tags as $tag){                                                                                        // On met tous les tags dans une chaine de characters qui correspond à un array javascript
-            $tagsString .= "'".$tag[0]."'".",";
+            $tagsString .= "'".htmlspecialchars($tag[0], ENT_QUOTES, 'UTF-8')."'".",";
         }
         $tagsString = rtrim($tagsString, ',');
         $tagsString.=']';

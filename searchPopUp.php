@@ -45,13 +45,13 @@ $extensions = mysqli_fetch_all($result);
                 if($value1){
                     echo('
                             <div class="uploadCategories">
-                                <p>' . $categorie[$i] . '</p>
+                                <p>' . htmlspecialchars($categorie[$i], ENT_QUOTES, 'UTF-8') . '</p>
                                 <div class="uploadsTagList" >
                                 <div id="list' . $categorie[$i] . '">'
                     );
                     foreach ($value1 as $value2) {
                         echo('
-                                    <label class="checkboxContainer">' . $value2 . '
+                                    <label class="checkboxContainer">' . htmlspecialchars($value2, ENT_QUOTES, 'UTF-8') . '
                                         <input type="checkbox" id="' . $value2 . '" name="'. $categorie[$i] .'-' .  $value2 . '" value="Yes">
                                         <span class="customCheckBox"></span>
                                     </label>'
@@ -75,7 +75,7 @@ $extensions = mysqli_fetch_all($result);
             <?php
             foreach ($extensions as $value1) {                                                                          // On affiche toutes les extensions
                 echo('<div class="extensionsContainer" >
-                            <label class="checkboxContainer">' . $value1[0] . '
+                            <label class="checkboxContainer">' . htmlspecialchars($value1[0], ENT_QUOTES, 'UTF-8') . '
                                 <input type="checkbox" id="' . $value1[0] . '" name="extension-' .  $value1[0] . '" value="Yes">
                                 <span class="customCheckBox"></span>
                             </label>

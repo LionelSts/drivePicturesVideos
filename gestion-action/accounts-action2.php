@@ -100,5 +100,5 @@ else    // si le mail n'existe pas dans la bdd...
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_exec($curl);
     curl_close($curl);
-    echo '<script> alert("Compte crée avec succés."); window.location.replace("../home.php");</script>'; // redirection vers la page d'accueil
+    echo '<script> alert("Compte crée avec succés."); window.location.replace("../accounts.php");</script>'; // redirection vers la page de gestions des comptes
 }

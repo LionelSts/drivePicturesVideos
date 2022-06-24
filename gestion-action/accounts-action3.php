@@ -38,4 +38,4 @@ try {
     $result = curl_exec($curl);
     print_r($result);
     curl_close($curl);
-    // header('location:../accounts.php'); // on renvoie l'utilisateur vers la page "accounts.php"
+    header('location:../accounts.php'); // on renvoie l'utilisateur vers la page "accounts.php"

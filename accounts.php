@@ -48,9 +48,9 @@ session_start();
                         foreach ($data as $item) :
                             {
                                 if($counter%2){
-                                    echo "<option class='role-choices' value= ".$item[2].">".$item[2]."</option><br>";
+                                    echo "<option class='role-choices' value= '".$item[2]."'>". $item[2]."</option><br>";
                                 }else {
-                                    echo "<option class='role-choices-1' value= " . $item[2] . ">" . $item[2] . "</option><br>";
+                                    echo "<option class='role-choices-1' value= '" . $item[2] . "'>" . $item[2] . "</option><br>";
                                 }
                                 $counter++;
                             }
@@ -94,7 +94,7 @@ session_start();
             $data2 = mysqli_fetch_all($result2);
             $jsCode = "let tabTags = [];";
             foreach ($data2 as $info){
-                $jsCode .= 'tabTags.push(["'. $info[0] .'","'. $info[1] .'"]);';
+                $jsCode .= 'tabTags.push(["'. htmlspecialchars($info[0], ENT_QUOTES, 'UTF-8') .'","'. htmlspecialchars($info[1], ENT_QUOTES, 'UTF-8') .'"]);';
             }
             $jsCode .= 'let filtre = (mail) => tabTags.filter(word => word[0] == mail);';
             echo '<script>' . $jsCode . '</script>';
@@ -109,19 +109,19 @@ session_start();
                     while($row = mysqli_fetch_array($result))               // On charge les tags dans le menu déroulant
                     {
                         if($row["nom_tag"] != "Sans tag") {                 // Sauf le tag Sans tag
-                            $tag="'".$row["nom_tag"]."'";
+                            $tag = htmlspecialchars($row["nom_tag"], ENT_QUOTES, 'UTF-8');
                             if ($counter % 2) {
                                 echo "<div class='tag-choices'>
-                                            <label class='redCheckboxContainer'>" . $row["nom_tag"] . "
-                                                <input type='checkbox' id=".$row["nom_tag"]." name='listeTag' value =" . $tag . ">
+                                            <label class='redCheckboxContainer'>" . $tag . "
+                                                <input type='checkbox' id='".$tag."' name='listeTag' value ='".$tag."'>
                                                 <span class='tagCheckbox redCheckbox'></span>
                                             </label>
                                          </div>";
                             } else {
                                 echo "<div class='tag-choices-1'>
-                                            <label class='redCheckboxContainer'>
-                                                <input type='checkbox' id=".$row["nom_tag"]." name='listeTag' value =" . $tag . ">
-                                                <span class='tagCheckbox redCheckbox'></span>" . $row["nom_tag"] . "
+                                            <label class='redCheckboxContainer'>" . $tag . "
+                                                <input type='checkbox' id='".$tag."' name='listeTag' value ='".$tag."'>
+                                                <span class='tagCheckbox redCheckbox'></span>
                                             </label>
                                          </div>";
                             }
@@ -176,19 +176,19 @@ session_start();
                     while($row = mysqli_fetch_array($result))
                     {
                         if($row["nom_tag"] != "Sans tag") {
-                            $tag="'".$row["nom_tag"]."'";
+                            $tag=htmlspecialchars($row["nom_tag"], ENT_QUOTES, 'UTF-8');
                             if ($counter % 2) {
                                 echo "<div class='tag-choices'>
-                                                <label class='redCheckboxContainer'>" . $row["nom_tag"] . "
-                                                    <input type='checkbox' name='listeTag' value =" . $tag . ">
+                                                <label class='redCheckboxContainer'>" . $tag . "
+                                                    <input type='checkbox' name='listeTag' value ='" . $tag . "'>
                                                     <span class='tagCheckbox redCheckbox'></span>
                                                 </label>
                                              </div>";
                             } else {
                                 echo "<div class='tag-choices-1'>
-                                                <label class='redCheckboxContainer'>
-                                                    <input type='checkbox' name='listeTag' value =" . $tag . ">
-                                                    <span class='tagCheckbox redCheckbox'></span>" . $row["nom_tag"] . "
+                                                <label class='redCheckboxContainer'>" . $tag . "
+                                                    <input type='checkbox' name='listeTag' value =''" . $tag . "'>
+                                                    <span class='tagCheckbox redCheckbox'></span>
                                                 </label>
                                              </div>";
                             }

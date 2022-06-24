@@ -26,11 +26,11 @@ if(!isset($_SESSION["mail"])) echo '<script> alert("Vous n`êtes pas connecté."
             <form class="profile" method="post" action="actions/my_account-action.php">
                 <div class="formLine">
                     <label for="nom" >Nom : </label>
-                    <input class="profile" type="text" id="nom" name="nom" value='<?php echo $_SESSION["nom"]?>' <?php if($_SESSION['role'] != "admin") echo "disabled" ?> >
+                    <input class="profile" type="text" id="nom" name="nom" value='<?php echo htmlspecialchars($_SESSION["nom"], ENT_QUOTES, 'UTF-8') ?>' <?php if($_SESSION['role'] != "admin") echo "disabled" ?> >
                 </div>
                 <div class="formLine">
                     <label for="prenom">Prénom : </label>
-                    <input class="profile" type="text" id="prenom" name="prenom" value='<?php echo $_SESSION["prenom"]?>' <?php if($_SESSION['role'] != "admin") echo "disabled" ?> >
+                    <input class="profile" type="text" id="prenom" name="prenom" value='<?php echo htmlspecialchars($_SESSION["prenom"], ENT_QUOTES, 'UTF-8') ?>' <?php if($_SESSION['role'] != "admin") echo "disabled" ?> >
                 </div>
                 <div class="formLine">
                     <label for="mail">Adresse mail :</label>

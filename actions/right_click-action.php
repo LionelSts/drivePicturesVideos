@@ -8,7 +8,7 @@ $stmt->bind_param("i", $id);
 $stmt->execute();
 $result = $stmt->get_result();
 $file_data = mysqli_fetch_all($result);
-$requete = "SELECT `nom_tag` FROM `caracteriser` WHERE `id_fichier` = ?";                                           // On récupère les tags du fichier
+$requete = "SELECT `nom_tag` FROM `caracteriser` WHERE `id_fichier` = ?";                                               // On récupère les tags du fichier
 $stmt = $link->prepare($requete);
 $stmt->bind_param("i", $id);
 $stmt->execute();
@@ -19,7 +19,7 @@ foreach ($fileTags as $key=>$value){
     $taglist .= $value[0] ." ";
 }
 $mail = $file_data[0][4];
-$requete = "SELECT `nom`, `prenom` FROM `utilisateurs` WHERE `mail` = ?";                                         // On récupère le nom de l'auteur à partir de son mail
+$requete = "SELECT `nom`, `prenom` FROM `utilisateurs` WHERE `mail` = ?";                                               // On récupère le nom de l'auteur à partir de son mail
 $stmt = $link->prepare($requete);
 $stmt->bind_param("s", $mail);
 $stmt->execute();
@@ -33,9 +33,9 @@ function filesize_formatted($size) {                                            
 
 echo("
     <div id='FileDataRequest' class='clickMenu'> 
-        <div id='Titre'><p>".$file_data[0][0]."</p></div>
-        <div id='Auteur'><p>".$name[0][0]." ".$name[0][1]."</p></div>
-        <div id='Tags'><p>".$taglist."</p></div>
+        <div id='Titre'><p>".htmlspecialchars($file_data[0][0], ENT_QUOTES, 'UTF-8')."</p></div>
+        <div id='Auteur'><p>".htmlspecialchars($name[0][0], ENT_QUOTES, 'UTF-8')." ".htmlspecialchars($name[0][1], ENT_QUOTES, 'UTF-8')."</p></div>
+        <div id='Tags'><p>".htmlspecialchars($taglist, ENT_QUOTES, 'UTF-8')."</p></div>
         <div id='Date'><p>".$file_data[0][1]."</p></div>
         <div id='Taille_clicDroit'><p>".filesize_formatted($file_data[0][3])."</p></div>
         <div id='Durée'><p>".$file_data[0][2]."</p></div>

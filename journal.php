@@ -77,9 +77,8 @@ session_start();
             <tbody>
             <?php
                 foreach($data as $infos){                                                                               // On affiches toutes les lignes de logs chargées
-                    echo "<tr><td id='colonne'>" . $infos[1] . "</td><td id='colonne'>" . $infos[2] . "</td></tr >";
+                    echo "<tr><td id='colonne'>" . $infos[1] . "</td><td id='colonne'>" . htmlspecialchars($infos[2], ENT_QUOTES, 'UTF-8') . "</td></tr >";
                 }
-
             ?>
             </tbody>
         </table>

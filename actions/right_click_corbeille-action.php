@@ -10,13 +10,13 @@ $result = $stmt->get_result();
 $file_data = mysqli_fetch_all($result);
 $mail1 = $file_data[0][4];
 $mail2 = $file_data[0][6];
-$requete = "SELECT `nom`, `prenom` FROM `utilisateurs` WHERE `mail` = ?";                                        // On récupère le nom de l'auteur à partir de son mail
+$requete = "SELECT `nom`, `prenom` FROM `utilisateurs` WHERE `mail` = ?";                                               // On récupère le nom de l'auteur à partir de son mail
 $stmt = $link->prepare($requete);
 $stmt->bind_param("s", $mail1);
 $stmt->execute();
 $result = $stmt->get_result();
 $name = mysqli_fetch_all($result);
-$requete = "SELECT `nom`, `prenom` FROM `utilisateurs` WHERE `mail` = ?";                                        // On récupère le nom de la personne qui l'a supprimé à partir de son mail
+$requete = "SELECT `nom`, `prenom` FROM `utilisateurs` WHERE `mail` = ?";                                               // On récupère le nom de la personne qui l'a supprimé à partir de son mail
 $stmt = $link->prepare($requete);
 $stmt->bind_param("s", $mail2);
 $stmt->execute();
@@ -31,12 +31,12 @@ function filesize_formatted($size)
 
 echo("
     <div id='FileDataRequest' class='clickMenu'> 
-        <div id='Titre'><p>" . $file_data[0][0] . "</p></div>
-        <div id='Auteur'><p>" . $name[0][0] . " " . $name[0][1] . "</p></div>
+        <div id='Titre'><p>" . htmlspecialchars($file_data[0][0], ENT_QUOTES, 'UTF-8') . "</p></div>
+        <div id='Auteur'><p>" . htmlspecialchars($name[0][0], ENT_QUOTES, 'UTF-8') . " " . htmlspecialchars($name[0][1], ENT_QUOTES, 'UTF-8') . "</p></div>
         <div id='Date'><p>" . $file_data[0][1] . "</p></div>
         <div id='Taille_clicDroit'><p>" . filesize_formatted($file_data[0][3]) . "</p></div>
         <div id='Durée'><p>" . $file_data[0][2] . "</p></div>
-        <div id='Supprime'><p> Supprimé par " . $name1[0][0] . " " . $name1[0][1] . "</p></div>
+        <div id='Supprime'><p> Supprimé par " . htmlspecialchars($name1[0][0], ENT_QUOTES, 'UTF-8') . " " . htmlspecialchars($name1[0][1], ENT_QUOTES, 'UTF-8') . "</p></div>
         <div id='supprimeDate'><p> Supprimé le " . $file_data[0][5] . "</p></div>
     </div>"
 );                                                                                                                      // Le menu que l'on affiche
