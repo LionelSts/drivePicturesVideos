@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
     <title>Login - DriveLBR</title>
+    <link data-n-head="1" rel="icon" type="image/x-icon" href="./images/icons/favicon.ico">
 </head>
 
 <body>

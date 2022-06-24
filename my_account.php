@@ -7,6 +7,7 @@ session_start();// démarrage de la session
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
     <title>Mon compte - DriveLBR</title>
+    <link data-n-head="1" rel="icon" type="image/x-icon" href="./images/icons/favicon.ico">
 </head>
 
 <?php

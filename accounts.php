@@ -22,6 +22,7 @@ session_start();
         <?php endforeach; // Ici on stocke toutes les infos des comptes dans une map javascript pour pouvoir s'en servir dynamiquement ?>
     </script>
     <title>Gestion des comptes - DriveLBR</title>
+    <link data-n-head="1" rel="icon" type="image/x-icon" href="./images/icons/favicon.ico">
 </head>
 <body>
 <div id="header">

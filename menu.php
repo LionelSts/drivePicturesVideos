@@ -4,7 +4,6 @@
         $role = $_SESSION['role'];
         $html = "<div id='leftmenu'>
         <ul id='menurubrique'>
-        
             <li id='title' class='menuLine'><img alt='dossier' class='iconMenu' src='images/icons/home.png'><a href='home.php' id='page'>Accueil</a></li>
             <li id='title'>Mon compte</li><ul>";
         if($role != 'lecture') $html .= "

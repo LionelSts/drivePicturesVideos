@@ -7,6 +7,7 @@ session_start();// démarrage de la session
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
     <title>Mes fichiers - DriveLBR</title>
+    <link data-n-head="1" rel="icon" type="image/x-icon" href="./images/icons/favicon.ico">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <?php
