@@ -39,14 +39,14 @@ while($row = mysqli_fetch_array($result)){
                     <?php
                     foreach ($categorie as $value1) {                                                                   // On affiche les catégories sauf Autre
                         if($value1 != "Autre"){
-                            $categorie = htmlspecialchars($value1, ENT_QUOTES, 'UTF-8');
+                            $value1 = htmlspecialchars($value1, ENT_QUOTES, 'UTF-8');
                         echo('<form class="profile" method="post" action="actions/tags-action.php">
                                 <div class="tagsLine">
-                                    <label for="nom" >' .$categorie.'</label>
-                                    <input type="text" id="nomCategorie" name="nomCategorie" value="'.$categorie.'">
-                                    <input type="submit" id="'.$categorie.'" name="Modifier" value="Modifier">
-                                    <input type="submit" id="'.$categorie.'" name="Supprimer" value="Supprimer">
-                                    <input hidden type="text" name="categorie" value="'.$categorie.'">
+                                    <label for="nom" >' .$value1.'</label>
+                                    <input type="text" id="nomCategorie" name="nomCategorie" value="'.$value1.'">
+                                    <input type="submit" id="'.$value1.'" name="Modifier" value="Modifier">
+                                    <input type="submit" id="'.$value1.'" name="Supprimer" value="Supprimer">
+                                    <input hidden type="text" name="categorie" value="'.$value1.'">
                                 </div>
                             </form>');
                         }
@@ -136,7 +136,8 @@ while($row = mysqli_fetch_array($result)){
                     <div class="tagsLine">
                         <label for='role'>Nouveau Tag :</label>
                         <input type="text" id="nomCategorie" name="nomTag">
-                        <label for='account'></label><select class="tag-select role-select" id='account' name='categorie'>
+                        <label for='account'></label>
+                        <select class="tag-select role-select" id='account' name='categorie'>
                                 <?php
                                 $counter =0;                                                                            // On affiche toutes les catégories pour choisir dans la quelle on met notre tag créé
                                 foreach ($categorie as $categ){

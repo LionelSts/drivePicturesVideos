@@ -886,6 +886,7 @@ input{
     top:0;
     margin: auto;
     text-align: center;
+    max-width: 90%;
     width: fit-content;
     height: fit-content;
     background-color: #161920;

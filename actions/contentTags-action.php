@@ -22,6 +22,7 @@ foreach ($filesData as $file){                                              // O
 }
 $liste = "";
 foreach ($filesData as $file){                                              // pour chaque fichier on lui attribue ses tags
+    if(empty($tagsList)) $tagsList[] = "Sans tag";
     foreach($tagsList as $tag){
         $liste .= $tag." ";
         $requete = "INSERT INTO `caracteriser` (`id_fichier`,`nom_tag`) VALUES (?,?)";

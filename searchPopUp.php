@@ -50,8 +50,9 @@ $extensions = mysqli_fetch_all($result);
                                 <div id="list' . $categorie[$i] . '">'
                     );
                     foreach ($value1 as $value2) {
+                        $value2 = htmlspecialchars($value2, ENT_QUOTES, 'UTF-8');
                         echo('
-                                    <label class="checkboxContainer">' . htmlspecialchars($value2, ENT_QUOTES, 'UTF-8') . '
+                                    <label class="checkboxContainer">' . $value2 . '
                                         <input type="checkbox" id="' . $value2 . '" name="'. $categorie[$i] .'-' .  $value2 . '" value="Yes">
                                         <span class="customCheckBox"></span>
                                     </label>'
