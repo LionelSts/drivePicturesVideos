@@ -70,12 +70,12 @@ else if(isset($_POST["modifier"])){ // si l'utilisateur clique sur le bouton "mo
     }else{
         $requete = "UPDATE `utilisateurs` SET `prenom` = ?, `nom` = ?, `role` = ?, `descriptif` = ? WHERE `mail` = ?";   // on met à jour les informations (sauf le mot de passe) du compte dans la bdd
         $stmt = $link->prepare($requete);
-        $stmt->bind_param("ssssss", $prenom,$nom,$role,$role,$descriptif,$mail);
+        $stmt->bind_param("sssss", $prenom,$nom,$role,$descriptif,$mail);
         $stmt->execute();
         $requete = "INSERT INTO `tableau_de_bord` (`modification`) VALUES (CONCAT('Compte ',?,' ',?,' (',?,') a modifié les informations du compte ',?,' (',?,')'))";
         $stmt = $link->prepare($requete);
-        $stmt->bind_param("ssssss", $lastname,$name,$password,$role2,$mail,$role);
+        $stmt->bind_param("sssss", $lastname,$name,$role2,$mail,$role);
         $stmt->execute();
-        echo '<script> alert("Compte crée avec succés."); window.location.replace("../accounts.php");</script>'; // redirection vers la page de gestions des comptes
+        echo '<script> alert("Compte modifié avec succés."); window.location.replace("../accounts.php");</script>'; // redirection vers la page de gestions des comptes
     }
 }
