@@ -19,7 +19,7 @@ $searchArray = [];
 if(isset($_GET)){
     foreach ($_GET as $key => $parameter){
         if($key != 'page' && $key != 'submit'){
-            if(str_contains($key,"extension")){
+            if(strpos($key, "extension")){
                 $searchArray['extensions'][] = substr(urldecode($key), strpos($key, '-')+1);
             }else{
                 $searchArray['tags'][] = substr(str_replace('_', ' ', $key), strpos($key, '-')+1);

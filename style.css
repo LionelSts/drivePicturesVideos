@@ -696,7 +696,7 @@ input{
     width: 2em;
     height: 2em;
     margin: auto;
- }
+}
 
 #uploadButtonOpen p{
     padding: 0 1em 0 1em;
@@ -810,6 +810,7 @@ input{
 .checkboxFiles span{
     margin: 0.5em;
     border-color: #EA001C;
+    background-color: #ebead466;
 }
 
 .checkboxFiles span:before{

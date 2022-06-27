@@ -63,6 +63,7 @@
                     $stmt->bind_param("ss", $mail,$mail);
                     $stmt->execute();
                     $result = $stmt->get_result();
+                    $files = mysqli_fetch_all($result);
                 }else{                                                                                                  // Ici on prend en compte tous les cas de recherche possibles
                     if(!empty($search['tags']) && !empty($search['extensions'])){                                       // Si tags et extensions ne sont pas vides, alors on génère les requète sql
                         $tags = $search['tags'];

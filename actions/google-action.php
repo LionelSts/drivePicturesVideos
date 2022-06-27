@@ -62,6 +62,12 @@ if(isset($_GET["code"]))
             header('Location:../logout-action.php');
         }
         if($row['etat'] != 'inactif' || !empty($data)){                                                                            // On initialise la session
+            if($row['etat'] == 'en attente'){
+                $requete = "UPDATE `utilisateurs` SET `etat` = 'actif' WHERE `mail` = ? ";
+                $stmt = $link->prepare($requete);
+                $stmt->bind_param("s", $mail);
+                $stmt->execute();
+            }
             if(!empty($data['given_name'])) {
                 $_SESSION['prenom'] = $prenom;
             }

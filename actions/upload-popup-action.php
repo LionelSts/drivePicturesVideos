@@ -73,6 +73,10 @@ for($i = 0 ; $i < $countfiles ; $i++){                                          
             $filename = str_replace('.jpeg', "", $filename);
             $filename = str_replace('.jpg', "", $filename);                                                // Si c'est un jpeg ou jpg on enlève l'extension (un format jpg peut avoir une extension jpeg)
         }
+        if($extension == "quicktime"){
+            $filename = str_replace('.mov', "", $filename);
+            $extension = "mov";                                                // Si c'est un mov on enlève l'extension (le format est quicktime )
+        }
         $filename = str_replace('.'.$extension, "", $filename);                                            // On enlève l'extension (pour avoir le nom du fichier)
         move_uploaded_file($_FILES['file']['tmp_name'][$i],'../fichiers/'.$nomFichier.'.'.$extension);                  // On met le fichier téléversé dans le dossier de stockage serveur
         $filePath = '../fichiers/'.$nomFichier.'.'.$extension;
