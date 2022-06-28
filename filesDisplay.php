@@ -18,7 +18,9 @@
             }
             $currentPage = str_replace(' ', '+',$currentPage);
             $currentPage .= 'page=';
-        }                                                                                                               // L'url de redirection de navigation des pages est donc maintenant défini
+        }else{
+            $currentPage = "?page=";
+        }                                                                                                    // L'url de redirection de navigation des pages est donc maintenant défini
         $mail = $_SESSION['mail'];
         $link = mysqli_connect("127.0.0.1", "root", "" , "drivelbr") ;
         $link->query('SET NAMES utf8');
@@ -154,7 +156,7 @@
         if($page <= 0){                                                                                                 // Si la page est 0 ou moins, on va à la page 0
             echo $currentPage.'0';
         }else{
-            echo $currentPage.$page/20 -1;
+            echo $currentPage.($page/20 -1);
         }
         echo'">< Page précédente</a>';
         echo '<a href="';
@@ -163,9 +165,9 @@
             $files = [];
         }else{
             if(count($files) < 20){                                                                                     // Si il y a moins de 20 fichiers sur la page on ne va pas à la page suivante
-                echo $currentPage.$page/20;
+                echo $currentPage.($page/20);
             }else{
-                echo $currentPage.$page/20 +1;
+                echo $currentPage.($page/20 +1);
             }
         }
         echo'">Page suivante ></a>

@@ -65,6 +65,12 @@ else    // si le mail n'existe pas dans la bdd...
             'nom' => $nom,
             'prenom' => $prenom
         ];
+        $curl = curl_init('http://test-mail.lesbriquesrouges.fr/mails_grp12/sendMail.php');                             // On envoie le mail
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_exec($curl);
+        curl_close($curl);
     }
     else if($_POST["password"] != ""){  // si l'utilisateur rentre un mot de passe ...
         if (preg_match($regex, $_POST['password'])) {   // si le mot de passe répond aux critères de sécurité
@@ -89,16 +95,17 @@ else    // si le mail n'existe pas dans la bdd...
                 'nom' => $nom,
                 'prenom' => $prenom
             ];
+            $curl = curl_init('http://test-mail.lesbriquesrouges.fr/mails_grp12/sendMail.php');                             // On envoie le mail
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_exec($curl);
+            curl_close($curl);
         }
         else echo '<script> alert("Veuillez saisir un mot de passe contenant au minimum 8 caractères (dont 1 minuscule, 1 majuscule, 1 chiffre et 1 caractère spécial)."); window.location.replace("../accounts.php");</script>';   //si le mot de passe ne respecte pas les règles, on affiche un message d'erreur et on réactualise la page
     }
     else echo '<script> alert("Erreur"); window.location.replace("../accounts.php");</script>';
 
-    $curl = curl_init('http://test-mail.lesbriquesrouges.fr/mails_grp12/sendMail.php');                             // On envoie le mail
-    curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_exec($curl);
-    curl_close($curl);
+
     echo '<script> alert("Compte crée avec succés."); window.location.replace("../accounts.php");</script>'; // redirection vers la page de gestions des comptes
 }
