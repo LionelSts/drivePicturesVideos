@@ -8,6 +8,6 @@
         "ext-gd": "*",
         "ext-curl": "*",
         "james-heinrich/getid3": "^1.9",
-        "google/apiclient": "2.12.6"
+        "google/apiclient": "1.1.1"
     }
 }
